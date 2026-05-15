@@ -68,7 +68,7 @@ export default function Pricing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="glass-card p-12 transition-all duration-500 flex flex-col gap-10 border-white/5 group hover:scale-105 hover:border-primary/40 hover:bg-white/[0.08] hover:z-10 relative z-0"
+              className="glass-card p-12 transition-all duration-500 flex flex-col gap-10 border-white/5 group hover:scale-105 hover:border-primary/40 hover:bg-white/8 hover:z-10 relative z-0"
             >
               {plan.badge && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary px-4 py-1.5 rounded-full text-[10px] font-bold text-bg-main shadow-xl transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap">
@@ -97,6 +97,7 @@ export default function Pricing() {
               </div>
 
               <Button 
+                to="/signup"
                 variant="secondary" 
                 className={cn(
                   "w-full py-5 text-sm uppercase tracking-widest transition-all duration-300",
@@ -113,7 +114,7 @@ export default function Pricing() {
            <Zap className="w-12 h-12 text-primary mx-auto animate-pulse" />
            <h2 className="text-3xl font-display font-bold">Need a Enterprise Solution?</h2>
            <p className="text-gray-400">We offer custom liquidity solutions, API white-labeling, and institutional trading desks for firms and high-capital traders.</p>
-           <Button variant="neon-border" size="lg" className="mx-auto">Contact Institutional Desk</Button>
+           <Button to="/contact" variant="neon-border" size="lg" className="mx-auto">Contact Institutional Desk</Button>
         </Card>
 
         <section className="mt-32">

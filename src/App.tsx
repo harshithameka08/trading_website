@@ -25,6 +25,9 @@ import Community from './pages/Community';
 import LiveSession from './pages/LiveSession';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
+import FundedAccounts from './pages/FundedAccounts';
+import TradingTools from './pages/TradingTools';
+import Enroll from './pages/Enroll';
 
 export default function App() {
   return (
@@ -55,6 +58,9 @@ export default function App() {
           <Route path="/community" element={<Community />} />
           <Route path="/live-session" element={<LiveSession />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/funded-accounts" element={<FundedAccounts />} />
+          <Route path="/trading-tools" element={<TradingTools />} />
+          <Route path="/enroll" element={<Enroll />} />
 
           {/* Legal Pages */}
           <Route path="/privacy-policy" element={<LegalPage title="Privacy Policy" />} />

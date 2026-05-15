@@ -1,352 +1,417 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, Button, Card } from "@/src/components/UI";
+import { Badge, Button } from "@/src/components/UI";
 import { 
   Play, Users, Calendar, Clock, Radio, ChevronRight, 
   ChevronLeft, CheckCircle, Video, Monitor, Layout, 
-  Globe, Search, Bell, TrendingUp, Info, HelpCircle, Target
+  Globe, Search, Bell, TrendingUp, Info, HelpCircle, Target, Sparkles, Zap, ShieldCheck, Award, MessageSquare, Download, History
 } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/src/lib/utils";
 
 // Assets
 import avatar1 from '../avatar_1.png';
-import coursePriceAction from '../course_price_action.png';
-import editImage from '../editimage.png';
+import avatar2 from '../avatar_2.png';
+import avatar3 from '../avatar_3.png';
+import avatar4 from '../avatar_4.png';
+import liveBanner from '../live_session_new.png';
 
 export default function LiveClasses() {
-  const [activeTab, setActiveTab] = React.useState('Upcoming Live Classes');
+  const [activeTab, setActiveTab] = React.useState('Live Now');
 
-  const liveClasses = [
+  const liveSessions = [
     {
       id: 1,
       status: 'LIVE NOW',
-      statusColor: 'bg-[#00FF85]',
-      viewers: 245,
-      title: 'Live Market Analysis',
-      subtitle: 'NIFTY & BANKNIFTY',
-      desc: 'Real-time market analysis and trading opportunities in index.',
-      mentor: 'Mr. Arjun Mehta',
-      exp: '10+ Years Exp.',
+      statusColor: 'bg-emerald-500',
+      viewers: '1,245',
+      title: 'Global Market Open Analysis',
+      subtitle: 'NIFTY & BANKNIFTY Scalping',
+      desc: 'Executing live institutional setups and order flow analysis during the opening bell.',
+      mentor: 'Michael',
+      exp: '12+ Years Exp.',
       time: '09:30 AM',
       duration: '2 Hours',
-      btnText: 'JOIN LIVE ROOM',
-      btnColor: 'bg-[#00FF85] hover:bg-[#00D16D]',
-      isLive: true
-    },
+      isLive: true,
+      img: liveBanner,
+      avatar: avatar1
+    }
+  ];
+
+  const upcomingSessions = [
     {
       id: 2,
       status: 'STARTS IN 02:15:30',
-      statusColor: 'bg-[#F4C542]',
-      viewers: 180,
-      title: 'Options Trading Strategies',
-      subtitle: 'Option Buying & Selling',
-      desc: 'Learn powerful option buying and selling strategies with live examples.',
-      mentor: 'Mr. Vivek Singh',
+      statusColor: 'bg-gold',
+      viewers: '840',
+      title: 'Advanced Options Greeks',
+      subtitle: 'Risk Hedging Techniques',
+      desc: 'Mastering Delta and Gamma for consistent option selling in volatile markets.',
+      mentor: 'Vikram Singh',
       exp: '8+ Years Exp.',
       time: '11:30 AM',
       duration: '2 Hours',
       btnText: 'SET REMINDER',
-      btnColor: 'bg-[#F4C542] hover:bg-[#D4AF37]'
+      avatar: avatar2
     },
     {
       id: 3,
       status: 'STARTS IN 05:45:30',
-      statusColor: 'bg-[#A855F7]',
-      viewers: 120,
-      title: 'Price Action Mastery',
-      subtitle: 'Support, Resistance & Trend',
-      desc: 'Master price action techniques to find high probability setups.',
-      mentor: 'Mr. Neha Patel',
-      exp: '7+ Years Exp.',
+      statusColor: 'bg-blue-500',
+      viewers: '520',
+      title: 'Price Action Masterclass',
+      subtitle: 'Psychology of Candle Patterns',
+      desc: 'Deep dive into retail traps and how to identify high-probability institutional entries.',
+      mentor: 'Rahul Verma',
+      exp: '9+ Years Exp.',
       time: '03:00 PM',
       duration: '2 Hours',
       btnText: 'SET REMINDER',
-      btnColor: 'bg-[#F4C542] hover:bg-[#D4AF37]'
+      avatar: avatar3
     },
     {
       id: 4,
-      status: 'STARTS TOMORROW',
-      statusColor: 'bg-blue-500',
-      viewers: 120,
-      title: 'Swing Trading Blueprint',
-      subtitle: 'Identify High Probability Trades',
-      desc: 'Learn swing trading approach for consistent profits.',
-      mentor: 'Mr. Aditya Raj',
-      exp: '9+ Years Exp.',
+      status: 'TOMORROW',
+      statusColor: 'bg-purple-500',
+      viewers: '1.2K',
+      title: 'Forex Liquidity Hubs',
+      subtitle: 'USD/JPY Analysis',
+      desc: 'Identifying where big banks place their orders in the forex market.',
+      mentor: 'Michael',
+      exp: '12+ Years Exp.',
       time: '10:00 AM',
-      duration: '2 Hours',
+      duration: '3 Hours',
       btnText: 'SET REMINDER',
-      btnColor: 'bg-[#F4C542] hover:bg-[#D4AF37]'
+      avatar: avatar1
+    }
+  ];
+
+  const pastRecordings = [
+    {
+      id: 101,
+      title: 'Mastering Support & Resistance',
+      date: 'May 12, 2026',
+      duration: '1h 45m',
+      views: '4.5K',
+      mentor: 'Michael',
+      category: 'Foundation',
+      img: liveBanner
+    },
+    {
+      id: 102,
+      title: 'Volatility Contraction Patterns',
+      date: 'May 10, 2026',
+      duration: '2h 10m',
+      views: '3.2K',
+      mentor: 'Vikram Singh',
+      category: 'Advanced',
+      img: liveBanner
+    },
+    {
+      id: 103,
+      title: 'Trading Psychology: Fear of Loss',
+      date: 'May 08, 2026',
+      duration: '1h 15m',
+      views: '6.8K',
+      mentor: 'Rahul Verma',
+      category: 'Psychology',
+      img: liveBanner
+    },
+    {
+      id: 104,
+      title: 'Commodity Market Fundamentals',
+      date: 'May 05, 2026',
+      duration: '2h 30m',
+      views: '2.1K',
+      mentor: 'Vikram Singh',
+      category: 'Commodities',
+      img: liveBanner
     }
   ];
 
   return (
-    <div className="bg-[#020617] min-h-screen text-white font-sans selection:bg-gold/30 pt-24 overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative px-6 pt-12 pb-6 md:pt-16 md:pb-8 overflow-visible">
-        {/* Background Bull Graphic */}
-        <div className="absolute -top-12 right-0 w-[700px] h-full opacity-30 pointer-events-none z-0">
-          <img src={editImage} alt="Bull Graphic" className="w-full h-full object-contain object-right" />
-        </div>
-
-        <div className="max-w-[1400px] mx-auto relative z-10">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12">
-            <div className="space-y-4">
-              <h1 className="text-5xl lg:text-6xl font-black tracking-tight leading-tight">
-                <span className="text-[#00FF85]">Live</span> Classes
-              </h1>
-              <div className="text-gray-400 text-sm font-bold leading-relaxed space-y-1">
-                <p>Join our live interactive sessions with market experts.</p>
-                <p>Learn, ask questions and trade the markets with confidence.</p>
-              </div>
-            </div>
-
-            {/* Stats Bar (High Density) */}
-            <div className="bg-[#050816] border border-white/5 rounded-2xl p-6 flex flex-wrap md:flex-nowrap items-center gap-10 shadow-2xl backdrop-blur-md">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#F4C542]/10 flex items-center justify-center">
-                  <Video className="w-5 h-5 text-[#F4C542] fill-[#F4C542]" />
-                </div>
-                <div>
-                  <p className="text-lg font-black leading-none">50+</p>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Live Classes / Month</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 border-l border-white/5 pl-10">
-                <div className="w-10 h-10 rounded-lg bg-[#F4C542]/10 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-[#F4C542] fill-[#F4C542]" />
-                </div>
-                <div>
-                  <p className="text-lg font-black leading-none">12K+</p>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Students Joined</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 border-l border-white/5 pl-10">
-                <div className="w-10 h-10 rounded-lg bg-[#F4C542]/10 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-[#F4C542]" />
-                </div>
-                <div>
-                  <p className="text-lg font-black leading-none">10+</p>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Expert Mentors</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 border-l border-white/5 pl-10">
-                <div className="w-10 h-10 rounded-lg bg-[#00FF85]/10 flex items-center justify-center">
-                  <Target className="w-5 h-5 text-[#00FF85] fill-[#00FF85]/20" />
-                </div>
-                <div>
-                  <p className="text-lg font-black leading-none">100%</p>
-                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Interactive Sessions</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Navigation Tabs */}
-      <div className="max-w-[1400px] mx-auto px-6 mb-12">
-        <div className="flex gap-8 border-b border-white/5 overflow-x-auto no-scrollbar">
-          {['Upcoming Live Classes', 'Ongoing Live Classes', 'Completed Live Classes'].map((tab) => (
-            <button 
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={cn(
-                "py-4 text-sm font-bold whitespace-nowrap transition-all border-b-2",
-                activeTab === tab ? "border-[#F4C542] text-[#F4C542]" : "border-transparent text-gray-500 hover:text-white"
-              )}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+    <div className="bg-[#020617] min-h-screen text-white font-sans selection:bg-gold/30 pt-28 overflow-hidden">
+      {/* Dynamic Background Elements */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-primary/5 rounded-full blur-[180px] animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-gold/5 rounded-full blur-[150px]" />
       </div>
 
-      {/* Main Content Area */}
-      <section className="px-6 py-4">
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-10">
-          
-          {/* Left Column: Live Class Cards */}
-          <div className="lg:col-span-9 space-y-12">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {liveClasses.map((cls) => (
-                <Card key={cls.id} className="bg-[#0B1020] border-white/5 p-0 overflow-hidden rounded-3xl shadow-2xl group transition-all hover:border-white/10 flex flex-col">
-                  {/* Thumbnail Area */}
-                  <div className="relative h-[180px] overflow-hidden">
-                    <img src={coursePriceAction} alt={cls.title} className="w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-linear-to-t from-[#0B1020] via-transparent to-transparent" />
-                    
-                    {/* Top Badges */}
-                    <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
-                       <div className={cn("px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest text-white shadow-lg flex items-center gap-1.5", cls.statusColor)}>
-                          {cls.isLive && <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />}
-                          {cls.status}
-                       </div>
-                       <div className="flex items-center gap-1.5 text-white/80 text-[10px] font-bold">
-                          <Users className="w-3 h-3" /> {cls.viewers}
-                       </div>
-                    </div>
-
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
-                        <Play className="w-5 h-5 fill-white text-white ml-1" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Content Area */}
-                  <div className="p-6 space-y-4 flex flex-1 flex-col">
-                    <div className="space-y-1">
-                      <h3 className="text-base font-bold text-white group-hover:text-[#F4C542] transition-colors">{cls.title}</h3>
-                      <p className="text-[11px] font-bold text-[#F4C542] uppercase tracking-wide">{cls.subtitle}</p>
-                    </div>
-                    <p className="text-[11px] text-gray-500 leading-relaxed line-clamp-2">{cls.desc}</p>
-                    
-                    {/* Mentor Info */}
-                    <div className="flex items-center gap-3 py-3 border-y border-white/5">
-                      <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10">
-                        <img src={avatar1} alt={cls.mentor} />
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-white">{cls.mentor}</p>
-                        <p className="text-[9px] text-gray-500 uppercase font-medium">{cls.exp}</p>
-                      </div>
-                    </div>
-
-                    {/* Footer Info */}
-                    <div className="flex justify-between items-center text-[10px] text-gray-500 font-bold uppercase tracking-widest">
-                       <div className="flex items-center gap-2">
-                          <Calendar className="w-3.5 h-3.5 text-gray-600" /> Today
-                          <span className="opacity-40 ml-1">{cls.time}</span>
-                       </div>
-                       <div className="flex items-center gap-2">
-                          <Clock className="w-3.5 h-3.5 text-gray-600" /> Duration
-                          <span className="opacity-40 ml-1">{cls.duration}</span>
-                       </div>
-                    </div>
-
-                    <div className="pt-4 mt-auto">
-                      <Link to="/live-session" className="block w-full">
-                        <Button className={cn("w-full h-12 rounded-xl text-[11px] font-black uppercase tracking-widest text-black shadow-xl", cls.btnColor)}>
-                           {cls.isLive ? <Video className="w-4 h-4 mr-2 fill-black" /> : <Bell className="w-4 h-4 mr-2 fill-black" />}
-                           {cls.btnText}
-                        </Button>
-                      </Link>
-                      <button className="w-full text-[10px] font-bold text-gray-500 hover:text-white mt-4 flex items-center justify-center gap-2 transition-colors">
-                        <Calendar className="w-3 h-3" /> Add to Calendar
-                      </button>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-
-            <div className="flex justify-center pt-8">
-               <button className="px-10 py-4 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white transition-all">
-                 VIEW ALL LIVE CLASSES
-               </button>
-            </div>
-          </div>
-
-          {/* Right Column: Sidebars */}
-          <div className="lg:col-span-3 space-y-6">
-            {/* Live Class Schedule */}
-            <div className="bg-[#0B1020] border border-white/5 rounded-2xl p-4 shadow-2xl">
-              <div className="flex items-center justify-between mb-6">
-                <h4 className="text-xs font-black uppercase tracking-tight">Live Class Schedule</h4>
-                <button className="text-[9px] font-black text-[#F4C542] hover:text-gold transition-colors">View Full Calendar</button>
+      <div className="relative z-10">
+        {/* Navigation & Tabs */}
+        <section className="px-6 py-12">
+          <div className="max-w-[1700px] mx-auto">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-16">
+              <div className="space-y-6">
+                <h1 className="text-5xl lg:text-6xl font-display font-black tracking-tighter leading-tight uppercase">
+                  Live <span className="text-gold">Sessions</span>
+                </h1>
+                <p className="text-gray-400 text-lg max-w-xl font-medium leading-relaxed">
+                  Real-time market analysis, live execution, and institutional insights from world-class mentors.
+                </p>
               </div>
 
-              <div className="space-y-4">
-                {[
-                  { month: 'MAY', day: '20', time: '09:30 AM - 11:30 AM', title: 'Live Market Analysis', status: 'LIVE', statusColor: 'text-[#00FF85] border-[#00FF85]/20 bg-[#00FF85]/5' },
-                  { month: 'MAY', day: '20', time: '11:30 AM - 01:30 PM', title: 'Options Trading Strategies', status: 'UPCOMING', statusColor: 'text-[#F4C542] border-[#F4C542]/20 bg-[#F4C542]/5' },
-                  { month: 'MAY', day: '20', time: '03:00 PM - 05:00 PM', title: 'Price Action Mastery', status: 'UPCOMING', statusColor: 'text-[#F4C542] border-[#F4C542]/20 bg-[#F4C542]/5' },
-                  { month: 'MAY', day: '21', time: '10:00 AM - 12:00 PM', title: 'Swing Trading Blueprint', status: 'UPCOMING', statusColor: 'text-[#F4C542] border-[#F4C542]/20 bg-[#F4C542]/5' },
-                  { month: 'MAY', day: '21', time: '03:00 PM - 05:00 PM', title: 'Risk Management Masterclass', status: 'UPCOMING', statusColor: 'text-[#F4C542] border-[#F4C542]/20 bg-[#F4C542]/5' }
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-3 group cursor-pointer">
-                     <div className="flex flex-col items-center justify-center p-1.5 min-w-[45px] rounded-lg bg-white/5 border border-white/5 h-fit group-hover:border-white/20 transition-all">
-                        <span className="text-[8px] font-black text-gray-500 uppercase tracking-tighter">{item.month}</span>
-                        <span className="text-xs font-black text-white">{item.day}</span>
-                     </div>
-                     <div className="flex-1 space-y-1">
-                        <h5 className="text-[10px] font-black text-white leading-tight group-hover:text-[#F4C542] transition-colors">{item.title}</h5>
-                        <p className="text-[9px] text-gray-500 font-bold tracking-tight">{item.time}</p>
-                     </div>
-                     <div className={cn("px-2 py-0.5 rounded text-[7px] font-black uppercase h-fit border flex items-center gap-1", item.statusColor)}>
-                        {item.status === 'LIVE' && <Radio className="w-2 h-2" />}
-                        {item.status}
-                     </div>
-                  </div>
+              <div className="flex gap-10 border-b border-white/5">
+                {['Live Now', 'Upcoming', 'Past Recordings'].map((tab) => (
+                  <button 
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={cn(
+                      "py-6 text-xs font-black uppercase tracking-[0.2em] whitespace-nowrap transition-all relative",
+                      activeTab === tab ? "text-gold" : "text-gray-500 hover:text-white"
+                    )}
+                  >
+                    {tab}
+                    {activeTab === tab && (
+                      <motion.div 
+                        layoutId="live-tab-underline"
+                        className="absolute bottom-0 left-0 w-full h-[2px] bg-gold rounded-full" 
+                      />
+                    )}
+                  </button>
                 ))}
               </div>
             </div>
 
-            {/* Why Join Live Classes? */}
-            <div className="bg-[#0B1020] border border-white/5 rounded-2xl p-4 shadow-2xl relative overflow-hidden group">
-               <div className="relative z-10 space-y-4">
-                 <h4 className="text-xs font-black uppercase tracking-tight">Why Join Live Classes?</h4>
-                 
-                 <div className="grid grid-cols-2 gap-4 items-center">
-                    <div className="space-y-2.5">
-                       {[
-                         'Live interaction with experts',
-                         'Real-time market analysis',
-                         'Ask & get instant answers',
-                         'Screensharing & charts',
-                         'Recordings available'
-                       ].map((feat, i) => (
-                         <div key={i} className="flex items-center gap-2 text-[9px] text-gray-400 font-bold leading-tight">
-                           <div className="w-3 h-3 rounded-full bg-[#F4C542]/10 flex items-center justify-center border border-[#F4C542]/20 shrink-0">
-                             <CheckCircle className="w-1.5 h-1.5 text-[#F4C542]" />
-                           </div>
-                           <span>{feat}</span>
-                         </div>
-                       ))}
-                    </div>
-
-                    {/* Video Conference Simulation */}
-                    <div className="relative rounded-lg overflow-hidden aspect-video border border-white/10 group-hover:border-white/20 transition-all shadow-inner">
-                       <img src={coursePriceAction} alt="Conference" className="w-full h-full object-cover opacity-60" />
-                       <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent p-2 flex flex-col justify-between">
-                          <div className="flex justify-end">
-                             <Badge className="bg-red-600 text-white border-none text-[6px] font-black px-1 py-0.5">LIVE</Badge>
+            {/* Tab Content Rendering */}
+            <AnimatePresence mode="wait">
+              {activeTab === 'Live Now' && (
+                <motion.div 
+                  key="live-now"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-24"
+                >
+                  {/* Featured Session */}
+                  <div className="relative rounded-[3rem] overflow-hidden border border-white/10 bg-bg-main shadow-[0_40px_100px_rgba(0,0,0,0.5)] group">
+                    <div className="grid lg:grid-cols-12 items-stretch">
+                      <div className="lg:col-span-7 relative overflow-hidden min-h-[400px] max-md:min-h-[300px]">
+                        <img src={liveBanner} alt="Live Session" className="absolute inset-0 w-full h-full object-cover opacity-50 max-md:object-center" />
+                        {/* Mobile Overlay */}
+                        <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/40 to-black/80 md:hidden" />
+                        <div className="absolute inset-0 bg-linear-to-r from-bg-main via-bg-main/40 to-transparent" />
+                        <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between">
+                          <div className="flex gap-3">
+                            <div className="px-5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-md flex items-center gap-3">
+                              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                              <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">ON AIR NOW</span>
+                            </div>
+                            <div className="px-5 py-2 rounded-full bg-white/10 border border-white/10 backdrop-blur-md flex items-center gap-3 text-white">
+                              <Users className="w-4 h-4" />
+                              <span className="text-[10px] font-black uppercase tracking-widest">{liveSessions[0].viewers} Watching</span>
+                            </div>
                           </div>
-                          <div className="flex gap-1">
-                             {[avatar1, avatar1].map((av, i) => (
-                               <div key={i} className="w-5 h-5 rounded-md overflow-hidden border border-white/20 bg-black/40">
-                                  <img src={av} alt="Participant" className="w-full h-full object-cover opacity-40" />
-                               </div>
-                             ))}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-24 h-24 rounded-full bg-gold/90 backdrop-blur-xl flex items-center justify-center border-4 border-white/20 shadow-[0_0_50px_rgba(244,197,66,0.4)] cursor-pointer hover:scale-110 transition-transform group/play">
+                            <Play className="w-10 h-10 fill-black text-black ml-1.5" />
                           </div>
-                       </div>
-                       <div className="absolute inset-0 flex items-center justify-center">
-                          <img src={avatar1} alt="Mentor" className="w-10 h-10 rounded-full border border-white/20 object-cover shadow-2xl" />
-                       </div>
+                        </div>
+                        </div>
+                      </div>
+                      <div className="lg:col-span-5 p-12 lg:p-16 flex flex-col justify-center space-y-10">
+                        <div className="space-y-6">
+                          <h2 className="text-4xl lg:text-5xl font-display font-black leading-tight uppercase tracking-tight">
+                            {liveSessions[0].title}
+                          </h2>
+                          <p className="text-gray-400 text-lg leading-relaxed font-medium">
+                            {liveSessions[0].desc}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-6">
+                          <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl">
+                            <img src={liveSessions[0].avatar} alt="Mentor" className="w-full h-full object-cover" />
+                          </div>
+                          <div>
+                            <h4 className="text-xl font-bold flex items-center gap-2">{liveSessions[0].mentor} <CheckCircle className="w-4 h-4 text-blue-500 fill-blue-500/10" /></h4>
+                            <p className="text-gray-500 text-xs font-black uppercase tracking-widest">{liveSessions[0].exp}</p>
+                          </div>
+                        </div>
+                        <div className="flex gap-4 max-md:flex-col">
+                          <Link to="/live-session" className="flex-1 max-md:w-full">
+                            <Button className="w-full bg-gold hover:bg-gold/90 text-black font-black text-sm h-16 rounded-2xl max-md:justify-center">
+                              JOIN LIVE ROOM
+                            </Button>
+                          </Link>
+                          <button className="w-16 h-16 max-md:w-full rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white transition-all">
+                            <Bell className="w-6 h-6" />
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                 </div>
-               </div>
-            </div>
+                  </div>
 
-            {/* Recording Portal */}
-            <div className="bg-white/5 rounded-2xl p-3.5 border border-white/10 space-y-3 text-center">
-               <div className="space-y-1">
-                 <h4 className="text-[10px] font-black text-white uppercase tracking-tight">Can't join live?</h4>
-                 <p className="text-[9px] text-gray-500 font-bold leading-relaxed px-1">No worries! All live classes are recorded and available for unlimited replays.</p>
-               </div>
-               <button className="w-full py-2 rounded-lg border border-white/10 hover:bg-white/20 text-[8px] font-black uppercase tracking-widest text-white transition-all">
-                 View Recordings
-               </button>
-            </div>
+                  {/* Benefits Grid */}
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    {[
+                      { icon: <Monitor className="w-8 h-8" />, title: 'HD Live Stream', desc: 'Lag-free ultra high definition live trading experience.' },
+                      { icon: <MessageSquare className="w-8 h-8" />, title: 'Live Q&A', desc: 'Interact directly with mentors during live market hours.' },
+                      { icon: <ShieldCheck className="w-8 h-8" />, title: 'Institutional Flow', desc: 'Real-time order block and liquidity pool identification.' },
+                      { icon: <Award className="w-8 h-8" />, title: 'Live Signals', desc: 'High-probability setups executed right in front of you.' }
+                    ].map((benefit, i) => (
+                      <motion.div 
+                        key={i} 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1 }}
+                        whileHover={{ y: -10 }}
+                        className="group relative p-10 rounded-[2.5rem] bg-white/2 border border-white/5 hover:bg-white/4 hover:border-gold/30 transition-all duration-500 cursor-pointer"
+                      >
+                        <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 blur-3xl transition-opacity rounded-[2.5rem]" />
+                        <div className="relative z-10 space-y-8">
+                          <div className="w-20 h-20 rounded-3xl bg-bg-main border border-gold/20 flex items-center justify-center text-gold group-hover:border-gold group-hover:shadow-[0_0_30px_rgba(244,197,66,0.2)] transition-all duration-500">
+                            {benefit.icon}
+                          </div>
+                          <div className="space-y-4">
+                            <h4 className="text-2xl font-black uppercase tracking-tight text-white group-hover:text-gold transition-colors">{benefit.title}</h4>
+                            <p className="text-gray-500 text-base font-medium leading-relaxed">{benefit.desc}</p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {activeTab === 'Upcoming' && (
+                <motion.div 
+                  key="upcoming"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+                >
+                  {upcomingSessions.map((session, i) => (
+                    <div 
+                      key={session.id}
+                      className="group bg-white/2 rounded-[2.5rem] border border-white/5 p-10 space-y-8 hover:bg-white/4 hover:border-gold/30 transition-all duration-500"
+                    >
+                      <div className="flex justify-between items-start">
+                        <div className={cn(
+                          "px-5 py-2 rounded-full border text-[10px] font-black tracking-widest uppercase",
+                          session.statusColor === 'bg-gold' ? "bg-gold/10 border-gold/20 text-gold" : "bg-blue-500/10 border-blue-500/20 text-blue-400"
+                        )}>
+                          {session.status}
+                        </div>
+                        <div className="flex items-center gap-2 text-gray-500 text-xs font-bold">
+                          <Users className="w-4 h-4" />
+                          {session.viewers} Registered
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <h3 className="text-2xl font-bold text-white uppercase tracking-tight leading-tight">{session.title}</h3>
+                        <p className="text-gray-400 text-sm leading-relaxed font-medium line-clamp-2">{session.desc}</p>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4 py-6 border-y border-white/5">
+                        <div className="flex items-center gap-3">
+                          <Clock className="w-5 h-5 text-gold" />
+                          <div>
+                            <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest leading-none mb-1">Starts At</p>
+                            <p className="text-sm font-bold text-white">{session.time}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Calendar className="w-5 h-5 text-gold" />
+                          <div>
+                            <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest leading-none mb-1">Duration</p>
+                            <p className="text-sm font-bold text-white">{session.duration}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-4">
+                        <div className="flex items-center gap-4">
+                          <img src={session.avatar} alt="Mentor" className="w-10 h-10 rounded-xl object-cover border border-white/10" />
+                          <div>
+                            <p className="text-xs font-bold text-white">{session.mentor}</p>
+                            <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest">{session.exp}</p>
+                          </div>
+                        </div>
+                        <Button to="/login" variant="outline" className="border-white/10 hover:bg-gold hover:border-gold hover:text-black font-black text-[10px] px-6 py-2.5 h-auto rounded-xl uppercase tracking-widest">
+                          {session.btnText}
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {/* Join Community CTA */}
+                  <div className="relative rounded-[2.5rem] bg-linear-to-br from-gold/20 to-primary/20 border border-gold/20 p-10 flex flex-col justify-center text-center space-y-8 overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform">
+                      <Sparkles className="w-32 h-32 text-gold" />
+                    </div>
+                    <div className="space-y-4 relative z-10">
+                      <h3 className="text-3xl font-black uppercase tracking-tight text-white leading-tight">Master The <span className="text-gold">Live Market</span></h3>
+                      <p className="text-gray-400 text-sm font-medium leading-relaxed">
+                        Join our Discord community for 24/7 market discussions and real-time trade signals.
+                      </p>
+                    </div>
+                    <Button to="/login" className="w-full bg-white text-black font-black text-sm h-14 rounded-2xl relative z-10 hover:scale-105 transition-all">
+                      JOIN OUR DISCORD
+                    </Button>
+                  </div>
+                </motion.div>
+              )}
+
+              {activeTab === 'Past Recordings' && (
+                <motion.div 
+                  key="past-recordings"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                >
+                  {pastRecordings.map((recording, i) => (
+                    <div 
+                      key={recording.id}
+                      className="group bg-bg-main rounded-3xl border border-white/5 overflow-hidden flex flex-col hover:border-white/10 transition-all duration-500"
+                    >
+                      <div className="relative aspect-video overflow-hidden">
+                        <img src={recording.img} alt={recording.title} className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-14 h-14 rounded-full bg-gold/90 flex items-center justify-center border-2 border-white/20 shadow-[0_0_30px_rgba(244,197,66,0.3)] opacity-0 group-hover:opacity-100 transition-all duration-500 scale-90 group-hover:scale-100">
+                            <Play className="w-6 h-6 fill-black text-black ml-1" />
+                          </div>
+                        </div>
+                        <div className="absolute bottom-3 right-3 px-3 py-1 rounded bg-black/80 backdrop-blur-md text-[10px] font-bold text-white">
+                          {recording.duration}
+                        </div>
+                        <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-white border border-white/10">
+                          {recording.category}
+                        </div>
+                      </div>
+                      <div className="p-6 flex flex-col flex-1 space-y-4">
+                        <h4 className="text-base font-bold text-white leading-tight group-hover:text-gold transition-colors">{recording.title}</h4>
+                        <div className="flex items-center justify-between text-[11px] text-gray-500 font-bold uppercase tracking-widest">
+                          <div className="flex items-center gap-2">
+                            <History className="w-3.5 h-3.5" /> {recording.date}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Users className="w-3.5 h-3.5" /> {recording.views}
+                          </div>
+                        </div>
+                        <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center font-black text-[10px] text-gray-400 uppercase">
+                              {recording.mentor[0]}
+                            </div>
+                            <span className="text-xs font-bold text-gray-400">{recording.mentor}</span>
+                          </div>
+                          <button className="text-gold hover:text-white transition-colors">
+                            <Download className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
-

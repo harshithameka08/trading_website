@@ -32,14 +32,15 @@ import {
   Activity,
   Flag,
   Radio,
-  GraduationCap
+  GraduationCap,
+  Eye
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button, Badge, Card } from '@/src/components/UI';
 import { cn } from '@/src/lib/utils';
 
 // Assets
-import aboutHeroImg from '../abouthero.png';
+import aboutHeroImg from '../about_hero_financial_freedom_1778842588085.png';
 import avatar1 from '../avatar_1.png';
 import avatar2 from '../avatar_2.png';
 import avatar3 from '../avatar_3.png';
@@ -50,14 +51,14 @@ import editImage from '../editimage.png';
 
 export default function About() {
   return (
-    <div className="flex flex-col gap-0 overflow-hidden bg-[#020617] text-white selection:bg-gold/30">
+    <div className="flex flex-col gap-0 overflow-hidden bg-bg-main text-white selection:bg-gold/30">
       <AboutHero />
-      <OurJourney />
+      <MissionVisionSection />
       <FounderSection />
       <PhilosophySection />
       <WhyChooseSection />
       <TestimonialsSection />
-      <TradingSetupSection />
+
       <ContactBannerSection />
     </div>
   );
@@ -65,19 +66,21 @@ export default function About() {
 
 function AboutHero() {
   return (
-    <section className="relative min-h-[95vh] flex items-center pt-20 pb-6 overflow-hidden bg-[#020617]">
+    <section className="relative min-h-[70vh] max-md:min-h-auto flex items-center pt-16 pb-4 max-md:pt-32 max-md:pb-20 overflow-hidden bg-bg-main">
       {/* Background Image */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img 
           src={aboutHeroImg} 
           alt="About Hero" 
-          className="w-full h-full object-cover object-center lg:object-right opacity-90" 
+          className="w-full h-full object-cover object-center lg:object-right opacity-90 max-md:opacity-60 max-md:object-[70%_center]" 
         />
-        <div className="absolute inset-0 bg-linear-to-r from-[#020617] via-[#020617]/70 to-transparent lg:w-1/2" />
-        <div className="absolute inset-0 bg-linear-to-t from-[#020617] via-transparent to-transparent" />
+        {/* Mobile Overlay */}
+        <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/40 to-black/80 md:hidden" />
+        <div className="absolute inset-0 bg-linear-to-r from-bg-main via-bg-main/80 to-transparent lg:w-3/4" />
+        <div className="absolute inset-0 bg-linear-to-t from-bg-main via-transparent to-transparent" />
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 w-full relative z-10">
+      <div className="max-w-[1700px] mx-auto px-6 md:px-10 w-full relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -86,13 +89,9 @@ function AboutHero() {
             className="space-y-8"
           >
             <div className="space-y-6">
-               <div className="space-y-3">
-                  <div className="block">
-                     <span className="text-gold text-[11px] font-bold uppercase tracking-[0.2em]">ABOUT US</span>
-                  </div>
-               </div>
+
                
-               <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-black text-white leading-[1.1] tracking-tight">
+               <h1 className="text-5xl md:text-5xl lg:text-6xl font-sans font-black text-white leading-tight tracking-tight">
                  Empowering Traders To<br />
                  <span className="text-gold">Achieve Financial Freedom</span>
                </h1>
@@ -102,13 +101,18 @@ function AboutHero() {
                </p>
             </div>
 
-            <div className="flex flex-wrap gap-5">
-              <Link to="/courses">
-                <Button size="lg" className="bg-gold hover:bg-gold/90 text-black font-bold px-10 rounded-lg h-14 shadow-[0_4px_25px_rgba(255,215,0,0.25)] hover:scale-105 transition-all text-[15px]">
+            <div className="flex flex-wrap max-md:flex-col gap-5">
+              <Link to="/courses" className="max-md:w-full">
+                <Button size="lg" className="bg-gold hover:bg-gold/90 text-black font-bold px-10 rounded-lg h-14 shadow-[0_4px_25px_rgba(255,215,0,0.25)] hover:scale-105 transition-all text-[15px] max-md:w-full max-md:justify-center">
                   Explore Courses <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="border-white/20 text-white bg-white/5 hover:bg-white/10 px-8 rounded-lg h-14 flex items-center gap-3 backdrop-blur-md border-[1.5px]">
+              <Button 
+                to="/live-classes"
+                size="lg" 
+                variant="outline" 
+                className="border-white/20 text-white bg-white/5 hover:bg-white/10 px-8 rounded-lg h-14 flex items-center gap-3 backdrop-blur-md border-[1.5px] max-md:w-full max-md:justify-center"
+              >
                 Watch Live Sessions
                 <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
                    <Play className="w-3.5 h-3.5 text-gold fill-gold" />
@@ -118,60 +122,9 @@ function AboutHero() {
           </motion.div>
 
           <div className="relative h-[600px] hidden lg:block">
-            {/* Top Right Card: Monthly Profit */}
-            <div className="absolute top-10 right-0 z-20">
-              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
-                <Card className="bg-black/40 backdrop-blur-xl border-white/10 p-5 w-[260px] shadow-2xl rounded-2xl">
-                   <div className="flex items-center justify-between mb-2">
-                      <div className="flex flex-col">
-                        <span className="text-emerald-500 text-xl font-black">+23.68%</span>
-                        <span className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">This Month Profit</span>
-                      </div>
-                      <div className="w-20 h-10 overflow-hidden">
-                        <svg viewBox="0 0 100 40" className="w-full h-full">
-                           <path d="M0,35 Q20,30 40,32 T80,10 T100,5" fill="none" stroke="#10b981" strokeWidth="3" />
-                        </svg>
-                      </div>
-                   </div>
-                </Card>
-              </motion.div>
-            </div>
 
-            {/* Bottom Center Card: Win Rate */}
-            <div className="absolute bottom-20 left-10 z-20">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-                <Card className="bg-black/40 backdrop-blur-xl border-white/10 p-5 w-[220px] shadow-2xl rounded-2xl">
-                   <div className="flex items-center justify-between mb-1">
-                      <div className="flex flex-col">
-                        <span className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1">Win Rate</span>
-                        <span className="text-2xl font-black text-white">85%</span>
-                      </div>
-                      <div className="w-20 h-10 overflow-hidden">
-                        <svg viewBox="0 0 100 40" className="w-full h-full">
-                           <path d="M0,38 Q20,35 40,30 T80,15 T100,10" fill="none" stroke="#10b981" strokeWidth="3" />
-                        </svg>
-                      </div>
-                   </div>
-                </Card>
-              </motion.div>
-            </div>
 
-            {/* Bottom Right Card: Live Sessions */}
-            <div className="absolute bottom-10 -right-4 z-20">
-              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }}>
-                <Card className="bg-black/40 backdrop-blur-xl border-white/10 p-5 w-[200px] shadow-2xl rounded-2xl">
-                   <div className="flex items-center justify-between">
-                      <div className="flex flex-col">
-                        <span className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1">Live Sessions</span>
-                        <span className="text-2xl font-black text-white">500+</span>
-                      </div>
-                      <div className="p-2 bg-emerald-500/10 rounded-full">
-                         <Zap className="w-5 h-5 text-emerald-500" />
-                      </div>
-                   </div>
-                </Card>
-              </motion.div>
-            </div>
+
           </div>
         </div>
       </div>
@@ -179,80 +132,67 @@ function AboutHero() {
   );
 }
 
-function OurJourney() {
-  const steps = [
-    { year: '2021', title: 'Started Trading Community', desc: 'Began with a small group of passionate traders sharing knowledge.', icon: Flag },
-    { year: '2022', title: '1,000+ Students Joined', desc: 'Our community grew rapidly with trust and results.', icon: Users },
-    { year: '2023', title: 'Live Mentorship Launch', desc: 'Started live trading sessions and mentorship programs.', icon: Radio },
-    { year: '2024', title: 'Advanced Strategy Courses', desc: 'Launched advanced courses for serious market learners.', icon: GraduationCap },
-    { year: '2025', title: 'Global Trading Academy', desc: 'Expanding globally and empowering traders worldwide.', icon: Trophy },
-  ];
-
-  const [activeIndex, setActiveIndex] = React.useState(0);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % steps.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [steps.length]);
-
+function MissionVisionSection() {
   return (
-    <section className="pt-2 pb-10 px-6 md:px-10 bg-[#020617] border-y border-white/5">
-      <div className="max-w-[1400px] mx-auto text-center mb-20">
-        <h2 className="text-3xl md:text-4xl font-sans font-black text-white mb-4">Our Journey</h2>
-        <p className="text-gray-500 text-xs md:text-sm font-medium tracking-tight">Building a community of successful traders worldwide.</p>
-      </div>
-
-      <div className="max-w-[1200px] mx-auto relative px-4">
-        {/* Connection Line - Handled by individual segments for animation */}
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 lg:gap-0 relative z-10">
-          {steps.map((step, i) => (
-            <div key={i} className="flex flex-col items-center text-center group relative">
-              {/* Connection Line Segment */}
-              {i < steps.length - 1 && (
-                <div className={cn(
-                  "hidden lg:block absolute top-[36px] left-[50%] w-full h-[1px] transition-all duration-1000 z-0",
-                  i === activeIndex ? "bg-gold/60 shadow-[0_0_8px_rgba(244,197,66,0.4)]" : "bg-white/10"
-                )} />
-              )}
-
-              {/* Dot on line (only between steps) */}
-              {i < steps.length - 1 && (
-                <div className={cn(
-                  "hidden lg:block absolute top-[36px] -right-[1px] translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full transition-all duration-700 z-20",
-                  i === activeIndex ? "bg-gold shadow-[0_0_12px_rgba(244,197,66,0.8)] scale-125" : "bg-white/30"
-                )} />
-              )}
-              
-              <div className="mb-8 relative">
-                 <div className={cn(
-                   "w-[72px] h-[72px] rounded-full bg-[#050b1a] border-[1px] flex items-center justify-center transition-all duration-1000 shadow-[inset_0_0_15px_rgba(0,0,0,0.8)] relative z-10",
-                   i === activeIndex ? "border-gold shadow-[0_0_25px_rgba(244,197,66,0.3)] scale-110" : "border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.05)]"
-                 )}>
-                    <step.icon 
-                      className={cn(
-                        "w-6 h-6 transition-all duration-1000", 
-                        i === activeIndex ? "text-gold" : "text-white opacity-90"
-                      )} 
-                      strokeWidth={1.5} 
-                    />
-                    {i === activeIndex && <div className="absolute inset-0 rounded-full bg-gold/10 blur-xl animate-pulse" />}
-                    {i !== activeIndex && <div className="absolute inset-0 rounded-full bg-white/5 blur-md" />}
-                 </div>
-              </div>
-              
-              <div className="space-y-3">
-                <span className={cn(
-                  "font-black text-lg block transition-colors duration-1000",
-                  i === activeIndex ? "text-gold" : "text-white"
-                )}>{step.year}</span>
-                <h3 className="text-white font-bold text-[13px] leading-tight">{step.title}</h3>
-                <p className="text-gray-500 text-[10px] leading-relaxed max-w-[180px] mx-auto font-medium">{step.desc}</p>
-              </div>
+    <section className="pt-10 pb-24 px-6 md:px-10 bg-bg-main relative overflow-hidden border-y border-white/5">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
+      
+      <div className="max-w-[1700px] mx-auto relative z-10">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
+          {/* Mission Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="group"
+          >
+            <div className="h-full bg-white/2 backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-10 lg:p-14 transition-all duration-500 hover:bg-white/4 hover:border-primary/20 shadow-2xl relative overflow-hidden">
+               <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors" />
+               
+               <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform duration-500">
+                  <Target className="w-8 h-8 text-primary" />
+               </div>
+               
+               <div className="space-y-4">
+                  <span className="text-primary text-[10px] font-black uppercase tracking-[0.3em]">The Purpose</span>
+                  <h2 className="text-3xl lg:text-4xl font-sans font-black text-white uppercase tracking-tight">
+                    Our <span className="text-primary">Mission</span>
+                  </h2>
+                  <p className="text-gray-400 text-sm md:text-base leading-relaxed font-medium">
+                    To democratize institutional-grade trading knowledge and empower individuals worldwide with the tools, strategies, and psychological discipline needed to achieve long-term financial independence.
+                  </p>
+               </div>
             </div>
-          ))}
+          </motion.div>
+
+          {/* Vision Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="group"
+          >
+            <div className="h-full bg-white/2 backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-10 lg:p-14 transition-all duration-500 hover:bg-white/4 hover:border-gold/20 shadow-2xl relative overflow-hidden">
+               <div className="absolute -top-10 -right-10 w-40 h-40 bg-gold/5 rounded-full blur-3xl group-hover:bg-gold/10 transition-colors" />
+               
+               <div className="w-16 h-16 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform duration-500">
+                  <Eye className="w-8 h-8 text-gold" />
+               </div>
+               
+               <div className="space-y-4">
+                  <span className="text-gold text-[10px] font-black uppercase tracking-[0.3em]">The Goal</span>
+                  <h2 className="text-3xl lg:text-4xl font-sans font-black text-white uppercase tracking-tight">
+                    Our <span className="text-gold">Vision</span>
+                  </h2>
+                  <p className="text-gray-400 text-sm md:text-base leading-relaxed font-medium">
+                    To become the world's most trusted trading ecosystem, fostering a global community of consistently profitable traders who trade with unwavering discipline and institutional precision.
+                  </p>
+               </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -293,89 +233,121 @@ function AnimatedNumber({ end, suffix }: { end: number, suffix: string }) {
 
 function FounderSection() {
   return (
-    <section className="pt-10 pb-24 px-6 md:px-10 bg-[#020617] relative overflow-hidden">
-      <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 items-center">
-        <div className="relative group max-w-[500px] lg:max-w-none lg:ml-auto">
-          <div className="relative max-w-[480px] lg:ml-auto">
-            {/* Main Image - Now in Color */}
-            <div className="relative rounded-[2.5rem] overflow-hidden aspect-[1.1/1] border border-white/5 shadow-2xl z-10 bg-[#050b1a]">
-              <img src={avatar1} alt="Founder" className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-1000" />
-              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
+    <section className="py-10 px-6 md:px-10 bg-bg-main relative overflow-hidden">
+      {/* Background Cinematic Glows */}
+      <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[150px] pointer-events-none" />
+      
+      <div className="max-w-[1700px] mx-auto grid lg:grid-cols-2 gap-20 items-center">
+        {/* Visual Side: Cinematic Portrait & Stats */}
+        <div className="relative group">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Background Decorative Frame */}
+            <div className="absolute -inset-4 bg-white/2 border border-white/5 rounded-[3rem] -z-10 translate-x-4 translate-y-4" />
+            
+            {/* Main Portrait Container */}
+            <div className="relative rounded-[2.5rem] overflow-hidden aspect-[1.1/1] bg-bg-secondary border border-white/10 shadow-[0_30px_100px_rgba(0,0,0,0.6)]">
+              <img 
+                src={avatar1} 
+                alt="Michael - Founder" 
+                className="w-full h-full object-cover object-top opacity-95 group-hover:scale-105 transition-all duration-1000" 
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent" />
               
-              {/* Signature on image */}
-              <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-                 <div className="text-gold font-serif text-[3.5rem] italic opacity-80 select-none tracking-tighter drop-shadow-[0_0_15px_rgba(255,215,0,0.3)]">
-                    Rahul Verma
-                 </div>
+              {/* Bottom HUD Info */}
+              <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
+                <div className="text-gold font-serif text-[3rem] italic opacity-40 select-none tracking-tighter -rotate-6 transform -translate-x-4 group-hover:-translate-x-2 transition-transform duration-700">
+                  Michael
+                </div>
               </div>
             </div>
 
-            <div className="absolute -left-[72px] top-1/2 -translate-y-1/2 z-20 space-y-4 hidden lg:block">
+            {/* Floating Experience Badge */}
+            <div className="absolute -top-4 -right-4 z-30">
+              <div className="bg-primary/10 backdrop-blur-2xl border border-primary/20 rounded-2xl p-4 shadow-2xl flex flex-col items-center gap-1 group/badge hover:bg-primary/20 transition-all">
+                <span className="text-3xl font-black text-white leading-none">07+</span>
+                <span className="text-[9px] font-black text-primary uppercase tracking-widest text-center leading-tight">Years<br/>Experience</span>
+              </div>
+            </div>
+
+            {/* Floating Stats Sidebar */}
+            <div className="absolute -left-10 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-4 z-30">
               {[
-                { val: 7, suffix: '+', label: 'Years Of Market<br/>Experience', color: 'text-white' },
-                { val: 50, suffix: 'K+', label: 'Trades<br/>Executed', color: 'text-white' },
-                { val: 85, suffix: '%', label: 'Consistent<br/>Win Rate', color: 'text-emerald-500' }
+                { val: 50, suffix: 'K+', label: 'Trades Executed', icon: Zap, color: 'text-white' },
+                { val: 85, suffix: '%', label: 'Win Rate', icon: TrendingUp, color: 'text-emerald-500' }
               ].map((stat, i) => (
-                <Card key={i} className="bg-black/60 backdrop-blur-md border-white/10 p-6 w-36 h-36 rounded-[2rem] hover:translate-x-2 transition-all shadow-2xl flex flex-col items-start justify-center text-left group/card font-sans">
-                  <div className={cn("text-3xl font-sans font-black mb-2 tracking-tight transition-transform group-hover/card:scale-110 duration-500", stat.color)}>
-                    <AnimatedNumber end={stat.val} suffix={stat.suffix} />
+                <div key={i} className="bg-black/60 backdrop-blur-2xl border border-white/10 p-4 rounded-2xl shadow-2xl flex flex-col items-start gap-3 hover:translate-x-2 transition-all">
+                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                    <stat.icon className={cn("w-4 h-4", stat.color)} />
                   </div>
-                  <div 
-                    className="text-[9px] text-gray-400 font-sans font-bold uppercase tracking-widest leading-tight"
-                    dangerouslySetInnerHTML={{ __html: stat.label }}
-                  />
-                </Card>
+                  <div>
+                    <div className="text-xl font-black text-white leading-none">
+                      <AnimatedNumber end={stat.val} suffix={stat.suffix} />
+                    </div>
+                    <p className="text-[8px] text-gray-400 font-bold uppercase tracking-widest mt-1">{stat.label}</p>
+                  </div>
+                </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="space-y-10">
+        {/* Content Side: Professional Narrative */}
+        <div className="space-y-8">
           <div className="space-y-6">
-             <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/20 rounded-full px-4 py-1.5 backdrop-blur-md">
-                <Target className="w-3.5 h-3.5 text-gold" />
-                <span className="text-gold text-[10px] font-bold uppercase tracking-[0.2em]">FOUNDER & LEAD MENTOR</span>
-             </div>
-             
-             <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-sans font-black text-white leading-tight tracking-tight">
-               Hi, I'm <span className="text-gold">Rahul Verma</span>
-             </h2>
-             
-             <div className="space-y-6">
-                <p className="text-gray-300 text-[13px] md:text-sm leading-relaxed font-medium opacity-90">
-                  I started my trading journey in 2017 with zero knowledge and faced every loss a beginner can face. Through years of learning, failing, researching, and building strategies, I finally discovered the roadmap to consistent profitability.
-                </p>
-                <p className="text-gray-400 text-[13px] md:text-sm leading-relaxed font-medium">
-                  Now, my mission is simple — to help traders like YOU avoid my mistakes and fast-track your journey with proven strategies, real market insights, and the right mindset.
-                </p>
-             </div>
+            <div className="space-y-4">
+
+              <h2 className="text-3xl md:text-5xl font-display font-black text-white leading-tight uppercase tracking-tight">
+                Meet Your <span className="text-transparent bg-clip-text bg-linear-to-r from-gold via-white to-primary">Lead Mentor</span>
+              </h2>
+            </div>
+            
+            <div className="space-y-6 relative">
+               <div className="absolute left-0 top-0 w-1 h-full bg-linear-to-b from-gold/30 to-transparent rounded-full -ml-8 hidden lg:block" />
+               <div className="space-y-4">
+                  <h3 className="text-xl font-black text-white uppercase tracking-tight italic">"Hi, I'm Michael"</h3>
+                  <p className="text-gray-400 text-base md:text-lg leading-relaxed font-medium">
+                    In 2017, I entered the markets with nothing but ambition. Like many, I faced heavy losses and frustrating setbacks. But through relentless research and systematic backtesting, I developed the <span className="text-white font-bold">Institutional Roadmap</span> to consistent profitability.
+                  </p>
+                  <p className="text-gray-500 text-sm md:text-base leading-relaxed">
+                    Today, my goal isn't just to trade, but to empower a new generation of disciplined traders with the exact framework I used to escape the beginner cycle and achieve true market mastery.
+                  </p>
+               </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Core Expertise Grid */}
+          <div className="grid grid-cols-2 gap-6">
             {[
-              { icon: TrendingUp, label: 'Professional Trader' },
-              { icon: LineChart, label: 'Market Analyst' },
-              { icon: Users, label: 'Mentor & Educator' },
-              { icon: Shield, label: 'Risk Management Expert' }
+              { icon: LineChart, title: 'Price Action', sub: 'Master' },
+              { icon: Shield, title: 'Risk Control', sub: 'Expert' },
+              { icon: Brain, title: 'Psychology', sub: 'Strategist' },
+              { icon: Users, title: 'Community', sub: 'Leader' }
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-5 py-3 hover:bg-white/10 transition-all group">
-                <div className="w-5 h-5 flex items-center justify-center text-gold group-hover:scale-110 transition-transform">
-                   <item.icon className="w-4 h-4" />
+              <div key={i} className="p-6 bg-white/2 border border-white/5 rounded-3xl group hover:border-white/20 transition-all flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-gold/10 transition-all">
+                  <item.icon className="w-6 h-6 text-gold" />
                 </div>
-                <span className="text-white text-[12px] font-bold tracking-tight opacity-90">{item.label}</span>
+                <div>
+                   <p className="text-white font-black text-[13px] uppercase tracking-tight">{item.title}</p>
+                   <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">{item.sub}</p>
+                </div>
               </div>
             ))}
           </div>
 
-          <div className="flex flex-wrap items-center gap-10 pt-4">
-             <Button size="lg" className="bg-transparent border border-white/20 text-white font-bold px-10 rounded-xl h-14 hover:bg-white/10 hover:border-white/40 transition-all flex items-center gap-4">
-               Watch My Story 
-               <div className="w-7 h-7 rounded-full bg-gold flex items-center justify-center">
-                  <Play className="w-3 h-3 text-black fill-black ml-0.5" />
-               </div>
+          <div className="flex flex-wrap items-center gap-10 pt-8 border-t border-white/5">
+             <Button to="/contact" size="lg" className="bg-primary hover:bg-primary/90 text-black font-black px-12 rounded-2xl h-16 shadow-[0_10px_40px_rgba(0,229,255,0.2)] flex items-center gap-4 text-xs uppercase tracking-widest transition-transform hover:scale-105">
+               Start Mentorship <ArrowRight className="w-5 h-5" />
              </Button>
-             <div className="text-gold font-serif text-[2.5rem] italic opacity-60 select-none tracking-tighter drop-shadow-lg">
-               Rahul Verma
+             <div className="flex flex-col">
+                <span className="text-[10px] text-gray-500 font-black uppercase tracking-[0.2em]">Founded At</span>
+                <span className="text-white font-black text-lg">TeamUS 369</span>
              </div>
           </div>
         </div>
@@ -386,31 +358,59 @@ function FounderSection() {
 
 function PhilosophySection() {
   const points = [
-    { title: 'Discipline', icon: Target, desc: 'We believe discipline is the foundation of consistent trading and long-term success.' },
-    { title: 'Risk Management', icon: Shield, desc: 'Protect your capital at all costs. We teach proper risk management for consistent growth.' },
-    { title: 'Consistency', icon: TrendingUp, desc: 'Small consistent wins lead to massive results. We focus on process, not overnight riches.' },
-    { title: 'Psychology', icon: Brain, desc: 'Master your emotions, control your mindset, and become a professional trader.' },
+    { title: 'Discipline', icon: Target, color: 'from-gold to-yellow-500', desc: 'Discipline is the cornerstone of our strategy. We believe that following a proven plan with unwavering focus is what separates professional traders from the rest.' },
+    { title: 'Risk Control', icon: Shield, color: 'from-emerald-400 to-emerald-600', desc: 'Capital preservation is our first priority. We teach institutional-grade risk management techniques to ensure your survival and growth in all market conditions.' },
+    { title: 'Consistency', icon: TrendingUp, color: 'from-primary to-blue-600', desc: 'We value long-term compounding over overnight riches. Our philosophy focuses on repeatable processes that deliver consistent results month after month.' },
+    { title: 'Mindset', icon: Brain, color: 'from-purple-400 to-purple-600', desc: 'Trading is 90% psychology. We help you master your emotions, overcome cognitive biases, and build the mental toughness required for high-stakes trading.' },
   ];
 
   return (
-    <section className="pt-10 pb-24 px-6 md:px-10 bg-[#050b1a]/50">
-      <div className="max-w-[1400px] mx-auto text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-sans font-black text-white mb-4">Our Trading Philosophy</h2>
-        <p className="text-gray-500 text-xs md:text-sm font-medium tracking-tight">The core principles that drive our success and teachings.</p>
-      </div>
+    <section className="py-24 px-6 md:px-10 bg-bg-main relative overflow-hidden">
+      {/* Background Orbs */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
+      
+      <div className="max-w-[1700px] mx-auto relative z-10">
+        <div className="text-center mb-20 space-y-4">
+          <h2 className="text-4xl md:text-6xl font-display font-black text-white uppercase tracking-tighter">
+            Our Trading <span className="text-transparent bg-clip-text bg-linear-to-r from-white via-primary to-gold">Philosophy</span>
+          </h2>
+          <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto font-medium leading-relaxed">
+            Success in the markets isn't about luck. It's about a systematic approach built on four unshakeable pillars that define everything we do.
+          </p>
+        </div>
 
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {points.map((p, i) => (
-          <Card key={i} className="bg-[#050b1a] border-white/5 p-8 group hover:border-gold/30 transition-all hover:-translate-y-1 rounded-[2rem] flex items-start gap-6">
-             <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gold shrink-0 group-hover:bg-gold/10 transition-all">
-                <p.icon className="w-8 h-8" strokeWidth={1.5} />
-             </div>
-             <div className="space-y-2 pt-1">
-                <h4 className="text-white font-bold text-lg tracking-tight">{p.title}</h4>
-                <p className="text-gray-500 text-[11px] leading-relaxed font-medium">{p.desc}</p>
-             </div>
-          </Card>
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {points.map((p, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="group h-full"
+            >
+              <div className="h-full bg-white/2 backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-10 transition-all duration-500 hover:bg-white/4 hover:border-white/20 hover:-translate-y-2 relative overflow-hidden flex flex-col">
+                 <div className={cn("absolute -top-12 -right-12 w-40 h-40 opacity-5 rounded-full blur-3xl transition-opacity group-hover:opacity-10 bg-linear-to-br", p.color)} />
+                 
+                 <div className="mb-10 relative">
+                    <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center relative z-10 shadow-lg group-hover:scale-110 transition-transform duration-500 bg-linear-to-br p-px", p.color)}>
+                       <div className="w-full h-full bg-bg-secondary rounded-[inherit] flex items-center justify-center">
+                          <p.icon className="w-8 h-8 text-white" strokeWidth={1.5} />
+                       </div>
+                    </div>
+                    <div className={cn("absolute inset-0 blur-2xl opacity-20 group-hover:opacity-40 transition-opacity bg-linear-to-br", p.color)} />
+                 </div>
+
+                 <div className="space-y-4 grow">
+                    <h4 className="text-white font-black text-xl uppercase tracking-tight group-hover:text-primary transition-colors">{p.title}</h4>
+                    <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                      {p.desc}
+                    </p>
+                 </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -435,8 +435,8 @@ function WhyChooseSection() {
   ];
 
   return (
-    <section className="pt-10 pb-24 px-6 md:px-10 bg-[#020617]">
-      <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-20 items-center">
+    <section className="pt-10 pb-24 px-6 md:px-10 bg-bg-main">
+      <div className="max-w-[1700px] mx-auto grid lg:grid-cols-2 gap-20 items-center">
         <div className="space-y-12">
           <div className="space-y-4">
              <h2 className="text-3xl md:text-4xl font-sans font-black text-white">
@@ -461,7 +461,7 @@ function WhyChooseSection() {
         </div>
 
         <div className="relative">
-           <Card className="bg-[#050b1a] border-white/10 p-10 rounded-[2.5rem] overflow-hidden relative shadow-2xl">
+           <Card className="bg-bg-secondary border-white/10 p-10 rounded-[2.5rem] overflow-hidden relative shadow-2xl">
               {/* Bull Background Image */}
               <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none grayscale translate-x-1/4 translate-y-1/4">
                  <img src={aboutHeroImg} alt="Bull" className="w-full h-full object-contain" />
@@ -498,7 +498,7 @@ function TestimonialsSection() {
     { name: 'Vikram Singh', role: 'Swing Trader', text: 'TeamUS 369 changed my trading career. Their strategies are simple, effective and highly profitable!', profit: '+42.5%', img: avatar1 },
     { name: 'Priya Mehta', role: 'Forex Trader', text: 'The live sessions and real trade examples helped me become a consistently profitable trader.', profit: '+31.8%', img: avatar2 },
     { name: 'Arjun Nair', role: 'Crypto Trader', text: 'Best community of traders! The support and guidance are amazing.', profit: '+56.2%', img: avatar3 },
-    { name: 'Rohit Patel', role: 'Options Trader', text: 'I was a beginner and now I trade confidently thanks to TeamUS 369.', profit: '+38.7%', img: avatar4 },
+    { name: 'Rohit Patel', role: 'Options Trader', text: 'I was a beginner and now I trade confidently thanks to Michael\'s mentorship.', profit: '+38.7%', img: avatar4 },
     { name: 'Sanya Gupta', role: 'Intraday Trader', text: 'The mentorship program is top-notch. I learned how to manage risk properly for the first time.', profit: '+29.4%', img: avatar5 },
     { name: 'Amit Verma', role: 'Scalper', text: 'Highly recommend! The price action strategies are very powerful and easy to understand.', profit: '+47.1%', img: avatar6 },
   ];
@@ -507,46 +507,82 @@ function TestimonialsSection() {
   const extendedReviews = [...reviews, ...reviews];
 
   return (
-    <section className="pt-10 pb-24 bg-[#020617] overflow-hidden">
-      <div className="max-w-[1400px] mx-auto text-center mb-16 px-6 md:px-10">
-        <h2 className="text-3xl md:text-4xl font-sans font-black text-white mb-4">What Our Students Say</h2>
-        <p className="text-gray-500 text-xs md:text-sm font-medium tracking-tight">Real results from our dedicated trading community.</p>
+    <section className="pt-10 pb-24 bg-bg-main relative overflow-hidden">
+      {/* Background Orbs */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] pointer-events-none" />
+      
+      <div className="max-w-[1700px] mx-auto relative z-10 px-6 md:px-10">
+        <div className="text-center mb-16 space-y-4">
+          <h2 className="text-4xl md:text-6xl font-display font-black text-white uppercase tracking-tighter">
+            What Our <span className="text-transparent bg-clip-text bg-linear-to-r from-gold via-white to-primary">Students Say</span>
+          </h2>
+          <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto font-medium leading-relaxed">
+            Real stories from traders who transformed their journey with TeamUS 369.
+          </p>
+        </div>
       </div>
 
-      <div className="relative flex overflow-hidden">
+      <div className="relative flex overflow-hidden group">
         {/* Gradients for fading edges */}
-        <div className="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-[#020617] to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-[#020617] to-transparent z-10" />
+        <div className="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-bg-main to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-bg-main to-transparent z-10 pointer-events-none" />
 
         <motion.div
           animate={{ x: [0, -1920] }}
           transition={{ 
             repeat: Infinity, 
-            duration: 35, 
+            duration: 40, 
             ease: "linear" 
           }}
-          className="flex gap-6 py-4 whitespace-nowrap"
+          whileHover={{ animationPlayState: 'paused' }}
+          className="flex gap-8 py-4 whitespace-nowrap"
         >
-          {extendedReviews.map((r, i) => (
-            <Card key={i} className="bg-[#050b1a] border-white/5 p-8 w-[350px] min-h-[200px] shrink-0 rounded-[2rem] flex flex-col justify-between group hover:border-gold/20 transition-all">
-               <p className="text-gray-300 text-[13px] leading-relaxed italic mb-6 whitespace-normal font-medium">"{r.text}"</p>
+          {extendedReviews.map((rev, i) => (
+            <div
+              key={i}
+              className="w-[400px] bg-white/2 backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-white/5 hover:border-white/10 relative overflow-hidden shrink-0"
+            >
+               {/* Quote Mark Decoration */}
+               <div className="absolute top-4 right-6 text-white/5 font-serif text-[6rem] select-none pointer-events-none">"</div>
                
-               <div className="flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
-                  <div className="flex items-center gap-3">
-                     <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-gold/30 transition-all">
-                        <img src={r.img} alt={r.name} className="w-full h-full object-cover" />
-                     </div>
-                     <div className="flex flex-col">
-                        <h5 className="text-white font-bold text-[14px] tracking-tight">{r.name}</h5>
-                        <p className="text-gray-500 text-[10px] font-medium">{r.role}</p>
-                     </div>
-                  </div>
-                  <div className="text-right">
-                     <div className="text-emerald-500 font-black text-sm tracking-tight">{r.profit}</div>
-                     <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Monthly Profit</div>
-                  </div>
-               </div>
-            </Card>
+               <div className="flex flex-col space-y-6 whitespace-normal">
+                    <div className="flex items-center justify-between">
+                       <div className="flex items-center gap-4">
+                          <div className="relative">
+                             <div className="w-12 h-12 rounded-2xl overflow-hidden border border-white/10">
+                                <img src={rev.img} alt={rev.name} className="w-full h-full object-cover" />
+                             </div>
+                             <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-bg-main rounded-full border border-white/10 flex items-center justify-center">
+                                <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                             </div>
+                          </div>
+                          <div>
+                             <h4 className="text-white font-black text-[14px] tracking-tight">{rev.name}</h4>
+                             <p className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">{rev.role}</p>
+                          </div>
+                       </div>
+                       
+                       <div className="flex flex-col items-end">
+                          <span className="text-emerald-500 font-black text-base tracking-tighter">{rev.profit}</span>
+                          <span className="text-[7px] text-gray-500 font-black uppercase tracking-widest">Growth</span>
+                       </div>
+                    </div>
+
+                    <p className="text-gray-400 text-sm leading-relaxed font-medium italic relative z-10">
+                      "{rev.text}"
+                    </p>
+
+                    <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+                       <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, i) => (
+                             <Star key={i} className="w-3 h-3 text-gold fill-gold" />
+                          ))}
+                       </div>
+
+                    </div>
+                 </div>
+            </div>
           ))}
         </motion.div>
       </div>
@@ -554,76 +590,50 @@ function TestimonialsSection() {
   );
 }
 
-function TradingSetupSection() {
-  return (
-    <section className="pt-10 pb-2 px-6 md:px-10 bg-[#020617] border-t border-white/5">
-      <div className="max-w-[1400px] mx-auto grid lg:grid-cols-[1fr_3.5fr] gap-12 items-center">
-        {/* Left Side: Content */}
-        <div className="space-y-4">
-           <h2 className="text-3xl md:text-4xl font-sans font-black text-white tracking-tight">
-             Our Trading <span className="text-gold">Setup</span>
-           </h2>
-           <p className="text-gray-400 text-[13px] md:text-sm font-medium leading-relaxed opacity-80 max-w-[280px]">
-             Professional environment for professional traders.
-           </p>
-        </div>
 
-        {/* Right Side: Horizontal Image Row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            "https://images.pexels.com/photos/6770610/pexels-photo-6770610.jpeg?auto=compress&cs=tinysrgb&w=800",
-            "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1560221328-12fe60f83ab8?auto=format&fit=crop&w=800&q=80",
-            "https://images.pexels.com/photos/7567443/pexels-photo-7567443.jpeg?auto=compress&cs=tinysrgb&w=800"
-          ].map((url, i) => (
-            <div key={i} className="relative rounded-2xl overflow-hidden border border-white/10 group aspect-[4/3]">
-              <img 
-                src={url} 
-                alt={`Trading Setup ${i + 1}`} 
-                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000" 
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function ContactBannerSection() {
   return (
-    <section className="py-10 px-6 md:px-10 bg-[#020617]">
-      <div className="max-w-[1400px] mx-auto relative rounded-2xl overflow-hidden shadow-2xl min-h-[160px] border border-white/5">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img 
-            src={editImage} 
-            alt="Banner Background" 
-            className="w-full h-full object-cover opacity-100"
-          />
-          <div className="absolute inset-0 bg-black/20" />
-        </div>
-
-        <div className="relative z-10 p-10 flex flex-col items-center justify-center gap-10 h-full">
-          {/* Main Content Stack */}
-          <div className="flex flex-col items-center text-center space-y-6 max-w-4xl">
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-sans font-black text-white leading-tight">
-              Ready to Start Your <span className="text-gold">Trading Journey?</span>
-            </h2>
-            <p className="text-white text-sm md:text-lg font-medium opacity-80 max-w-2xl">
-              Join thousands of successful traders and take the first step today!
-            </p>
-            <div className="pt-2">
-              <Button 
-                to="/contact"
-                size="lg" 
-                className="bg-gold hover:bg-gold/90 text-black font-bold px-12 rounded-lg h-14 shadow-[0_4px_25px_rgba(255,215,0,0.25)] hover:scale-105 transition-all"
-              >
-                Contact Us <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </div>
-          </div>
+    <section className="relative overflow-hidden min-h-[500px] max-md:min-h-auto flex items-center group">
+      {/* Full-width Background Image */}
+      <div className="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-105">
+        <img src={editImage} alt="Banner Background" className="w-full h-full object-cover max-md:object-[center_top]" />
+        {/* Mobile Overlay */}
+        <div className="absolute inset-0 bg-black/60 md:hidden" />
+        <div className="absolute inset-0 bg-linear-to-l from-bg-main via-bg-main/20 to-transparent" />
+      </div>
+ 
+      <div className="max-w-[1700px] mx-auto px-6 md:px-10 relative z-10 py-24 w-full">
+        <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl lg:text-5xl font-sans font-black text-white leading-none uppercase tracking-tighter"
+          >
+            Ready to Start Your <br />
+            <span className="text-gold">Trading Journey?</span>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-gray-300 text-sm md:text-xl font-medium max-w-2xl leading-relaxed"
+          >
+            Join thousands of successful traders who have transformed their lives through our institutional-grade training and community.
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="pt-4 w-full flex justify-center"
+          >
+            <Button to="/contact" size="lg" className="bg-gold hover:bg-gold/90 text-black font-black px-12 rounded-xl h-16 shadow-[0_10px_40px_rgba(244,197,66,0.3)] hover:scale-105 transition-all flex items-center gap-3 text-[13px] uppercase tracking-widest max-md:w-full max-md:max-w-md max-md:justify-center">
+              Start My Journey Now <ArrowRight className="w-5 h-5" />
+            </Button>
+          </motion.div>
         </div>
       </div>
     </section>

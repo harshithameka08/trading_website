@@ -12,11 +12,14 @@ import { Button, Card, Badge } from '@/src/components/UI';
 import { cn } from '@/src/lib/utils';
 
 import courseTechnical from '../course_technical.png';
-import courseIntraday from '../course_intraday.png';
-import courseOptions from '../course_options.png';
-import courseSwing from '../course_swing.png';
-import coursePriceAction from '../course_price_action.png';
+import courseScalping from '../course_scalping_v2.png';
+import courseOptions from '../course_options_v2.png';
+import courseSwing from '../course_swing_v2.png';
+import coursePriceAction from '../course_price_action_v2.png';
 import coursePsychology from '../course_psychology.png';
+import courseForex from '../course_forex_fundamentals_v2_png_1778849269421.png';
+import courseInstitutional from '../course_institutional_orderflow_v2_png_1778849291388.png';
+import courseCrypto from '../course_crypto_masterclass_v2_png_1778849311128.png';
 import heroWorkstation from '../trader_workstation_1778565817961.png';
 import bannerBull from '../banner_bull.png';
 import editImage from '../editimage.png';
@@ -58,10 +61,10 @@ export const courses = [
     students: '1.8K+',
     badge: 'POPULAR',
     badgeColor: 'bg-[#00E5FF]',
-    img: courseIntraday,
+    img: courseScalping,
     avatars: [avatar2, avatar3, avatar1, avatar4],
     cat: 'Scalping',
-    mentor: 'Sarah Chen'
+    mentor: 'Michael'
   },
   {
     id: 3,
@@ -75,7 +78,7 @@ export const courses = [
     students: '3.2K+',
     badge: 'TRENDING',
     badgeColor: 'bg-[#00FF85]',
-    img: courseTechnical,
+    img: courseSwing,
     avatars: [avatar3, avatar4, avatar1, avatar2],
     cat: 'Swing Trading',
     mentor: 'Alex Rivers'
@@ -109,7 +112,7 @@ export const courses = [
     students: '950+',
     badge: 'PREMIUM',
     badgeColor: 'bg-purple-600',
-    img: courseTechnical,
+    img: courseInstitutional,
     avatars: [avatar1, avatar2, avatar3, avatar4],
     cat: 'Institutional',
     mentor: 'Rahul Verma'
@@ -129,7 +132,7 @@ export const courses = [
     img: coursePsychology,
     avatars: [avatar2, avatar3, avatar4, avatar1],
     cat: 'Psychology',
-    mentor: 'Sarah Chen'
+    mentor: 'Michael'
   },
   {
     id: 7,
@@ -143,7 +146,7 @@ export const courses = [
     students: '2.1K+',
     badge: 'FOUNDATION',
     badgeColor: 'bg-emerald-500',
-    img: courseSwing,
+    img: courseForex,
     avatars: [avatar3, avatar4, avatar1, avatar2],
     cat: 'Forex',
     mentor: 'Alex Rivers'
@@ -160,7 +163,7 @@ export const courses = [
     students: '1.5K+',
     badge: 'TRENDING',
     badgeColor: 'bg-orange-500',
-    img: courseIntraday,
+    img: courseCrypto,
     avatars: [avatar4, avatar1, avatar2, avatar3],
     cat: 'Crypto',
     mentor: 'Elena K.'
@@ -189,14 +192,7 @@ const features = [
   { title: 'Certificate', desc: 'Get completion certificate.', icon: <Award className="w-6 h-6 text-[#F4C542]" /> },
 ];
 
-const learningPath = [
-  { id: '01', title: 'Beginner', desc: 'Learn the basics of trading', icon: <HelpCircle className="w-6 h-6 text-[#00FF85]" /> },
-  { id: '02', title: 'Technical Analysis', desc: 'Understand charts, patterns & tools', icon: <BarChart3 className="w-6 h-6 text-[#00FF85]" /> },
-  { id: '03', title: 'Price Action', desc: 'Master price movement & market behavior', icon: <TrendingUp className="w-6 h-6 text-[#00FF85]" /> },
-  { id: '04', title: 'Risk Management', desc: 'Protect your capital & manage risk', icon: <Shield className="w-6 h-6 text-[#00FF85]" /> },
-  { id: '05', title: 'Advanced Strategies', desc: 'Learn advanced high-probability setups', icon: <Layers className="w-6 h-6 text-[#00FF85]" /> },
-  { id: '06', title: 'Professional Trader', desc: 'Develop mindset and consistency', icon: <Award className="w-6 h-6 text-[#00FF85]" /> },
-];
+
 
 export default function Courses() {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -243,28 +239,28 @@ export default function Courses() {
   return (
     <div className="bg-[#020617] min-h-screen text-white font-sans overflow-hidden">
       {/* Hero Section */}
-      <section className="relative pt-40 pb-16 px-6 overflow-hidden">
+      <section className="relative pt-40 pb-16 px-6 overflow-hidden max-md:pt-48 max-md:pb-24">
         {/* Background Image Layer */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img 
             src={herocourse} 
             alt="Hero Background" 
-            className="w-full h-full object-cover object-center lg:object-right opacity-80" 
+            className="w-full h-full object-cover object-center lg:object-right opacity-80 max-md:opacity-60 max-md:object-[70%_center]" 
           />
+          {/* Mobile Overlay */}
+          <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/40 to-black/80 md:hidden" />
           <div className="absolute inset-0 bg-linear-to-r from-[#020617] via-[#020617]/80 to-transparent lg:w-2/3" />
           <div className="absolute inset-0 bg-linear-to-t from-[#020617] via-transparent to-transparent" />
         </div>
 
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
+        <div className="max-w-[1700px] mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#00FF85]">Learn. Trade. Succeed.</span>
-            </div>
+
             <h1 className="text-5xl md:text-7xl font-sans font-extrabold tracking-tight leading-tight">
               Master Trading With <br />
               <span className="text-[#F4C542]">Expert-Led Courses</span>
@@ -272,13 +268,18 @@ export default function Courses() {
             <p className="text-gray-400 text-lg max-w-xl leading-relaxed">
               From basics to advanced strategies - our courses are designed to help you trade confidently and profitably in any market condition.
             </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Button className="bg-[#F4C542] hover:bg-[#D4AF37] text-black font-bold px-8 py-4 rounded-xl flex items-center gap-2 text-base">
+            <div className="flex flex-wrap max-md:flex-col gap-4 pt-4">
+              <Button 
+                onClick={() => document.getElementById('featured-courses')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-[#F4C542] hover:bg-[#D4AF37] text-black font-bold px-8 py-4 rounded-xl flex items-center gap-2 text-base max-md:w-full max-md:justify-center"
+              >
                 Explore Courses <ArrowRight className="w-5 h-5" />
               </Button>
-              <Button variant="outline" className="border-white/10 hover:bg-white/5 text-white font-bold px-8 py-4 rounded-xl flex items-center gap-2 text-base">
-                Join Live Session <span className="flex h-2 w-2 rounded-full bg-[#F4C542] animate-pulse"></span>
-              </Button>
+              <Link to="/live-classes" className="max-md:w-full">
+                <Button variant="outline" className="border-white/10 hover:bg-white/5 text-white font-bold px-8 py-4 rounded-xl flex items-center gap-2 text-base max-md:w-full max-md:justify-center">
+                  Join Live Session <span className="flex h-2 w-2 rounded-full bg-[#F4C542] animate-pulse"></span>
+                </Button>
+              </Link>
             </div>
           </motion.div>
 
@@ -289,190 +290,112 @@ export default function Courses() {
             className="relative lg:h-[500px]"
           >
             <div className="relative h-full w-full">
-              {/* Stats Overlay Cards */}
-              <motion.div 
-                animate={{ y: [0, -10, 0] }} 
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-8 left-8 glass-card p-4 flex items-center gap-4 border border-white/10 bg-black/40"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#00FF85]/20 flex items-center justify-center">
-                  <Users className="w-6 h-6 text-[#00FF85]" />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-400">Students Enrolled</p>
-                  <p className="text-xl font-bold">10K+</p>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                animate={{ y: [0, 10, 0] }} 
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute top-8 right-8 glass-card p-4 flex flex-col gap-2 border border-white/10 bg-black/40 min-w-[140px]"
-              >
-                <div className="flex justify-between items-center">
-                   <div>
-                     <p className="text-xs text-gray-400">Success Rate</p>
-                     <p className="text-xl font-bold">85%</p>
-                   </div>
-                   <div className="relative w-10 h-10">
-                      <svg className="w-full h-full" viewBox="0 0 36 36">
-                        <path className="text-white/10" strokeDasharray="100, 100" strokeWidth="3" fill="none" stroke="currentColor" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                        <path className="text-[#00FF85]" strokeDasharray="85, 100" strokeWidth="3" strokeLinecap="round" fill="none" stroke="currentColor" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                      </svg>
-                   </div>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                animate={{ x: [0, -10, 0] }} 
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute bottom-8 left-8 glass-card p-4 flex items-center gap-4 border border-white/10 bg-black/40"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                  <Video className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-400">Live Sessions</p>
-                  <p className="text-xl font-bold">500+</p>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                animate={{ x: [0, 10, 0] }} 
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                className="absolute bottom-8 right-8 glass-card p-4 flex flex-col gap-2 border border-white/10 bg-black/40 min-w-[140px]"
-              >
-                <p className="text-xs text-gray-400">Average Profit</p>
-                <div className="flex items-end justify-between gap-4">
-                  <p className="text-xl font-bold text-[#00FF85]">+32.68%</p>
-                  <div className="flex items-end gap-1 pb-1">
-                    <div className="w-1.5 h-3 bg-[#00FF85]/30 rounded-t-sm" />
-                    <div className="w-1.5 h-5 bg-[#00FF85]/50 rounded-t-sm" />
-                    <div className="w-1.5 h-4 bg-[#00FF85]/70 rounded-t-sm" />
-                    <div className="w-1.5 h-6 bg-[#00FF85] rounded-t-sm" />
-                  </div>
-                </div>
-                <p className="text-[10px] text-gray-500">This Month</p>
-              </motion.div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Filter & Search Bar */}
-      <section className="px-6 py-4 relative z-20">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="bg-[#0B1020]/40 backdrop-blur-xl border border-white/5 rounded-2xl p-6 flex flex-col gap-8 shadow-2xl">
-            {/* Top Row: Search and Dropdowns */}
-            <div className="flex flex-col lg:flex-row gap-4 items-center">
-              <div className="relative flex-1 w-full lg:w-auto">
-                <input 
-                  type="text" 
-                  placeholder="Search for courses..." 
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-white/[0.02] border border-white/10 rounded-xl py-3.5 pl-4 pr-12 text-sm text-white focus:outline-none focus:border-gold/50 transition-all placeholder:text-gray-600"
-                />
-                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full lg:w-auto">
-                {/* Levels Filter */}
-                <div className="relative min-w-[140px]">
-                  <select 
-                    value={selectedLevel}
-                    onChange={(e) => setSelectedLevel(e.target.value)}
-                    className="w-full appearance-none bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-xs font-medium text-gray-400 hover:border-white/20 transition-all outline-none cursor-pointer"
-                  >
-                    <option className="bg-[#020617] text-white">All Levels</option>
-                    <option className="bg-[#020617] text-white">Beginner</option>
-                    <option className="bg-[#020617] text-white">Intermediate</option>
-                    <option className="bg-[#020617] text-white">Advanced</option>
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-600 pointer-events-none" />
+      <section className="relative z-20 -mt-10 px-6">
+        <div className="max-w-[1700px] mx-auto">
+          <div className="bg-white/2 backdrop-blur-2xl border border-white/5 rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+            <div className="flex flex-col gap-8">
+              {/* Top Row: Search & Dropdowns */}
+              <div className="flex flex-col lg:flex-row gap-6 items-center">
+                <div className="relative flex-1 w-full">
+                  <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                    <Search className="w-5 h-5 text-gray-500" />
+                  </div>
+                  <input 
+                    type="text" 
+                    placeholder="Search for courses, strategies, or mentors..." 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full bg-white/3 border border-white/10 rounded-2xl py-4 pl-14 pr-6 text-sm text-white focus:outline-none focus:border-gold/30 focus:bg-white/5 transition-all placeholder:text-gray-600 shadow-inner"
+                  />
                 </div>
+                
+                <div className="flex flex-wrap lg:flex-nowrap gap-4 w-full lg:w-auto">
+                  {/* Levels Filter */}
+                  <div className="relative min-w-[150px] flex-1 lg:flex-none">
+                    <select 
+                      value={selectedLevel}
+                      onChange={(e) => setSelectedLevel(e.target.value)}
+                      className="w-full appearance-none bg-white/3 border border-white/10 rounded-2xl px-5 py-4 text-xs font-bold text-gray-400 hover:border-white/20 transition-all outline-none cursor-pointer pr-10 uppercase tracking-widest"
+                    >
+                      <option className="bg-[#020617] text-white">All Levels</option>
+                      <option className="bg-[#020617] text-white">Beginner</option>
+                      <option className="bg-[#020617] text-white">Intermediate</option>
+                      <option className="bg-[#020617] text-white">Advanced</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 pointer-events-none" />
+                  </div>
 
-                {/* Categories Filter */}
-                <div className="relative min-w-[140px]">
-                  <select 
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full appearance-none bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-xs font-medium text-gray-400 hover:border-white/20 transition-all outline-none cursor-pointer"
-                  >
-                    <option className="bg-[#020617] text-white">All Categories</option>
-                    <option className="bg-[#020617] text-white">Price Action</option>
-                    <option className="bg-[#020617] text-white">Scalping</option>
-                    <option className="bg-[#020617] text-white">Swing Trading</option>
-                    <option className="bg-[#020617] text-white">Options</option>
-                    <option className="bg-[#020617] text-white">Institutional</option>
-                    <option className="bg-[#020617] text-white">Psychology</option>
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-600 pointer-events-none" />
-                </div>
+                  {/* Categories Filter */}
+                  <div className="relative min-w-[180px] flex-1 lg:flex-none">
+                    <select 
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                      className="w-full appearance-none bg-white/3 border border-white/10 rounded-2xl px-5 py-4 text-xs font-bold text-gray-400 hover:border-white/20 transition-all outline-none cursor-pointer pr-10 uppercase tracking-widest"
+                    >
+                      <option className="bg-[#020617] text-white">All Categories</option>
+                      <option className="bg-[#020617] text-white">Price Action</option>
+                      <option className="bg-[#020617] text-white">Scalping</option>
+                      <option className="bg-[#020617] text-white">Swing Trading</option>
+                      <option className="bg-[#020617] text-white">Options</option>
+                      <option className="bg-[#020617] text-white">Institutional</option>
+                      <option className="bg-[#020617] text-white">Psychology</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 pointer-events-none" />
+                  </div>
 
-                {/* Markets Filter */}
-                <div className="relative min-w-[140px]">
-                  <select 
-                    value={selectedMarket}
-                    onChange={(e) => setSelectedMarket(e.target.value)}
-                    className="w-full appearance-none bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-xs font-medium text-gray-400 hover:border-white/20 transition-all outline-none cursor-pointer"
-                  >
-                    <option className="bg-[#020617] text-white">All Markets</option>
-                    <option className="bg-[#020617] text-white">Forex</option>
-                    <option className="bg-[#020617] text-white">Crypto</option>
-                    <option className="bg-[#020617] text-white">Stocks</option>
-                    <option className="bg-[#020617] text-white">Options</option>
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-600 pointer-events-none" />
-                </div>
-
-                {/* Sort By Filter */}
-                <div className="relative min-w-[140px]">
-                  <select 
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full appearance-none bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-xs font-medium text-gray-400 hover:border-white/20 transition-all outline-none cursor-pointer"
-                  >
-                    <option className="bg-[#020617] text-white">Sort By</option>
-                    <option className="bg-[#020617] text-white">Price: Low to High</option>
-                    <option className="bg-[#020617] text-white">Price: High to Low</option>
-                    <option className="bg-[#020617] text-white">Popularity</option>
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-600 pointer-events-none" />
+                  {/* Sort By Filter */}
+                  <div className="relative min-w-[150px] flex-1 lg:flex-none">
+                    <select 
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="w-full appearance-none bg-white/3 border border-white/10 rounded-2xl px-5 py-4 text-xs font-bold text-gold hover:border-gold/30 transition-all outline-none cursor-pointer pr-10 uppercase tracking-widest"
+                    >
+                      <option className="bg-[#020617] text-white">Sort By</option>
+                      <option className="bg-[#020617] text-white">Price: Low to High</option>
+                      <option className="bg-[#020617] text-white">Price: High to Low</option>
+                      <option className="bg-[#020617] text-white">Popularity</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gold/50 pointer-events-none" />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Bottom Row: Filter Chips */}
-            <div className="flex flex-wrap gap-3">
-              {[
-                { name: 'All Courses', icon: <Layout className="w-3.5 h-3.5" /> },
-                { name: 'Beginner', icon: <BookOpen className="w-3.5 h-3.5" /> },
-                { name: 'Intermediate', icon: <FileText className="w-3.5 h-3.5" /> },
-                { name: 'Advanced', icon: <Target className="w-3.5 h-3.5" /> },
-                { name: 'Forex', icon: <Globe className="w-3.5 h-3.5" /> },
-                { name: 'Crypto', icon: <Bitcoin className="w-3.5 h-3.5" /> },
-                { name: 'Stocks', icon: <BarChart3 className="w-3.5 h-3.5" /> },
-                { name: 'Options', icon: <PieChart className="w-3.5 h-3.5" /> },
-                { name: 'Scalping', icon: <Layers className="w-3.5 h-3.5" /> },
-                { name: 'Swing Trading', icon: <TrendingUp className="w-3.5 h-3.5" /> }
-              ].map((tab) => (
-                <button
-                  key={tab.name}
-                  onClick={() => setActiveTab(tab.name)}
-                  className={cn(
-                    "px-4 py-2.5 rounded-xl text-[11px] font-bold transition-all border flex items-center gap-2.5",
-                    activeTab === tab.name 
-                      ? "bg-gold/5 border-gold text-gold" 
-                      : "bg-white/[0.02] border-white/10 text-gray-500 hover:text-white hover:border-white/20"
-                  )}
-                >
-                  <span className={cn(activeTab === tab.name ? "text-gold" : "text-gray-600")}>
+              {/* Bottom Row: Filter Chips */}
+              <div className="flex flex-wrap gap-3 items-center pt-2 border-t border-white/5">
+                <span className="text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] mr-4">Quick Filters:</span>
+                {[
+                  { name: 'All Courses', icon: <Layout className="w-3.5 h-3.5" /> },
+                  { name: 'Beginner', icon: <BookOpen className="w-3.5 h-3.5" /> },
+                  { name: 'Intermediate', icon: <FileText className="w-3.5 h-3.5" /> },
+                  { name: 'Advanced', icon: <Target className="w-3.5 h-3.5" /> },
+                  { name: 'Forex', icon: <Globe className="w-3.5 h-3.5" /> },
+                  { name: 'Crypto', icon: <Bitcoin className="w-3.5 h-3.5" /> },
+                  { name: 'Stocks', icon: <BarChart3 className="w-3.5 h-3.5" /> },
+                  { name: 'Options', icon: <PieChart className="w-3.5 h-3.5" /> },
+                  { name: 'Scalping', icon: <Layers className="w-3.5 h-3.5" /> },
+                  { name: 'Swing Trading', icon: <TrendingUp className="w-3.5 h-3.5" /> }
+                ].map((tab) => (
+                  <button
+                    key={tab.name}
+                    onClick={() => setActiveTab(tab.name)}
+                    className={cn(
+                      "px-5 py-2.5 rounded-xl text-[10px] font-black transition-all border flex items-center gap-2.5 uppercase tracking-wider",
+                      activeTab === tab.name 
+                        ? "bg-gold/10 border-gold/50 text-gold shadow-[0_0_20px_rgba(244,197,66,0.15)]" 
+                        : "bg-white/2 border-white/10 text-gray-500 hover:text-white hover:border-white/20"
+                    )}
+                  >
                     {tab.icon}
-                  </span>
-                  {tab.name}
-                </button>
-              ))}
+                    {tab.name}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -480,7 +403,7 @@ export default function Courses() {
 
       {/* Featured Courses */}
       <section id="featured-courses" className="px-6 py-20">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="max-w-[1700px] mx-auto">
           <div className="flex items-center justify-between mb-12">
             <div className="flex items-center gap-4">
               <div className="flex flex-col gap-1.5">
@@ -500,14 +423,14 @@ export default function Courses() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group relative bg-[#050816] rounded-[1rem] border border-white/5 overflow-hidden flex flex-col hover:border-white/10 transition-all duration-500 shadow-2xl"
+                className="group relative bg-bg-main rounded-xl border border-white/5 overflow-hidden flex flex-col hover:border-white/10 transition-all duration-500 shadow-2xl"
               >
                 {/* Course Image */}
-                <div className="relative h-[200px] overflow-hidden">
+                <div className="relative aspect-video overflow-hidden bg-bg-secondary">
                   <img 
                     src={course.img} 
                     alt={course.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
                   
                   {/* Badge */}
@@ -543,7 +466,7 @@ export default function Courses() {
                   </div>
 
                   <div className="flex gap-3 pt-6 border-t border-white/5">
-                    <Link to={`/course/${course.id}`} className="flex-1">
+                    <Link to={`/enroll?course=${encodeURIComponent(course.title)}`} className="flex-1">
                       <Button className="w-full bg-[#F4C542] hover:bg-[#D4AF37] text-black font-bold text-xs py-3.5 rounded-lg">
                         Enroll Now
                       </Button>
@@ -564,88 +487,202 @@ export default function Courses() {
 
 
       {/* Why Our Courses Different */}
-      <section className="px-6 pt-8 pb-10">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-12">
-            <h2 className="text-3xl font-black uppercase tracking-tight">Why Our Courses Are Different?</h2>
+      <section className="px-6 py-16 bg-[#020617] relative overflow-hidden">
+        {/* Background Decorative Element */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
+        
+        <div className="max-w-[1700px] mx-auto relative z-10">
+          <div className="text-center mb-12 space-y-4">
+            <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter">
+              Why Our Courses Are <span className="text-transparent bg-clip-text bg-linear-to-r from-gold via-white to-primary">Different?</span>
+            </h2>
+            <p className="text-gray-400 text-xs md:text-sm max-w-xl mx-auto font-medium leading-relaxed">
+              We don't just teach trading; we build profitable mindsets through institutional-grade strategies and real-world experience.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: 'Expert Mentorship', desc: 'Learn from experienced traders with real results.', icon: <Users2 className="w-5 h-5 text-[#F4C542]" />, color: 'border-[#F4C542]/30' },
-              { title: 'Real Market Examples', desc: 'Practical examples from live markets.', icon: <BarChart3 className="w-5 h-5 text-orange-400" />, color: 'border-orange-400/30' },
-              { title: 'Lifetime Access', desc: 'Access all courses forever, anytime.', icon: <Shield className="w-5 h-5 text-[#00FF85]" />, color: 'border-[#00FF85]/30' },
-              { title: 'Community Support', desc: 'Join our active trading community.', icon: <Users className="w-5 h-5 text-[#00E5FF]" />, color: 'border-[#00E5FF]/30' },
-              { title: 'Strategy PDFs', desc: 'Download strategy guides & PDFs.', icon: <FileText className="w-5 h-5 text-purple-400" />, color: 'border-purple-400/30' },
-              { title: 'Certificate', desc: 'Get completion certificate.', icon: <Award className="w-5 h-5 text-blue-400" />, color: 'border-blue-400/30' },
+              { 
+                title: 'Expert Mentorship', 
+                desc: 'Direct access to institutional traders who have navigated every market condition imaginable.', 
+                icon: <Users2 className="w-6 h-6 text-[#F4C542]" />, 
+                glow: 'shadow-[0_0_25px_rgba(244,197,66,0.12)]',
+                border: 'border-[#F4C542]/20' 
+              },
+              { 
+                title: 'Real Market Examples', 
+                desc: 'No theoretical fluff. We break down actual winning and losing trades from our live trading desk.', 
+                icon: <BarChart3 className="w-6 h-6 text-orange-400" />, 
+                glow: 'shadow-[0_0_25px_rgba(251,146,60,0.12)]',
+                border: 'border-orange-400/20' 
+              },
+              { 
+                title: 'Lifetime Access', 
+                desc: 'Markets evolve, and so do our courses. Get lifetime access to all future updates and strategy revisions.', 
+                icon: <Shield className="w-6 h-6 text-[#00FF85]" />, 
+                glow: 'shadow-[0_0_25px_rgba(0,255,133,0.12)]',
+                border: 'border-[#00FF85]/20' 
+              },
+              { 
+                title: 'Community Support', 
+                desc: 'Join an elite network of 10,000+ traders. Share setups, discuss news, and grow together.', 
+                icon: <Users className="w-6 h-6 text-[#00E5FF]" />, 
+                glow: 'shadow-[0_0_25px_rgba(0,229,255,0.12)]',
+                border: 'border-[#00E5FF]/20' 
+              },
+              { 
+                title: 'Strategy PDFs', 
+                desc: 'Downloadable high-density strategy playbooks and risk management calculators for offline study.', 
+                icon: <FileText className="w-6 h-6 text-purple-400" />, 
+                glow: 'shadow-[0_0_25px_rgba(168,85,247,0.12)]',
+                border: 'border-purple-400/20' 
+              },
+              { 
+                title: 'Certification', 
+                desc: 'Receive an institutional-grade certificate of completion after passing our advanced proficiency exams.', 
+                icon: <Award className="w-6 h-6 text-blue-400" />, 
+                glow: 'shadow-[0_0_25px_rgba(96,165,250,0.12)]',
+                border: 'border-blue-400/20' 
+              },
             ].map((feature, i) => (
-              <div key={i} className="bg-[#0B1020]/50 border border-white/5 rounded-2xl p-5 flex items-start gap-4 hover:border-white/10 transition-all group">
-                <div className={cn("w-12 h-12 rounded-full border flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform", feature.color)}>
-                  {feature.icon}
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className={cn(
+                  "relative group p-8 rounded-[2rem] bg-white/2 backdrop-blur-2xl border transition-all duration-500 hover:bg-white/4 hover:-translate-y-1.5",
+                  feature.border,
+                  feature.glow
+                )}
+              >
+                <div className="space-y-5">
+                  <div className={cn(
+                    "w-14 h-14 rounded-xl border flex items-center justify-center transition-all duration-500 group-hover:rotate-[8deg] group-hover:scale-105",
+                    feature.border
+                  )}>
+                    {feature.icon}
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-black text-white uppercase tracking-tight">{feature.title}</h3>
+                    <p className="text-gray-500 text-[13px] leading-relaxed font-medium">{feature.desc}</p>
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <h3 className="text-[13px] font-black text-white uppercase tracking-tight">{feature.title}</h3>
-                  <p className="text-[11px] text-gray-500 leading-relaxed">{feature.desc}</p>
+                
+                {/* Decorative Accent */}
+                <div className="absolute top-6 right-8 text-white/5 font-black text-4xl select-none group-hover:text-white/10 transition-colors">
+                  0{i + 1}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Your Learning Path */}
-      <section className="px-6 pt-10 pb-20 bg-black/20">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-16">
-            <h2 className="text-3xl font-black uppercase tracking-tight">Your Learning Path</h2>
-            <p className="text-gray-500 text-sm mt-2">Step-by-step journey to become a profitable trader.</p>
+      <section className="px-6 py-24 bg-[#020617]/50 relative overflow-hidden">
+        <div className="max-w-[1700px] mx-auto relative z-10">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter">
+              Your Professional <span className="text-gold">Learning Path</span>
+            </h2>
+            <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto font-medium leading-relaxed">
+              Follow our battle-tested roadmap designed to take you from market basics to institutional-level trading proficiency.
+            </p>
           </div>
 
-          <div className="relative flex flex-col md:flex-row items-start justify-between gap-12 md:gap-4">
-            {[
-              { id: '01', title: 'Beginner', desc: 'Learn the basics of trading', color: 'text-[#00FF85]', border: 'border-[#00FF85]', icon: <Book className="w-5 h-5" />, line: 'from-[#00FF85]' },
-              { id: '02', title: 'Technical Analysis', desc: 'Understand charts, patterns & tools', color: 'text-[#00E5FF]', border: 'border-[#00E5FF]', icon: <LineChart className="w-5 h-5" />, line: 'from-[#00E5FF]' },
-              { id: '03', title: 'Price Action', desc: 'Master price movement & market behavior', color: 'text-[#00FFD1]', border: 'border-[#00FFD1]', icon: <BarChart3 className="w-5 h-5" />, line: 'from-[#00FFD1]' },
-              { id: '04', title: 'Risk Management', desc: 'Protect your capital & manage risk', color: 'text-[#F4C542]', border: 'border-[#F4C542]', icon: <ShieldCheck className="w-5 h-5" />, line: 'from-[#F4C542]' },
-              { id: '05', title: 'Advanced Strategies', desc: 'Learn advanced high-probability setups', color: 'text-orange-400', border: 'border-orange-400', icon: <Zap className="w-5 h-5" />, line: 'from-orange-400' },
-              { id: '06', title: 'Professional Trader', desc: 'Develop mindset and consistency', color: 'text-blue-400', border: 'border-blue-400', icon: <Award className="w-5 h-5" />, line: 'from-blue-400' },
-            ].map((step, i, arr) => (
-              <div key={i} className="flex-1 flex flex-col items-center text-center group relative w-full">
-                {/* Connecting Line with Dots */}
-                {i < arr.length - 1 && (
-                  <div className="hidden md:flex absolute top-8 left-[60%] w-[80%] items-center justify-center">
-                    <div className={cn("h-[1px] w-full border-t border-dashed border-white/20", step.line)} />
-                    <div className={cn("w-1.5 h-1.5 rounded-full shrink-0 ml-2", step.color.replace('text-', 'bg-'))} />
+          <div className="relative">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10">
+              {[
+                { 
+                  id: '01', 
+                  title: 'Foundation', 
+                  desc: 'Master the core mechanics of markets and charting.', 
+                  icon: <Book className="w-6 h-6" />, 
+                  color: 'text-white', 
+                  glow: 'rgba(255,255,255,0.1)' 
+                },
+                { 
+                  id: '02', 
+                  title: 'Analysis', 
+                  desc: 'Learn advanced technical and fundamental frameworks.', 
+                  icon: <BarChart3 className="w-6 h-6" />, 
+                  color: 'text-cyan-400', 
+                  glow: 'rgba(34,211,238,0.1)' 
+                },
+                { 
+                  id: '03', 
+                  title: 'Price Action', 
+                  desc: 'Decode market psychology through price movement.', 
+                  icon: <Target className="w-6 h-6" />, 
+                  color: 'text-gold', 
+                  glow: 'rgba(244,197,66,0.1)' 
+                },
+                { 
+                  id: '04', 
+                  title: 'Risk Guard', 
+                  desc: 'Build a bulletproof capital preservation system.', 
+                  icon: <ShieldCheck className="w-6 h-6" />, 
+                  color: 'text-emerald-400', 
+                  glow: 'rgba(52,211,153,0.1)' 
+                },
+                { 
+                  id: '05', 
+                  title: 'Execution', 
+                  desc: 'Live trading, consistency, and institutional setups.', 
+                  icon: <Award className="w-6 h-6" />, 
+                  color: 'text-primary', 
+                  glow: 'rgba(244,197,66,0.1)' 
+                }
+              ].map((step, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex flex-col items-center group"
+                >
+                  {/* Step Node */}
+                  <div className="relative mb-10">
+                    <div className={cn(
+                      "w-28 h-28 rounded-full bg-[#050b1a] border border-white/5 flex items-center justify-center relative z-20 transition-all duration-500 group-hover:border-gold/50 group-hover:scale-110 shadow-2xl",
+                    )}>
+                      <div className={cn("transition-transform duration-500 group-hover:scale-110", step.color)}>
+                        {step.icon}
+                      </div>
+                    </div>
+                    {/* Step Number Tag */}
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-bg-secondary border border-white/10 text-[10px] font-black text-white/50 z-30 tracking-[0.2em]">
+                      STAGE_{step.id}
+                    </div>
+                    {/* Pulse Effect */}
+                    <div className="absolute inset-0 rounded-full bg-white/5 animate-pulse z-10" />
                   </div>
-                )}
-                
-                <div className={cn(
-                  "w-16 h-16 rounded-full border-2 flex items-center justify-center mb-4 transition-all duration-500 group-hover:scale-110 shadow-[0_0_20px_rgba(255,255,255,0.02)] bg-[#0B1020] relative z-10",
-                  step.border
-                )}>
-                  <div className={step.color}>
-                    {step.icon}
-                  </div>
-                </div>
 
-                <div className="space-y-2">
-                  <span className="text-[10px] font-black text-gray-500 block">{step.id}</span>
-                  <h3 className="text-[14px] font-bold text-white whitespace-nowrap">{step.title}</h3>
-                  <p className="text-[11px] text-gray-500 leading-tight max-w-[130px] mx-auto">{step.desc}</p>
-                </div>
-              </div>
-            ))}
+                  {/* Info Card */}
+                  <div className="bg-white/2 border border-white/5 p-6 rounded-3xl w-full text-center transition-all duration-500 group-hover:bg-white/4 group-hover:border-white/10">
+                    <h3 className="text-[14px] font-black text-white uppercase tracking-tight mb-2">{step.title}</h3>
+                    <p className="text-[11px] text-gray-500 leading-relaxed font-medium line-clamp-2">{step.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
+
+
       {/* Course Preview Section */}
       <section className="px-6 pt-20 pb-4">
-        <div className="max-w-[1400px] mx-auto overflow-hidden">
+        <div className="max-w-[1700px] mx-auto overflow-hidden">
           <div className="grid lg:grid-cols-12 gap-12 items-start">
             {/* Left Column: Video Preview */}
             <div className="lg:col-span-6 space-y-4">
-              <div className="relative rounded-2xl overflow-hidden aspect-video border border-white/10 bg-[#0B1020] group cursor-pointer shadow-2xl">
+              <div className="relative rounded-2xl overflow-hidden aspect-video border border-white/10 bg-bg-secondary group cursor-pointer shadow-2xl">
                 <img src={coursePriceAction} alt="Course Preview" className="w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-all">
@@ -679,17 +716,19 @@ export default function Courses() {
                     ))}
                   </div>
                   <div className="mt-4 pt-4 border-t border-white/5">
-                    <Button className="w-full bg-[#34D399] hover:bg-[#10B981] text-black font-black py-2.5 rounded-lg text-[11px] h-auto">
-                      Enroll Now - ₹4,999
-                    </Button>
+                    <Link to="/enroll?course=Advanced%20Price%20Action">
+                      <Button className="w-full bg-[#34D399] hover:bg-[#10B981] text-black font-black py-2.5 rounded-lg text-[11px] h-auto">
+                        Enroll Now - ₹4,999
+                      </Button>
+                    </Link>
                   </div>
                 </motion.div>
               </div>
               
               {/* Thumbnails */}
               <div className="grid grid-cols-4 gap-3">
-                {[courseTechnical, courseIntraday, courseOptions, coursePriceAction].map((img, i) => (
-                  <div key={i} className="rounded-lg overflow-hidden border border-white/10 aspect-video bg-[#0B1020] cursor-pointer hover:border-white/30 transition-all">
+                {[coursePriceAction, courseScalping, courseSwing, courseOptions].map((img, i) => (
+                  <div key={i} className="rounded-lg overflow-hidden border border-white/10 aspect-video bg-bg-secondary cursor-pointer hover:border-white/30 transition-all">
                     <img src={img} alt="Thumb" className="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity" />
                   </div>
                 ))}
@@ -715,7 +754,7 @@ export default function Courses() {
                   'Lifetime Community Access',
                   'Downloadable Resources'
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 text-sm text-gray-300 bg-white/[0.02] p-3 rounded-lg border border-white/5">
+                  <div key={i} className="flex items-center gap-3 text-sm text-gray-300 bg-white/2 p-3 rounded-lg border border-white/5">
                     <div className="w-5 h-5 rounded-full border border-[#00FF85]/30 flex items-center justify-center shrink-0">
                       <Check className="w-3 h-3 text-[#00FF85]" />
                     </div>
@@ -725,9 +764,11 @@ export default function Courses() {
               </div>
 
               <div className="flex flex-wrap gap-4 pt-4">
-                <Button className="bg-[#F4C542] hover:bg-[#D4AF37] text-black font-black px-8 py-4 rounded-xl flex items-center gap-2">
-                  Enroll Now - ₹4,999 <ArrowRight className="w-4 h-4" />
-                </Button>
+                <Link to="/enroll?course=Advanced%20Price%20Action">
+                  <Button className="bg-[#F4C542] hover:bg-[#D4AF37] text-black font-black px-8 py-4 rounded-xl flex items-center gap-2">
+                    Enroll Now - ₹4,999 <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
                 <button className="flex items-center justify-between px-6 py-4 rounded-xl border border-white/10 hover:bg-white/5 transition-all text-sm font-bold text-white group">
                   Watch Full Preview
                   <Play className="w-4 h-4 group-hover:translate-x-1 transition-transform ml-3" />
@@ -738,71 +779,50 @@ export default function Courses() {
         </div>
       </section>
 
-      {/* Your Learning Path */}
-      <section className="px-6 py-32">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-16">
-            <h2 className="text-3xl font-black uppercase tracking-tight mb-2">Your Learning Path</h2>
-            <p className="text-gray-500 text-sm">Step-by-step journey to become a profitable trader.</p>
-          </div>
 
-          <div className="relative">
-            {/* Connecting Line */}
-            <div className="absolute top-12 left-0 right-0 h-[2px] bg-white/5 hidden lg:block">
-               <div className="absolute top-0 left-0 h-full bg-linear-to-r from-[#00FF85] via-primary to-[#F4C542] w-[80%] opacity-30" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 relative z-10">
-              {learningPath.map((step, i) => (
-                <div key={i} className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
-                  <div className="relative">
-                    <div className="w-24 h-24 rounded-full bg-[#0B1020] border border-white/5 flex items-center justify-center relative z-20 group hover:border-primary/50 transition-colors cursor-default">
-                      {step.icon}
-                    </div>
-                    {/* Step Number Badge */}
-                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[#0B1020] border border-white/10 text-[10px] font-black text-gray-500 z-30">
-                      {step.id}
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-base font-bold text-white uppercase">{step.title}</h3>
-                    <p className="text-xs text-gray-500 leading-relaxed max-w-[200px]">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Final CTA */}
-      <section className="px-6 py-4">
-        <div className="max-w-[1400px] mx-auto relative rounded-2xl overflow-hidden bg-[#020617] border border-white/10 shadow-2xl">
-          {/* Background Image Layer */}
-          <div className="absolute inset-0 z-0">
-             <img src={editImage} alt="Background" className="w-full h-full object-cover opacity-100" />
-             <div className="absolute inset-0 bg-linear-to-r from-[#020617]/40 via-[#020617]/10 to-transparent" />
-          </div>
+      <section className="relative overflow-hidden min-h-[500px] max-md:min-h-auto flex items-center group">
+        {/* Full-width Background Image */}
+        <div className="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-105">
+          <img src={editImage} alt="Banner Background" className="w-full h-full object-cover max-md:object-[center_top]" />
+          {/* Mobile Overlay */}
+          <div className="absolute inset-0 bg-black/60 md:hidden" />
+          <div className="absolute inset-0 bg-linear-to-l from-[#020617] via-[#020617]/20 to-transparent" />
+        </div>
+   
+        <div className="max-w-[1700px] mx-auto px-6 md:px-10 relative z-10 py-24 w-full">
+          <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl md:text-4xl lg:text-5xl font-sans font-black text-white leading-none uppercase tracking-tighter"
+            >
+              Ready to Start Your <br />
+              <span className="text-gold">Trading Journey?</span>
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-gray-300 text-sm md:text-xl font-medium max-w-2xl leading-relaxed"
+            >
+              Join thousands of successful traders who have transformed their lives through our institutional-grade training and community.
+            </motion.p>
 
-          <div className="relative z-10 p-10 flex flex-col items-center justify-center gap-10 h-full">
-            {/* Main Content Stack */}
-            <div className="flex flex-col items-center text-center space-y-6 max-w-4xl">
-              <h2 className="text-xl md:text-3xl lg:text-4xl font-sans font-black text-white leading-tight">
-                Ready to Start Your <span className="text-[#F4C542]">Trading Journey?</span>
-              </h2>
-              <p className="text-white text-sm md:text-lg font-medium opacity-80 max-w-2xl">
-                Join thousands of successful traders and take the first step today!
-              </p>
-              <div className="pt-2">
-                <Button 
-                  to="/contact"
-                  size="lg" 
-                  className="bg-[#F4C542] hover:bg-[#D4AF37] text-black font-bold px-12 rounded-lg h-14 shadow-[0_4px_25px_rgba(244,197,66,0.25)] hover:scale-105 transition-all"
-                >
-                  Contact Us <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </div>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="pt-4"
+            >
+              <Button to="/contact" size="lg" className="bg-gold hover:bg-gold/90 text-black font-black px-12 rounded-xl h-16 shadow-[0_10px_40px_rgba(244,197,66,0.3)] hover:scale-105 transition-all flex items-center gap-3 text-[13px] uppercase tracking-widest">
+                Start My Journey Now <ArrowRight className="w-5 h-5" />
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>

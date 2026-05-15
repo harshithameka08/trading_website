@@ -38,7 +38,7 @@ export default function Platform() {
               ))}
             </ul>
             <div className="pt-6">
-              <Button size="lg" className="px-10">Explore Terminal Features</Button>
+              <Button to="/login" size="lg" className="px-10">Explore Terminal Features</Button>
             </div>
           </motion.div>
 
@@ -97,19 +97,19 @@ export default function Platform() {
               <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">Learning Tier</Badge>
               <h3 className="text-3xl font-bold font-display leading-tight">Master Classes & Mentorship</h3>
               <p className="text-gray-500">Access thousands of hours of high-definition trading education from world-class performance mentors.</p>
-              <Button variant="ghost" className="p-0 hover:bg-transparent text-primary">View Classes →</Button>
+              <Button to="/courses" variant="ghost" className="p-0 hover:bg-transparent text-primary">View Classes →</Button>
             </Card>
             <Card className="p-10 space-y-6">
               <Badge className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20">Data Tier</Badge>
               <h3 className="text-3xl font-bold font-display leading-tight">Institutional Market Data</h3>
               <p className="text-gray-500">Zero-latency data feeds for Stocks, Forex, and Crypto through our global server network.</p>
-              <Button variant="ghost" className="p-0 hover:bg-transparent text-primary">View Data Coverage →</Button>
+              <Button to="/login" variant="ghost" className="p-0 hover:bg-transparent text-primary">View Data Coverage →</Button>
             </Card>
             <Card className="p-10 space-y-6">
               <Badge className="bg-primary/10 text-primary border-primary/20">AI Tier</Badge>
               <h3 className="text-3xl font-bold font-display leading-tight">Autonomous Analysis</h3>
               <p className="text-gray-500">Let our proprietary neural networks scan the markets for you 24/7/365 while you sleep.</p>
-              <Button variant="ghost" className="p-0 hover:bg-transparent text-primary">Explore AI Tools →</Button>
+              <Button to="/login" variant="ghost" className="p-0 hover:bg-transparent text-primary">Explore AI Tools →</Button>
             </Card>
           </div>
         </section>

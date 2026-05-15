@@ -11,10 +11,10 @@ import traderWorkstation from '../trader_workstation_1778565817961.png';
 import aboutImage from '../aboutimage.png';
 import liveChart from '../live_session_new.png';
 import courseTechnical from '../course_technical.png';
-import courseIntraday from '../course_intraday.png';
-import courseOptions from '../course_options.png';
-import courseSwing from '../course_swing.png';
-import coursePriceAction from '../course_price_action.png';
+import courseIntraday from '../course_scalping_v2.png';
+import courseOptions from '../course_options_v2.png';
+import courseSwing from '../course_swing_v2.png';
+import coursePriceAction from '../course_price_action_v2.png';
 import coursePsychology from '../course_psychology.png';
 import avatar1 from '../avatar_1.png';
 import avatar2 from '../avatar_2.png';
@@ -23,6 +23,7 @@ import avatar3 from '../avatar_3.png';
 import avatar4 from '../avatar_4.png';
 import avatar5 from '../avatar_5.png';
 import avatar6 from '../avatar_6.png';
+import homeImage2 from '../home-image2.jpg';
 
 export default function Home() {
   return (
@@ -33,7 +34,6 @@ export default function Home() {
       <AboutSection />
       <CoursesSection />
       <LiveExperienceSection />
-      <StrategySection />
       <FAQSection />
       <ContactBannerSection />
     </div>
@@ -42,23 +42,25 @@ export default function Home() {
 
 function HeroSection() {
   return (
-    <section className="relative min-h-[70vh] flex items-center pt-32 pb-16 overflow-hidden bg-[#020617]">
+    <section className="relative min-h-[70vh] max-md:min-h-[720px] max-md:h-auto flex items-center pt-32 pb-16 max-md:pt-[120px] max-md:pb-[80px] overflow-hidden bg-[#020617]">
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img 
           src={heroo} 
           alt="Hero Background" 
-          className="w-full h-full object-cover object-center lg:object-right opacity-80" 
+          className="w-full h-full object-cover object-center lg:object-right opacity-80 max-md:opacity-60 max-md:object-[70%_center] max-[480px]:object-[75%_center]" 
         />
+        {/* Mobile Readability Overlay */}
+        <div className="absolute inset-0 bg-linear-to-b from-black/78 to-black/55 md:hidden" />
         <div className="absolute inset-0 bg-linear-to-r from-[#020617] via-[#020617]/80 to-transparent lg:w-2/3" />
         <div className="absolute inset-0 bg-linear-to-t from-[#020617] via-transparent to-transparent" />
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-[1700px] mx-auto px-6 md:px-10 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-8"
+          className="space-y-8 max-md:max-w-[90%]"
         >
           
           <div className="space-y-4">
@@ -72,11 +74,11 @@ function HeroSection() {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-5">
-            <Button to="/courses" size="lg" className="bg-gold hover:bg-gold/90 text-black font-bold px-8 rounded-lg flex items-center gap-3 h-12 shadow-[0_0_20px_rgba(255,215,0,0.20)]">
+          <div className="flex flex-wrap max-md:flex-row max-md:gap-3 gap-5">
+            <Button to="/courses" size="lg" className="bg-gold hover:bg-gold/90 text-black font-bold px-8 rounded-lg flex items-center gap-3 h-12 shadow-[0_0_20px_rgba(255,215,0,0.20)] max-md:px-5 max-md:text-[13px]">
               Explore Courses <ArrowRight className="w-4 h-4" />
             </Button>
-            <Button to="/live-classes" variant="outline" size="lg" className="border-white/10 text-white hover:bg-white/10 px-8 rounded-lg flex items-center gap-3 h-12 bg-white/5 backdrop-blur-sm">
+            <Button to="/live-classes" variant="outline" size="lg" className="border-white/10 text-white hover:bg-white/10 px-8 rounded-lg flex items-center gap-3 h-12 bg-white/5 backdrop-blur-sm max-md:px-5 max-md:text-[13px]">
               Join Live Class <Video className="w-4 h-4 text-gray-300" />
             </Button>
           </div>
@@ -88,15 +90,7 @@ function HeroSection() {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="relative lg:h-[500px] flex items-center justify-center"
         >
-          <div className="absolute top-[20%] right-[10%] z-20 px-4 py-3 bg-[#020617]/80 border border-white/10 rounded-xl shadow-2xl animate-float backdrop-blur-xl flex items-center gap-3">
-             <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
-                <TrendingUp className="w-4 h-4 text-green-500" />
-             </div>
-             <div>
-                <div className="text-lg font-black text-green-500 leading-none">+23.68%</div>
-                <div className="text-[10px] text-gray-400 font-medium">This Month Profit</div>
-             </div>
-          </div>
+
         </motion.div>
       </div>
     </section>
@@ -114,7 +108,7 @@ function StatsSection() {
 
   return (
     <section className="py-12 bg-[#020617] border-b border-white/5">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+      <div className="max-w-[1700px] mx-auto px-6 md:px-10">
         <div className="bg-[#050b1a] border border-white/5 rounded-2xl flex flex-wrap justify-between items-center py-8 px-10 gap-y-8">
           {stats.map((s, i) => (
             <React.Fragment key={i}>
@@ -170,14 +164,18 @@ function AnimatedNumber({ end, suffix }: { end: number, suffix: string }) {
 
 function AboutSection() {
   return (
-    <section className="relative pt-8 pb-10 px-6 md:px-10 overflow-hidden min-h-[500px] flex items-center bg-[#020617]">
-      <div className="absolute inset-0 z-0">
-        <img src={aboutImage} alt="About Us Background" className="w-full h-full object-cover object-center lg:object-right opacity-50" />
+    <section className="relative pt-8 pb-10 px-6 md:px-10 overflow-hidden min-h-[500px] max-md:min-h-auto max-md:py-24 flex items-center bg-[#020617]">
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <img 
+          src={homeImage2} 
+          alt="About Us Background" 
+          className="absolute right-0 top-1/2 -translate-y-1/2 h-[120%] w-auto object-contain opacity-40 scale-75 lg:scale-90 max-md:h-full max-md:w-full max-md:object-cover max-md:object-center max-md:opacity-10 max-md:scale-100" 
+        />
         <div className="absolute inset-0 bg-linear-to-r from-[#020617] via-[#020617]/90 to-transparent lg:w-2/3" />
         <div className="absolute inset-0 bg-linear-to-t from-[#020617] via-transparent to-transparent" />
       </div>
 
-      <div className="max-w-[1400px] mx-auto w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
+      <div className="max-w-[1700px] mx-auto w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
         <div className="space-y-8 pr-0 lg:pr-10">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
@@ -207,8 +205,8 @@ function AboutSection() {
             ))}
           </div>
 
-          <Button to="/about" variant="outline" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm rounded-xl px-6 h-11 text-xs font-medium flex items-center gap-2 mt-6">
-            Know More About Us <ArrowRight className="w-4 h-4" />
+          <Button to="/about" variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm rounded-xl px-5 h-10 font-medium flex items-center gap-2 mt-6 w-fit">
+            Know More About Us <ArrowRight className="w-3.5 h-3.5" />
           </Button>
         </div>
         <div className="hidden lg:block relative h-full"></div>
@@ -233,7 +231,7 @@ function CoursesSection() {
 
   return (
     <section className="pt-2 pb-10 px-6 md:px-10 bg-[#020617]">
-      <div className="max-w-[1400px] mx-auto">
+      <div className="max-w-[1700px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
           <div className="space-y-2">
             <span className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em]">POPULAR COURSES</span>
@@ -283,9 +281,11 @@ function CoursesSection() {
                   </div>
 
                   <div className="pt-5 mt-auto flex items-center justify-between border-t border-white/5">
-                    <Button to={`/course/${c.id}`} className="bg-gold hover:bg-gold/90 text-black font-bold px-4 py-2 rounded h-auto text-[11px]">
-                      Enroll Now
-                    </Button>
+                    <Link to={`/enroll?course=${encodeURIComponent(c.title)}`}>
+                      <Button className="bg-gold hover:bg-gold/90 text-black font-bold px-4 py-2 rounded h-auto text-[11px]">
+                        Enroll Now
+                      </Button>
+                    </Link>
                     <Link to={`/course/${c.id}`}>
                       <Button variant="outline" className="border-white/20 text-white hover:bg-white hover:text-black font-bold px-4 py-2 rounded h-auto text-[11px] transition-colors">
                         View Course
@@ -303,134 +303,119 @@ function CoursesSection() {
 
 function LiveExperienceSection() {
   return (
-    <section className="pt-10 pb-10 px-6 md:px-10 bg-[#020617] border-y border-white/5">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="space-y-2 mb-12">
-          <span className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em]">LIVE SESSION</span>
-          <h2 className="text-3xl md:text-4xl font-sans font-black text-white flex flex-wrap items-center gap-x-2">
-            <div className="relative inline-block mr-1">
-              Join Our
-              <div className="absolute -bottom-1 left-0 w-8 h-[2px] bg-white rounded-full"></div>
-            </div>
-            <span className="text-gold">Live</span> <span className="text-primary">Trading Sessions</span>
-          </h2>
-        </div>
-
-        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-10 items-center">
-          <div className="relative rounded-xl overflow-hidden bg-[#050b1a] aspect-video border border-white/10 shadow-2xl group p-1 cursor-pointer">
-             <div className="relative w-full h-full rounded-lg overflow-hidden">
-               <img src={liveChart} alt="Live Session" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
-               <div className="absolute top-4 left-4 flex items-center gap-1.5 px-2.5 py-1 bg-red-600 rounded text-[9px] font-bold text-white uppercase tracking-wider z-30">
-                  <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> LIVE
-               </div>
-               <div className="absolute inset-0 flex bg-black/20 group-hover:bg-black/30 transition-all duration-500 z-10">
-                  <div className="absolute inset-0 bg-gradient-to-tl from-[#020617] via-[#020617]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 hover:scale-105 transition-all absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:opacity-0 z-20">
-                     <Play className="w-5 h-5 fill-current ml-1" />
-                  </div>
-                  <div className="absolute bottom-12 right-6 grid grid-cols-2 gap-x-6 gap-y-4 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                     {[
-                       { icon: TrendingUp, title: 'Live Market Analysis', color: 'text-gold' },
-                       { icon: Calendar, title: 'Real-time Trading', color: 'text-gold' },
-                       { icon: MessageSquare, title: 'Q&A with Experts', color: 'text-primary' },
-                       { icon: MessageSquare, title: 'Live Chat Support', color: 'text-gold' },
-                     ].map((f, i) => (
-                       <div key={i} className="flex items-center gap-3 text-gray-300">
-                          <div className={cn("w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0", f.color)}>
-                            <f.icon className="w-4 h-4" strokeWidth={2} />
-                          </div>
-                          <span className="text-[11px] font-bold text-white whitespace-nowrap">{f.title}</span>
+    <section className="py-24 px-6 md:px-10 bg-[#020617] relative overflow-hidden">
+      {/* Cinematic Background Elements */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none opacity-50" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] pointer-events-none opacity-30" />
+      
+      <div className="max-w-[1700px] mx-auto relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          
+          {/* Left Side: Cinematic Video Player */}
+          <div className="lg:col-span-7 relative group order-2 lg:order-1">
+            <div className="relative rounded-[2.5rem] overflow-hidden bg-[#050b1a] aspect-video border border-white/5 shadow-2xl transition-all duration-700 group-hover:border-primary/20 p-1.5">
+               <div className="relative w-full h-full rounded-[2rem] overflow-hidden">
+                 <img src={liveChart} alt="Live Session" className="w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-1000" />
+                 
+                 {/* Player HUD Overlays */}
+                 <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent z-10" />
+                 
+                 {/* Top HUD Widgets */}
+                 <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-20">
+                    <div className="flex gap-3">
+                       <div className="px-3 py-1.5 rounded-xl bg-red-600/20 border border-red-600/30 backdrop-blur-md flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
+                          <span className="text-red-500 text-[9px] font-black uppercase tracking-widest">Live</span>
                        </div>
-                     ))}
-                  </div>
-               </div>
-               <div className="absolute bottom-4 left-4 flex items-center gap-3 z-30">
-                  <Play className="w-4 h-4 text-white fill-current group-hover:text-gold transition-colors" />
-                  <div className="w-4 h-4 bg-white/20 rounded-sm"></div>
-                  <span className="text-white/80 text-[10px] font-medium ml-2">08:45 / 09:23</span>
-               </div>
-               <div className="absolute bottom-4 right-4 flex items-center gap-3 text-white/80 z-30">
-                  <Wifi className="w-4 h-4 cursor-pointer hover:text-white transition-colors" />
-                  <Monitor className="w-4 h-4 cursor-pointer hover:text-white transition-colors" />
-               </div>
-             </div>
-          </div>
+                       <div className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 backdrop-blur-md flex items-center gap-2">
+                          <Activity className="w-3.5 h-3.5 text-primary" />
+                          <span className="text-white text-[9px] font-black uppercase tracking-widest">4K Ultra</span>
+                       </div>
+                    </div>
+                    <div className="px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 backdrop-blur-md flex items-center gap-2">
+                       <Users className="w-3.5 h-3.5 text-primary" />
+                       <span className="text-white text-[9px] font-black uppercase tracking-widest">1.2K Watching</span>
+                    </div>
+                 </div>
 
-          <div className="bg-[#050b1a] border border-white/5 rounded-2xl p-8 relative overflow-hidden shadow-2xl lg:ml-auto w-full max-w-[380px]">
-             <span className="text-[11px] text-gold font-medium tracking-wide">Upcoming Live Session</span>
-             <h3 className="text-[22px] font-bold text-white mt-1 mb-6 relative inline-block">
-               Live Market Analysis
-               <div className="absolute -bottom-2 left-0 w-6 h-[2px] bg-gray-500 rounded-full"></div>
-             </h3>
-             <div className="space-y-4 mb-8 mt-4">
-               <div className="flex items-center gap-3 text-gray-300 text-sm font-medium">
-                  <Calendar className="w-4 h-4 text-gold" /> 25 May, 2024
+                 {/* Center Play Button */}
+                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                    <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-xl border border-primary/30 flex items-center justify-center group/play cursor-pointer hover:bg-primary/30 transition-all duration-500 scale-100 hover:scale-110 shadow-[0_0_40px_rgba(0,229,255,0.15)]">
+                       <Play className="w-8 h-8 text-white fill-primary ml-1" />
+                    </div>
+                 </div>
+
+                 {/* Bottom Metadata */}
+                 <div className="absolute bottom-8 left-8 right-8 z-20">
+                    <div className="flex items-end justify-between">
+                       <div className="space-y-1">
+                          <p className="text-primary text-[9px] font-black uppercase tracking-[0.2em]">Live Session</p>
+                          <h4 className="text-white font-black text-xl uppercase tracking-tight">Market Structure Breakout</h4>
+                       </div>
+                       <div className="flex -space-x-2">
+                          {[avatar1, avatar2, avatar3].map((av, i) => (
+                            <div key={i} className="w-7 h-7 rounded-full border-2 border-black overflow-hidden shadow-xl">
+                               <img src={av} alt="viewer" className="w-full h-full object-cover" />
+                            </div>
+                          ))}
+                       </div>
+                    </div>
+                 </div>
                </div>
-               <div className="flex items-center gap-3 text-gray-300 text-sm font-medium">
-                  <Clock className="w-4 h-4 text-gold" /> 08:00 PM IST
-               </div>
-             </div>
-             <Button to="/live-classes" className="w-full bg-gold hover:bg-gold/90 text-black font-bold h-12 rounded-lg flex items-center justify-between px-5 mb-6 transition-all">
-                <span>Join Live Session</span> <ArrowRight className="w-4 h-4" />
-             </Button>
-             <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                   {[avatar1, avatar2, avatar3, avatar4].map((av, i) => (
-                     <div key={i} className="w-7 h-7 rounded-full border border-[#050b1a] overflow-hidden">
-                        <img src={av} alt="user" className="w-full h-full object-cover grayscale opacity-80" />
-                     </div>
-                   ))}
+            </div>
+
+            {/* Floating Achievement Widget */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              className="absolute -bottom-8 -right-8 hidden xl:block z-30"
+            >
+              <div className="bg-[#050b1a]/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-5 min-w-[240px]">
+                <div className="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center">
+                  <Trophy className="w-6 h-6 text-gold" />
                 </div>
-                <span className="text-[10px] text-gray-500 font-medium tracking-wide">200+ People Registered</span>
-             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function StrategySection() {
-  const steps = [
-    { num: '1', title: 'Learn The Basics', desc: 'Build a strong foundation in trading concepts and market understanding.', icon: BookOpen },
-    { num: '2', title: 'Develop Strategy', desc: 'Create and test your own trading strategy with discipline.', icon: Layers },
-    { num: '3', title: 'Risk Management', desc: 'Protect your capital with proper risk management techniques.', icon: Shield },
-    { num: '4', title: 'Stay Consistent', desc: 'Stay patient, follow your plan, and be consistent for long-term success.', icon: Target },
-  ];
-
-  return (
-    <section className="pt-10 pb-10 px-6 md:px-10 bg-[#020617]">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="space-y-2 mb-16">
-          <span className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em]">4 STEPS</span>
-          <h2 className="text-3xl md:text-4xl font-sans font-black text-white">
-            4 Steps To <span className="text-gold">Win</span> In Trading
-          </h2>
-        </div>
-
-        <div className="relative">
-          <div className="hidden lg:block absolute top-[40px] left-10 right-10 h-px bg-white/5 border-t border-dashed border-white/20" />
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-6">
-            {steps.map((s, i) => (
-              <div key={i} className="relative flex flex-col sm:flex-row lg:flex-col gap-6 group">
-                <div className="relative shrink-0 self-start lg:self-center">
-                  <div className="w-20 h-20 rounded-2xl bg-[#050b1a] border border-white/10 flex flex-col items-center justify-center relative z-10 group-hover:border-primary/50 group-hover:bg-primary/5 transition-colors shadow-xl">
-                    <s.icon className={cn("w-6 h-6 mb-1", i === 0 ? "text-primary" : "text-gold")} />
-                    <span className="text-[10px] font-black text-gray-500">{s.num}</span>
-                  </div>
-                  {i < steps.length - 1 && (
-                     <div className="hidden lg:flex absolute top-1/2 -right-8 -translate-y-1/2 z-20 text-white/20 group-hover:text-primary/50 transition-colors">
-                        <ChevronRight className="w-6 h-6" />
-                     </div>
-                  )}
-                </div>
-                <div className="lg:text-center mt-2 lg:mt-6">
-                  <h4 className="text-lg font-bold text-white mb-2">{s.title}</h4>
-                  <p className="text-xs text-gray-400 leading-relaxed font-medium px-0 lg:px-4">{s.desc}</p>
+                <div>
+                  <p className="text-xl font-black text-white leading-none">82% Win Rate</p>
+                  <p className="text-[9px] font-bold uppercase tracking-widest mt-1 text-gold">Institutional Grade</p>
                 </div>
               </div>
-            ))}
+            </motion.div>
           </div>
+
+          {/* Right Side: Content & Action */}
+          <div className="lg:col-span-5 space-y-10 order-1 lg:order-2">
+            <div className="space-y-6">
+              <h2 className="text-3xl md:text-5xl font-sans font-black text-white leading-tight uppercase">
+                Master The <br />
+                <span className="text-gold">Live Markets</span>
+              </h2>
+              <p className="text-gray-400 text-base md:text-lg font-medium leading-relaxed max-w-lg">
+                Stop trading alone. Join our elite community to see exactly how professionals navigate market structure and execute high-probability setups in real-time.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-8 py-4 border-y border-white/5">
+              {[
+                { label: 'Daily Analysis', val: '2 Sessions', icon: Activity },
+                { label: 'Trade Signals', val: 'Real-time', icon: Zap },
+              ].map((s, i) => (
+                <div key={i} className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <s.icon className="w-4 h-4 text-gold" />
+                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{s.label}</span>
+                  </div>
+                  <p className="text-xl font-black text-white uppercase">{s.val}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button to="/live-classes" className="bg-primary hover:bg-primary/90 text-black font-black px-10 rounded-2xl h-16 shadow-[0_10px_30px_rgba(0,229,255,0.2)] flex items-center gap-3 text-[13px] uppercase tracking-widest">
+                Access Live Desk <ArrowRight className="w-5 h-5" />
+              </Button>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -462,7 +447,7 @@ function FAQSection() {
           {faqs.map((f, i) => (
             <div 
               key={i} 
-              className={cn("bg-[#050b1a] border border-white/5 transition-all cursor-pointer hover:bg-white/[0.02]", openIndex === i ? "rounded-[30px] py-6 px-10 border-white/10 shadow-[0_0_20px_rgba(0,229,255,0.05)]" : "rounded-full py-5 px-10")}
+              className={cn("bg-[#050b1a] border border-white/5 transition-all cursor-pointer hover:bg-white/2", openIndex === i ? "rounded-[30px] py-6 px-10 border-white/10 shadow-[0_0_20px_rgba(0,229,255,0.05)]" : "rounded-full py-5 px-10")}
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
             >
               <div className="flex justify-between items-center gap-6">
@@ -493,27 +478,45 @@ function FAQSection() {
 
 function ContactBannerSection() {
   return (
-    <section className="pt-10 pb-20 px-6 md:px-10 bg-[#020617]">
-      <div className="max-w-[1400px] mx-auto relative rounded-xl overflow-hidden shadow-2xl min-h-[140px] border border-white/5">
-        <div className="absolute inset-0">
-          <img src={editImage} alt="Banner Background" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-black/20" />
-        </div>
-
-        <div className="relative z-10 p-8 md:px-16 flex flex-col items-center justify-center gap-10 h-full">
-          <div className="flex flex-col items-center text-center space-y-6 max-w-4xl">
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-sans font-black text-white leading-tight">
-              Ready to Start Your <span className="text-gold">Trading Journey?</span>
-            </h2>
-            <p className="text-white text-sm md:text-lg font-medium opacity-80 max-w-2xl">
-              Join thousands of successful traders and take the first step today!
-            </p>
-            <div className="pt-2">
-              <Button to="/contact" size="lg" className="bg-gold hover:bg-gold/90 text-black font-bold px-12 rounded-lg h-14 shadow-[0_4px_25px_rgba(255,215,0,0.25)] hover:scale-105 transition-all">
-                Contact Us <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </div>
-          </div>
+    <section className="relative overflow-hidden min-h-[500px] max-md:min-h-auto flex items-center group">
+      <div className="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-105">
+        <img src={editImage} alt="Banner Background" className="w-full h-full object-cover max-md:object-[center_top]" />
+        {/* Mobile Overlay */}
+        <div className="absolute inset-0 bg-black/60 md:hidden" />
+        <div className="absolute inset-0 bg-linear-to-l from-[#020617] via-[#020617]/20 to-transparent" />
+      </div>
+ 
+      <div className="max-w-[1700px] mx-auto px-6 md:px-10 relative z-10 py-24 w-full">
+        <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl lg:text-5xl font-sans font-black text-white leading-none uppercase tracking-tighter"
+          >
+            Ready to Start Your <br />
+            <span className="text-gold">Trading Journey?</span>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-gray-300 text-sm md:text-xl font-medium max-w-2xl leading-relaxed"
+          >
+            Join thousands of successful traders who have transformed their lives through our institutional-grade training and community.
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="pt-4 w-full flex justify-center"
+          >
+            <Button to="/contact" size="lg" className="bg-gold hover:bg-gold/90 text-black font-black px-12 rounded-xl h-16 shadow-[0_10px_40px_rgba(244,197,66,0.3)] hover:scale-105 transition-all flex items-center gap-3 text-[13px] uppercase tracking-widest max-md:w-full max-md:max-w-md max-md:justify-center">
+              Start My Journey Now <ArrowRight className="w-5 h-5" />
+            </Button>
+          </motion.div>
         </div>
       </div>
     </section>

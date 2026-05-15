@@ -19,11 +19,11 @@ export default function Community() {
       <div className="max-w-7xl mx-auto">
         <header className="mb-20 text-center space-y-6">
           <Badge>Connect & Dominate</Badge>
-          <h1 className="text-6xl md:text-8xl font-display font-extrabold tracking-tight">The Signal <span className="text-primary italic">Hub</span></h1>
+          <h1 className="text-5xl md:text-8xl font-display font-extrabold tracking-tight">The Signal <span className="text-primary italic">Hub</span></h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">Real-time collaboration across global markets. Join 50K+ elite traders sharing alpha every second.</p>
           <div className="flex justify-center gap-6 pt-4">
-             <Button size="lg" className="px-10">Launch Discord Hub</Button>
-             <Button variant="secondary" size="lg" className="px-10">Explore Voice Rooms</Button>
+             <Button to="/login" size="lg" className="px-10">Launch Discord Hub</Button>
+             <Button to="/login" variant="secondary" size="lg" className="px-10">Explore Voice Rooms</Button>
           </div>
         </header>
 
@@ -37,7 +37,7 @@ export default function Community() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.1 }}
                   >
-                    <Card className="p-8 border-white/5 bg-white/[0.02] group hover:border-primary/40 transition-all cursor-pointer">
+                    <Card className="p-8 border-white/5 bg-white/2 group hover:border-primary/40 transition-all cursor-pointer">
                        <div className="flex justify-between items-start mb-6">
                           <div className={cn(
                              "w-12 h-12 rounded-2xl flex items-center justify-center transition-colors shadow-inner",
@@ -94,12 +94,12 @@ export default function Community() {
           </div>
 
           <div className="lg:col-span-4 space-y-10">
-             <Card className="p-8 border-primary/20 shadow-[0_0_50px_rgba(182,255,59,0.05)] bg-primary/[0.02]">
+             <Card className="p-8 border-primary/20 shadow-[0_0_50px_rgba(182,255,59,0.05)] bg-primary/2">
                 <h3 className="text-2xl font-bold mb-6">Elite <span className="text-primary italic">Leaderboard</span></h3>
                 <div className="space-y-6">
                    {[
                      { rank: 1, name: 'Deepak Rao', pnl: '+$42,102', grow: '+12.5%' },
-                     { rank: 2, name: 'Sarah Chen', pnl: '+$38,901', grow: '+10.2%' },
+                     { rank: 2, name: 'Michael', pnl: '+$38,901', grow: '+10.2%' },
                      { rank: 3, name: 'Marco V.', pnl: '+$24,670', grow: '+8.4%' },
                      { rank: 4, name: 'Vikram S.', pnl: '+$19,230', grow: '+7.1%' },
                    ].map((u) => (
@@ -116,7 +116,7 @@ export default function Community() {
                      </div>
                    ))}
                 </div>
-                <Button variant="secondary" className="w-full mt-10 uppercase text-xs tracking-widest py-4">View All Standings</Button>
+                <Button to="/login" variant="secondary" className="w-full mt-10 uppercase text-xs tracking-widest py-4">View All Standings</Button>
              </Card>
 
              <Card className="p-8 border-white/5 space-y-8">

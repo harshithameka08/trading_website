@@ -1,553 +1,501 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { courses } from './Courses';
-import { Button, Badge, Card } from '@/src/components/UI';
+import { Button, Badge } from '@/src/components/UI';
 import { 
   ArrowLeft, Clock, BookOpen, Star, Users, CheckCircle, Play, 
   ChevronRight, ChevronLeft, Download, Bookmark, ShieldCheck,
   Video, FileText, ChevronDown, Monitor, Layout, Search, Bell,
-  Target, Globe, Shield, Award, Check, TrendingUp
+  Target, Globe, Shield, Award, Check, TrendingUp, Lock, Sparkles, Share2, MessageSquare,
+  Instagram, Linkedin, Youtube, Send
 } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 
 // Assets
 import avatar1 from '../avatar_1.png';
-import coursePriceAction from '../course_price_action.png';
-import editImage from '../editimage.png';
 
 export default function CourseDetails() {
   const { id } = useParams<{ id: string }>();
-  const [activeModule, setActiveModule] = React.useState(1);
-  const [activeTab, setActiveTab] = React.useState('Curriculum');
+  const [activeTab, setActiveTab] = React.useState('Overview');
+  const [expandedModule, setExpandedModule] = React.useState<number | null>(2);
   
   const course = courses.find(c => c.id === Number(id)) || courses[0];
 
   return (
-    <div className="bg-[#020617] min-h-screen text-white font-sans selection:bg-gold/30 pt-24">
-      {/* Breadcrumb / Top Navigation */}
-      <div className="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3 text-gray-500 text-xs font-bold uppercase tracking-widest">
-          <Link to="/courses" className="hover:text-white flex items-center gap-2">
-            <ChevronLeft className="w-4 h-4" /> Courses
+    <div className="bg-[#020617] min-h-screen text-white font-sans selection:bg-gold/30 pt-28">
+      {/* Dynamic Background Elements */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/5 rounded-full blur-[150px] animate-pulse" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-gold/5 rounded-full blur-[120px]" />
+      </div>
+
+      <div className="relative z-10">
+        {/* Navigation Bar */}
+        <div className="max-w-[1700px] mx-auto px-6 mb-8 flex items-center justify-between">
+          <Link to="/courses" className="group flex items-center gap-3 text-gray-400 hover:text-white transition-all text-xs font-black uppercase tracking-widest bg-white/5 border border-white/5 px-6 py-3 rounded-2xl hover:bg-white/10">
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            Back to Library
           </Link>
-          <span>/</span>
-          <span className="text-gray-300">{course.title}</span>
-        </div>
-      </div>
-
-      {/* Main Hero / Info Section */}
-      <section className="px-6 py-8">
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-8 items-start">
-          {/* Left: Video Preview */}
-          <div className="lg:col-span-5">
-            <div className="relative rounded-3xl overflow-hidden aspect-video border border-white/10 shadow-2xl group cursor-pointer">
-              <img src={course.img} alt={course.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8">
-                <div className="space-y-4">
-                  <div className="text-3xl font-black leading-tight uppercase">
-                    {course.title.split(' ').slice(0, -1).join(' ')} <br />
-                    <span className="text-[#00FF85]">{course.title.split(' ').slice(-1)}</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <Badge className={cn("text-black border-none text-[8px] font-black", course.badgeColor || "bg-[#F4C542]")}>
-                      {course.badge || 'BESTSELLER'}
-                    </Badge>
-                    <Badge className="bg-blue-500 text-white border-none text-[8px] font-black">LIVE + RECORDED</Badge>
-                    <Badge className="bg-purple-600 text-white border-none text-[8px] font-black">{course.level.toUpperCase()}</Badge>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/30 group-hover:scale-110 transition-all shadow-2xl">
-                  <Play className="w-8 h-8 fill-white text-white ml-1" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Middle: Course Text Info */}
-          <div className="lg:col-span-4 space-y-6">
-            <h1 className="text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-              {course.title}
-            </h1>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-md">
-              {course.desc}
-            </p>
-            
-            <div className="flex items-center gap-4 py-4">
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/10">
-                <img src={course.avatars?.[0] || avatar1} alt={course.mentor} className="w-full h-full object-cover" />
-              </div>
-              <div>
-                <p className="text-white font-bold flex items-center gap-1">
-                  By {course.mentor} <CheckCircle className="w-3.5 h-3.5 text-blue-500 fill-blue-500/20" />
-                </p>
-                <p className="text-gray-500 text-[10px] font-bold uppercase tracking-wider">Market Expert & Mentor</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <span className="text-xl font-bold">4.9</span>
-                <div className="flex text-gold">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-gold" />)}
-                </div>
-                <span className="text-gray-500 text-xs">(2,450 Reviews)</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-5 gap-4 border-t border-white/5 pt-6">
-              {[
-                { label: course.duration.split(' ')[0], sub: course.duration.split(' ')[1] || 'Hours', icon: <Clock className="w-4 h-4 text-gold" /> },
-                { label: course.lessons.split(' ')[0], sub: 'Lessons', icon: <BookOpen className="w-4 h-4 text-gold" /> },
-                { label: course.students, sub: 'Students', icon: <Users className="w-4 h-4 text-gold" /> },
-                { label: 'Lifetime', sub: 'Access', icon: <ShieldCheck className="w-4 h-4 text-gold" /> },
-                { label: 'Cert.', sub: 'Included', icon: <Award className="w-4 h-4 text-gold" /> }
-              ].map((stat, i) => (
-                <div key={i} className="text-center space-y-1">
-                  <div className="flex justify-center">{stat.icon}</div>
-                  <p className="text-xs font-black text-white">{stat.label}</p>
-                  <p className="text-[9px] text-gray-500 font-bold uppercase tracking-tighter">{stat.sub}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right: Pricing Card */}
-          <div className="lg:col-span-3 lg:sticky top-32">
-            <Card className="bg-[#0B1020] border-white/10 p-8 rounded-3xl space-y-6 shadow-2xl">
-              <div className="flex items-center justify-between">
-                <div className="flex items-end gap-2">
-                  <span className="text-3xl font-black">{course.price}</span>
-                  <span className="text-gray-500 line-through text-sm mb-1">₹{parseInt(course.price.replace(/[^\d]/g, '')) * 2}</span>
-                </div>
-                <Badge className="bg-[#00FF85]/20 text-[#00FF85] border-none font-black text-[10px]">50% OFF</Badge>
-              </div>
-
-              <div className="space-y-4">
-                <Button className="w-full h-14 bg-[#F4C542] hover:bg-[#D4AF37] text-black font-black uppercase tracking-widest text-sm rounded-xl shadow-[0_8px_30px_rgba(244,197,66,0.3)]">
-                  Continue Learning
-                </Button>
-                <Button variant="outline" className="w-full h-12 border-white/10 hover:bg-white/5 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2">
-                  <Bookmark className="w-4 h-4" /> Add to Wishlist
-                </Button>
-              </div>
-
-              <div className="space-y-3 pt-4">
-                <div className="flex items-center gap-3 text-[11px] text-gray-300 font-medium">
-                  <Check className="w-4 h-4 text-[#00FF85]" />
-                  <span>30-Day Money Back Guarantee</span>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Course Navigation Tabs */}
-      <div className="max-w-[1400px] mx-auto px-6 border-b border-white/5">
-        <div className="flex gap-8 overflow-x-auto no-scrollbar">
-          {['Overview', 'Curriculum', 'Live Classes', 'Recorded Classes', 'Notes', 'Resources', 'Reviews (2,350)', 'Q&A'].map((tab) => (
-            <button 
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={cn(
-                "py-6 text-[13px] font-bold whitespace-nowrap transition-all border-b-2",
-                activeTab === tab ? "border-[#F4C542] text-[#F4C542]" : "border-transparent text-gray-500 hover:text-white"
-              )}
-            >
-              {tab}
+          <div className="flex gap-4">
+            <button className="p-3 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all text-gray-400 hover:text-white">
+              <Share2 className="w-4 h-4" />
             </button>
-          ))}
+            <button className="p-3 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all text-gray-400 hover:text-white">
+              <Bookmark className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* Main Dashboard Content */}
-      <section className="px-6 py-12">
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-8">
-          
-          {/* Sidebar: Curriculum */}
-          <div className="lg:col-span-3 space-y-6">
-            <div className="bg-[#050816] rounded-2xl border border-white/5 overflow-hidden shadow-2xl">
-              <div className="p-6 border-b border-white/5">
-                <h3 className="font-sans font-black uppercase tracking-tight text-base mb-6">Course Curriculum</h3>
+        {/* Hero Experience Section */}
+        <section className="px-6 pb-12">
+          <div className="max-w-[1700px] mx-auto grid lg:grid-cols-12 gap-12 items-center">
+            {/* Left Column: Visual Hook */}
+            <div className="lg:col-span-7">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="relative rounded-[2.5rem] overflow-hidden aspect-video border border-white/10 bg-bg-main shadow-[0_40px_100px_rgba(0,0,0,0.5)] group"
+              >
+                <img 
+                  src={course.img} 
+                  alt={course.title} 
+                  className="w-full h-full object-cover opacity-60 transition-transform duration-1000 group-hover:scale-105" 
+                />
                 
-                <div className="space-y-3">
-                  <div className="flex justify-between text-[11px] font-bold text-gray-400">
-                    <span className="uppercase tracking-widest">Your Progress</span>
-                    <span>35% Complete</span>
-                  </div>
-                  <div className="h-1 bg-white/5 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#00FF85] w-[35%] transition-all duration-1000" />
+                {/* Overlay Elements */}
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent p-12 flex flex-col justify-end">
+                  <div className="space-y-6 max-w-2xl">
+                    <div className="flex gap-3">
+                      <Badge className="bg-gold text-black border-none text-[10px] font-black tracking-widest px-5 py-2">
+                        INSTITUTIONAL GRADE
+                      </Badge>
+                      <Badge className="bg-white/10 backdrop-blur-md text-white border-white/10 text-[10px] font-black tracking-widest px-5 py-2">
+                        {course.level.toUpperCase()}
+                      </Badge>
+                    </div>
+                    <h1 className="text-5xl lg:text-7xl font-display font-black leading-[1.1] uppercase tracking-tighter">
+                      {course.title.split(' ').slice(0, -1).join(' ')} <br />
+                      <span className="text-gold">{course.title.split(' ').slice(-1)}</span>
+                    </h1>
+                    <div className="flex items-center gap-8 text-sm font-bold text-gray-400">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-5 h-5 text-gold" />
+                        <span>{course.duration} TOTAL</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <BookOpen className="w-5 h-5 text-gold" />
+                        <span>48 LESSONS</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Users className="w-5 h-5 text-gold" />
+                        <span>2,450+ ENROLLED</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                {/* Big Play Button */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <motion.div 
+                    whileHover={{ scale: 1.1 }}
+                    className="w-24 h-24 rounded-full bg-gold/90 backdrop-blur-xl flex items-center justify-center border-4 border-white/20 shadow-[0_0_50px_rgba(244,197,66,0.4)] pointer-events-auto cursor-pointer"
+                  >
+                    <Play className="w-10 h-10 fill-black text-black ml-1.5" />
+                  </motion.div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Right Column: Key Benefits & Action */}
+            <div className="lg:col-span-5 space-y-10">
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl">
+                    <img src={avatar1} alt={course.mentor} className="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold flex items-center gap-2">
+                      {course.mentor} <CheckCircle className="w-4 h-4 text-blue-500 fill-blue-500/10" />
+                    </h4>
+                    <p className="text-gray-500 text-xs font-black uppercase tracking-widest">Master Institutional Trader</p>
+                  </div>
+                </div>
+                <p className="text-gray-400 text-lg leading-relaxed font-medium">
+                  {course.desc}
+                </p>
               </div>
 
-              <div className="divide-y divide-white/5">
-                {/* Module 1: Completed */}
-                <div className="p-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-[13px] font-bold text-white pr-4">Module 1: Introduction to Technical Analysis</h4>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-[11px] font-bold text-gray-500">5/5</span>
-                      <CheckCircle className="w-4 h-4 text-[#00FF85] fill-[#00FF85]/10" />
-                    </div>
-                  </div>
-                  <div className="space-y-1">
-                    {[
-                      { id: 1, title: 'What is Technical Analysis?', time: '12:45' },
-                      { id: 2, title: 'Price, Volume & Market Data', time: '18:30' },
-                      { id: 3, title: 'Timeframes in Trading', time: '10:20' },
-                      { id: 4, title: 'Chart Types Explained', time: '14:15' },
-                      { id: 5, title: 'Support & Resistance Basics', time: '16:40' }
-                    ].map((lesson) => (
-                      <div key={lesson.id} className="flex items-center justify-between py-2.5 text-[11px] text-gray-400 group cursor-pointer hover:text-white transition-colors">
-                        <div className="flex items-center gap-3">
-                          <div className="w-4 h-4 rounded-full border border-[#00FF85] flex items-center justify-center">
-                            <Play className="w-2 h-2 text-[#00FF85] fill-[#00FF85]" />
-                          </div>
-                          <span>{lesson.id}. {lesson.title}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                           <span>{lesson.time}</span>
-                           <CheckCircle className="w-3.5 h-3.5 text-[#00FF85]" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Module 2: Active */}
-                <div className="p-4 bg-white/[0.02]">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-[13px] font-bold text-white pr-4">Module 2: Chart Patterns</h4>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-[11px] font-bold text-gray-500">2/6</span>
-                      <ChevronDown className="w-4 h-4 text-gold" />
-                    </div>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between py-2.5 text-[11px] text-gray-400 hover:text-white transition-colors cursor-pointer">
-                      <div className="flex items-center gap-3">
-                        <div className="w-4 h-4 rounded-full border border-[#00FF85] flex items-center justify-center">
-                          <Play className="w-2 h-2 text-[#00FF85] fill-[#00FF85]" />
-                        </div>
-                        <span>6. Candlestick Basics</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                         <span>15:20</span>
-                         <CheckCircle className="w-3.5 h-3.5 text-[#00FF85]" />
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-3 -mx-2 rounded-xl border border-gold/50 bg-gold/5 text-gold shadow-[0_0_15px_rgba(244,197,66,0.1)]">
-                      <div className="flex items-center gap-3">
-                        <div className="w-5 h-5 rounded-full border border-gold flex items-center justify-center">
-                          <Play className="w-2.5 h-2.5 text-gold fill-gold" />
-                        </div>
-                        <span className="font-bold">7. Bullish Candlestick Patterns</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                         <span className="font-bold">21:30</span>
-                         <div className="w-5 h-5 rounded-full bg-gold flex items-center justify-center">
-                           <Play className="w-2.5 h-2.5 text-black fill-black ml-0.5" />
-                         </div>
-                      </div>
-                    </div>
-
-                    {[
-                      { id: 8, title: 'Bearish Candlestick Patterns', time: '18:45' },
-                      { id: 9, title: 'Continuation Patterns', time: '16:10' },
-                      { id: 10, title: 'Reversal Patterns', time: '22:05' },
-                      { id: 11, title: 'Pattern Trading Strategy', time: '19:30' }
-                    ].map((lesson) => (
-                      <div key={lesson.id} className="flex items-center justify-between py-2.5 text-[11px] text-gray-500 hover:text-white transition-colors cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <Shield className="w-4 h-4" />
-                          <span>{lesson.id}. {lesson.title}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                           <span>{lesson.time}</span>
-                           <Shield className="w-3.5 h-3.5 opacity-50" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Module 3-6: Collapsed */}
+              <div className="grid grid-cols-2 gap-6">
                 {[
-                  { title: 'Module 3: Technical Indicators', count: '0/8' },
-                  { title: 'Module 4: Trend Analysis', count: '0/7' },
-                  { title: 'Module 5: Advanced Strategies', count: '0/7' },
-                  { title: 'Module 6: Risk Management', count: '0/5' }
-                ].map((mod, i) => (
-                  <div key={i} className="p-4 flex items-center justify-between text-gray-500 hover:bg-white/[0.01] transition-colors cursor-pointer">
-                    <h4 className="text-[13px] font-bold pr-4">{mod.title}</h4>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-[11px] font-bold">{mod.count}</span>
-                      <ChevronDown className="w-4 h-4" />
+                  { icon: <Target className="w-5 h-5" />, title: 'High Probability', sub: 'Setup Identification' },
+                  { icon: <ShieldCheck className="w-5 h-5" />, title: 'Risk Control', sub: 'Institutional Methods' },
+                  { icon: <Globe className="w-5 h-5" />, title: 'Global Markets', sub: 'Multi-Asset Support' },
+                  { icon: <Award className="w-5 h-5" />, title: 'Certification', sub: 'Upon Completion' },
+                ].map((feature, i) => (
+                  <div key={i} className="flex gap-4 p-5 rounded-3xl bg-white/3 border border-white/5 hover:bg-white/5 transition-all">
+                    <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold shrink-0">
+                      {feature.icon}
+                    </div>
+                    <div>
+                      <h5 className="text-[14px] font-black text-white uppercase tracking-tight">{feature.title}</h5>
+                      <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">{feature.sub}</p>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
 
-            <Button className="w-full bg-white/5 hover:bg-white/10 border border-white/10 text-white py-6 rounded-2xl flex flex-col items-center justify-center gap-1 group transition-all">
-              <div className="flex items-center gap-2">
-                <Download className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
-                <span className="text-[12px] font-sans font-black uppercase tracking-tight">Download Entire Course</span>
+              <div className="flex gap-6 items-center p-8 rounded-[2rem] bg-linear-to-r from-gold/20 to-transparent border border-gold/20">
+                <div className="space-y-1">
+                  <p className="text-xs font-black text-gold uppercase tracking-[0.2em]">Limited Time Enrollment</p>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-4xl font-black text-white">₹4,999</span>
+                    <span className="text-gray-500 line-through font-bold">₹12,999</span>
+                  </div>
+                </div>
+                <Link to="/signup" className="flex-1">
+                  <Button className="w-full bg-gold hover:bg-gold/90 text-black font-black text-sm h-16 rounded-2xl shadow-[0_20px_40px_rgba(244,197,66,0.2)] hover:scale-105 transition-all">
+                    GET LIFETIME ACCESS
+                  </Button>
+                </Link>
               </div>
-              <span className="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Available for Offline Access</span>
-            </Button>
+            </div>
           </div>
+        </section>
 
-          {/* Main Content Area */}
-          <div className="lg:col-span-9 space-y-8">
-            {/* Current Lesson Title */}
-            <div className="flex items-center justify-between pb-6 border-b border-white/5">
-              <h2 className="text-2xl font-bold flex items-center gap-3">
-                7. Bullish Candlestick Patterns
-                <Bookmark className="w-5 h-5 text-gray-600 hover:text-gold cursor-pointer transition-colors" />
-              </h2>
-              <div className="flex items-center gap-4">
-                <button className="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-white transition-colors">
-                  <ChevronLeft className="w-4 h-4" /> Previous
+        {/* Tab System Navigation */}
+        <section className="px-6 sticky top-24 z-40">
+          <div className="max-w-[1700px] mx-auto bg-[#020617]/80 backdrop-blur-2xl border-y border-white/5">
+            <div className="flex gap-12 py-2 overflow-x-auto no-scrollbar">
+              {['Overview', 'Curriculum', 'Mentor', 'Reviews', 'Resources'].map((tab) => (
+                <button 
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={cn(
+                    "py-6 text-xs font-black uppercase tracking-[0.2em] whitespace-nowrap transition-all relative",
+                    activeTab === tab ? "text-gold" : "text-gray-500 hover:text-white"
+                  )}
+                >
+                  {tab}
+                  {activeTab === tab && (
+                    <motion.div 
+                      layoutId="tab-underline"
+                      className="absolute bottom-0 left-0 w-full h-[2px] bg-gold rounded-full" 
+                    />
+                  )}
                 </button>
-                <button className="flex items-center gap-2 text-xs font-bold text-[#F4C542] hover:text-gold transition-colors">
-                  Next <ChevronRight className="w-4 h-4" />
-                </button>
-                <div className="flex items-center gap-2 ml-4">
-                  <Layout className="w-4 h-4 text-gray-500" />
-                  <Monitor className="w-4 h-4 text-gray-500" />
-                </div>
-              </div>
+              ))}
             </div>
+          </div>
+        </section>
 
-            {/* Large Video Player */}
-            <div className="relative rounded-3xl overflow-hidden aspect-video border border-white/10 bg-black shadow-2xl group">
-               <img src={coursePriceAction} alt="Player" className="w-full h-full object-cover opacity-60" />
-               <div className="absolute inset-0 flex flex-col justify-end p-8 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+        {/* Dynamic Content Grid */}
+        <section className="px-6 py-16">
+          <div className="max-w-[1700px] mx-auto grid lg:grid-cols-12 gap-16">
+            
+            {/* Left Content: Detail Panels */}
+            <div className="lg:col-span-8 space-y-16">
+              {activeTab === 'Overview' && (
+                <div className="space-y-12">
+                  <div className="space-y-6">
+                    <h2 className="text-3xl font-black uppercase tracking-tight flex items-center gap-3">
+                      <Sparkles className="w-8 h-8 text-gold" /> Course Overview
+                    </h2>
+                    <p className="text-gray-400 text-lg leading-relaxed">
+                      This masterclass is meticulously designed to bridge the gap between retail thinking and institutional execution. 
+                      You will gain deep insights into how large financial institutions manipulate markets, and more importantly, 
+                      how to position yourself on the right side of the smart money.
+                    </p>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-6 p-8 rounded-[2rem] bg-white/2 border border-white/5">
+                      <h4 className="text-lg font-bold flex items-center gap-3 text-[#00FF85]">
+                        <CheckCircle className="w-5 h-5" /> What You Will Gain
+                      </h4>
+                      <ul className="space-y-4">
+                        {course.learningPoints.map((item, i) => (
+                          <li key={i} className="flex gap-3 text-sm text-gray-400 leading-tight">
+                            <Check className="w-4 h-4 text-gold shrink-0 mt-0.5" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="space-y-6 p-8 rounded-[2rem] bg-white/2 border border-white/5">
+                      <h4 className="text-lg font-bold flex items-center gap-3 text-blue-400">
+                        <Monitor className="w-5 h-5" /> Technical Prerequisites
+                      </h4>
+                      <ul className="space-y-4">
+                        {[
+                          'Basic understanding of price charts',
+                          'Stable internet connection for live sessions',
+                          'TradingView account for practice',
+                          'A mindset ready for disciplined growth'
+                        ].map((item, i) => (
+                          <li key={i} className="flex gap-3 text-sm text-gray-400 leading-tight">
+                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 mt-2" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'Curriculum' && (
+                <div className="space-y-8">
+                  <div className="flex items-center justify-between mb-8">
+                    <h2 className="text-3xl font-black uppercase tracking-tight">Full Curriculum</h2>
+                    <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">48 Lessons • 12.5 Hours</p>
+                  </div>
+
                   <div className="space-y-4">
-                    <div className="h-1 bg-white/20 rounded-full relative overflow-hidden">
-                       <div className="absolute left-0 top-0 h-full bg-[#F4C542] w-[45%]" />
-                    </div>
-                    <div className="flex items-center justify-between text-xs text-white">
-                       <div className="flex items-center gap-6">
-                          <Play className="w-5 h-5 fill-white" />
-                          <Bell className="w-5 h-5" />
-                          <span>08:45 / 21:30</span>
-                       </div>
-                       <div className="flex items-center gap-6">
-                          <span className="font-bold">1x</span>
-                          <Globe className="w-5 h-5" />
-                          <Search className="w-5 h-5" />
-                          <Award className="w-5 h-5" />
-                       </div>
-                    </div>
-                  </div>
-               </div>
-               
-               {/* Chart Annotations Overlay */}
-               <div className="absolute inset-0 pointer-events-none p-12">
-                  <div className="relative w-full h-full">
-                     <div className="absolute top-[35%] right-[15%] border-2 border-[#00FF85] bg-[#00FF85]/10 px-4 py-1.5 rounded-lg text-[11px] font-black text-white flex items-center gap-3 backdrop-blur-md shadow-[0_0_20px_rgba(0,255,133,0.2)]">
-                        Bullish Engulfing <div className="w-2.5 h-2.5 bg-[#00FF85] rounded-full animate-ping shadow-[0_0_10px_#00FF85]" />
-                     </div>
-                     <div className="absolute bottom-[25%] left-[30%] border border-white/20 bg-black/60 px-4 py-1.5 rounded-lg text-[11px] font-black text-white backdrop-blur-md">
-                        Hammer
-                     </div>
-                     <div className="absolute bottom-[20%] right-[35%] border border-white/20 bg-black/60 px-4 py-1.5 rounded-lg text-[11px] font-black text-white backdrop-blur-md">
-                        Morning Star
-                     </div>
-                  </div>
-               </div>
-            </div>
-
-            {/* Under Video Tabs & Content */}
-            <div className="grid lg:grid-cols-12 gap-12 pt-8">
-              <div className="lg:col-span-8 space-y-8">
-                <div className="flex gap-10 border-b border-white/5">
-                   {['About Lesson', 'Notes', 'Resources', 'Discussion'].map(t => (
-                     <button key={t} className={cn(
-                       "pb-4 text-xs font-bold tracking-tight transition-all relative",
-                       t === 'Notes' ? "text-gold" : "text-gray-500 hover:text-white"
-                     )}>
-                        {t}
-                        {t === 'Notes' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gold" />}
-                     </button>
-                   ))}
-                </div>
-
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-bold">Lesson Notes</h3>
-                    <button className="flex items-center gap-2 text-[10px] font-black uppercase text-gray-400 hover:text-white transition-colors border border-white/10 rounded-lg px-4 py-2">
-                      Download Notes <Download className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                  <p className="text-gray-400 text-xs leading-relaxed max-w-2xl">
-                    Bullish candlestick patterns indicate potential price reversal to the upside. These patterns are critical in identifying high probability entry setups.
-                  </p>
-
-                  {/* Diagrams Area */}
-                  <div className="grid grid-cols-3 gap-6 bg-white/[0.02] border border-white/5 rounded-3xl p-8">
                     {[
-                      { title: '1. Hammer', desc: 'Small body at top\nLong lower shadow\nLittle to no upper shadow\nAppears after a downtrend' },
-                      { title: '2. Morning Star', desc: 'Three-candle pattern\nDown candle, small body, then strong up candle\nSignals reversal' },
-                      { title: '3. Bullish Engulfing', desc: 'Second candle engulfs the body of the first\nStrong bullish signal\nHigh probability setup' }
-                    ].map((diag, i) => (
-                      <div key={i} className="space-y-6 text-center">
-                        <span className="text-[11px] font-black text-white block uppercase tracking-tight">{diag.title}</span>
-                        <div className="h-32 flex items-center justify-center">
-                           {/* Refined Candlestick SVG */}
-                           <svg viewBox="0 0 60 100" className="h-full">
-                              {i === 0 && (
-                                <g>
-                                  <line x1="30" y1="20" x2="30" y2="90" stroke="#00FF85" strokeWidth="2" />
-                                  <rect x="20" y="25" width="20" height="15" fill="#00FF85" rx="1" />
-                                </g>
-                              )}
-                              {i === 1 && (
-                                <g>
-                                  <rect x="5" y="20" width="12" height="40" fill="#EF4444" rx="1" />
-                                  <line x1="11" y1="15" x2="11" y2="65" stroke="#EF4444" strokeWidth="1" />
-                                  
-                                  <rect x="24" y="65" width="12" height="12" fill="#FFFFFF" rx="1" />
-                                  <line x1="30" y1="60" x2="30" y2="80" stroke="#FFFFFF" strokeWidth="1" />
-                                  
-                                  <rect x="43" y="10" width="12" height="60" fill="#00FF85" rx="1" />
-                                  <line x1="49" y1="5" x2="49" y2="75" stroke="#00FF85" strokeWidth="1" />
-                                </g>
-                              )}
-                              {i === 2 && (
-                                <g>
-                                  <rect x="10" y="45" width="12" height="25" fill="#EF4444" rx="1" />
-                                  <line x1="16" y1="40" x2="16" y2="75" stroke="#EF4444" strokeWidth="1" />
-                                  
-                                  <rect x="35" y="10" width="15" height="75" fill="#00FF85" rx="1" />
-                                  <line x1="42.5" y1="5" x2="42.5" y2="90" stroke="#00FF85" strokeWidth="1" />
-                                </g>
-                              )}
-                           </svg>
-                        </div>
-                        <p className="text-[9px] text-gray-500 leading-relaxed font-medium whitespace-pre-line">
-                          {diag.desc}
-                        </p>
+                      { id: 1, title: 'Introduction to Technical Analysis', lessons: 5, time: '1h 25m', status: 'completed' },
+                      { id: 2, title: 'Institutional Market Structure', lessons: 8, time: '2h 10m', status: 'active' },
+                      { id: 3, title: 'Advanced Price Action Patterns', lessons: 10, time: '3h 15m', status: 'locked' },
+                      { id: 4, title: 'High-Probability Entry Models', lessons: 7, time: '1h 55m', status: 'locked' },
+                      { id: 5, title: 'Advanced Risk Management', lessons: 5, time: '1h 20m', status: 'locked' },
+                    ].map((mod) => (
+                      <div 
+                        key={mod.id}
+                        className={cn(
+                          "rounded-3xl border transition-all duration-500 overflow-hidden",
+                          expandedModule === mod.id ? "bg-white/3 border-gold/30 shadow-2xl" : "bg-white/1 border-white/5 hover:border-white/10"
+                        )}
+                      >
+                        <button 
+                          onClick={() => setExpandedModule(expandedModule === mod.id ? null : mod.id)}
+                          className="w-full flex items-center justify-between p-8 text-left"
+                        >
+                          <div className="flex items-center gap-6">
+                            <div className={cn(
+                              "w-12 h-12 rounded-2xl flex items-center justify-center text-lg font-black border transition-all",
+                              mod.status === 'completed' ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" :
+                              mod.status === 'active' ? "bg-gold/10 border-gold/20 text-gold shadow-[0_0_15px_rgba(244,197,66,0.2)]" :
+                              "bg-white/5 border-white/10 text-gray-600"
+                            )}>
+                              {mod.status === 'completed' ? <Check className="w-6 h-6" /> : 
+                               mod.status === 'locked' ? <Lock className="w-5 h-5 opacity-50" /> : mod.id}
+                            </div>
+                            <div>
+                              <h4 className="text-xl font-bold text-white uppercase tracking-tight">{mod.title}</h4>
+                              <p className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{mod.lessons} Lessons • {mod.time}</p>
+                            </div>
+                          </div>
+                          <ChevronDown className={cn("w-6 h-6 text-gray-500 transition-transform", expandedModule === mod.id && "rotate-180")} />
+                        </button>
+                        
+                        <AnimatePresence>
+                          {expandedModule === mod.id && (
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              className="px-8 pb-8 space-y-2 border-t border-white/5 pt-6"
+                            >
+                              {[1, 2, 3, 4, 5].map((l) => (
+                                <div key={l} className="group flex items-center justify-between p-4 rounded-2xl hover:bg-white/5 transition-all cursor-pointer">
+                                  <div className="flex items-center gap-4">
+                                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[10px] font-bold text-gray-500 group-hover:text-gold transition-colors">
+                                      {l}
+                                    </div>
+                                    <span className="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Lesson {l}: Identifying Market Manipulations</span>
+                                  </div>
+                                  <div className="flex items-center gap-4 text-xs font-bold text-gray-500">
+                                    <span>12:45</span>
+                                    {mod.status === 'locked' ? <Lock className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 group-hover:text-gold" />}
+                                  </div>
+                                </div>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                     ))}
                   </div>
                 </div>
-              </div>
+              )}
 
-              {/* Downloads & Extras Sidebar */}
-              <div className="lg:col-span-4 space-y-8">
-                <div className="space-y-6">
-                  <h4 className="text-sm font-black uppercase tracking-tight">Downloads</h4>
-                  <div className="space-y-3">
+              {activeTab === 'Mentor' && (
+                <div className="space-y-12">
+                  <div className="flex flex-col md:flex-row gap-10 items-start">
+                    <div className="w-48 h-64 rounded-[2rem] overflow-hidden border-2 border-white/10 shadow-2xl shrink-0">
+                      <img src={avatar1} alt={course.mentor} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="space-y-6">
+                      <div className="space-y-1">
+                        <h2 className="text-4xl font-black uppercase tracking-tighter text-white">{course.mentor}</h2>
+                        <p className="text-gold text-sm font-black uppercase tracking-widest">Master Institutional Trader & Strategist</p>
+                      </div>
+                      <p className="text-gray-400 text-lg leading-relaxed font-medium">
+                        With over 12 years of experience in global financial markets, {course.mentor} has trained more than 10,000+ students 
+                        worldwide. Specializing in institutional order flow and advanced price action, his methodology focuses on 
+                        market psychology and risk-adjusted consistent growth.
+                      </p>
+                      <div className="flex gap-4">
+                        {[Instagram, Linkedin, Youtube, Send].map((Icon, i) => (
+                          <button key={i} className="w-12 h-12 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-gray-400 hover:text-gold hover:bg-gold/10 transition-all">
+                            <Icon className="w-5 h-5" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-6">
                     {[
-                      { name: 'Bullish Patterns PDF Notes', size: 'PDF File' },
-                      { name: 'Candlestick Cheat Sheet', size: 'PDF File' },
-                      { name: 'Chart Examples', size: 'ZIP File' },
-                      { name: 'Practice Worksheet', size: 'PDF File' }
-                    ].map((item, i) => (
-                      <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all cursor-pointer group">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center">
-                            <FileText className="w-4 h-4 text-red-500" />
+                      { label: 'Total Students', value: '25,000+' },
+                      { label: 'Trading Experience', value: '12+ Years' },
+                      { label: 'Course Rating', value: '4.9/5.0' },
+                    ].map((stat, i) => (
+                      <div key={i} className="p-8 rounded-[2rem] bg-white/2 border border-white/5 text-center">
+                        <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">{stat.label}</p>
+                        <p className="text-3xl font-black text-white">{stat.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'Reviews' && (
+                <div className="space-y-10">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-3xl font-black uppercase tracking-tight">Student Testimonials</h2>
+                    <div className="flex items-center gap-4 bg-white/5 px-6 py-3 rounded-2xl border border-white/5">
+                      <div className="flex text-gold">
+                        {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-gold" />)}
+                      </div>
+                      <span className="text-sm font-black text-white">4.9 / 5.0</span>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-6">
+                    {[
+                      { name: 'Arjun Mehta', date: '2 days ago', rating: 5, comment: 'This scalping strategy is a game changer. The institutional insights are something I have never seen in retail courses before.' },
+                      { name: 'Sarah Wilson', date: '1 week ago', rating: 5, comment: 'The risk management module alone is worth the price. Highly recommend to anyone serious about trading.' },
+                      { name: 'Rahul Sharma', date: '2 weeks ago', rating: 4, comment: 'Very detailed and easy to follow. The live sessions help a lot in understanding real market application.' },
+                    ].map((review, i) => (
+                      <div key={i} className="p-8 rounded-[2rem] bg-white/2 border border-white/5 space-y-4">
+                        <div className="flex justify-between items-start">
+                          <div className="flex gap-4 items-center">
+                            <div className="w-12 h-12 rounded-full bg-linear-to-br from-gold/20 to-primary/20 border border-white/10 flex items-center justify-center font-black text-gold">
+                              {review.name[0]}
+                            </div>
+                            <div>
+                              <h4 className="text-base font-bold text-white">{review.name}</h4>
+                              <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{review.date}</p>
+                            </div>
+                          </div>
+                          <div className="flex text-gold">
+                            {[...Array(review.rating)].map((_, i) => <Star key={i} className="w-3 h-3 fill-gold" />)}
+                          </div>
+                        </div>
+                        <p className="text-gray-400 text-sm leading-relaxed italic">"{review.comment}"</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'Resources' && (
+                <div className="space-y-10">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-3xl font-black uppercase tracking-tight">Course Resources</h2>
+                    <Badge className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 px-4 py-2">
+                      LIFETIME UPDATES
+                    </Badge>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {[
+                      { title: 'Price Action Playbook', type: 'PDF', size: '12.4 MB' },
+                      { title: 'Institutional Flow Chart', type: 'IMG', size: '4.2 MB' },
+                      { title: 'Trading Checklist', type: 'PDF', size: '1.5 MB' },
+                      { title: 'Risk Calculator Tool', type: 'XLS', size: '250 KB' },
+                    ].map((res, i) => (
+                      <div key={i} className="group p-8 rounded-[2rem] bg-white/2 border border-white/5 hover:bg-white/4 hover:border-gold/30 transition-all flex items-center justify-between">
+                        <div className="flex items-center gap-6">
+                          <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-gold group-hover:scale-110 transition-all">
+                            <FileText className="w-6 h-6" />
                           </div>
                           <div>
-                            <p className="text-[11px] font-bold text-white group-hover:text-[#F4C542] transition-colors">{item.name}</p>
-                            <p className="text-[9px] text-gray-500">{item.size}</p>
+                            <h4 className="text-base font-bold text-white">{res.title}</h4>
+                            <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{res.type} • {res.size}</p>
                           </div>
                         </div>
-                        <Download className="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" />
+                        <button className="w-10 h-10 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gold transition-all">
+                          <Download className="w-4 h-4" />
+                        </button>
                       </div>
                     ))}
                   </div>
                 </div>
+              )}
+            </div>
 
-                <div className="space-y-6 pt-6 border-t border-white/5">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-black uppercase tracking-tight">Offline Videos</h4>
-                    <div className="flex items-center gap-2">
-                       <span className="text-[9px] text-gray-500 uppercase font-bold">Download in HD</span>
-                       <div className="w-8 h-4 bg-[#00FF85] rounded-full relative">
-                          <div className="absolute right-1 top-1 w-2 h-2 bg-white rounded-full" />
-                       </div>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    {[
-                      { id: 7, title: 'Session 7: Advanced Patterns', info: '21:30 • 1080p', size: '245 MB' },
-                      { id: 6, title: 'Session 6: Market Structure', info: '15:20 • 720p', size: '160 MB' },
-                      { id: 5, title: 'Session 5: Core Concepts', info: '18:40 • 720p', size: '180 MB' }
-                    ].map((vid, i) => (
-                      <div key={i} className="flex items-center justify-between group">
-                         <div className="flex gap-4">
-                            <div className="w-16 h-10 rounded-lg overflow-hidden bg-white/5 border border-white/10 shrink-0">
-                               <img src={course.img} alt="thumb" className="w-full h-full object-cover opacity-60" />
-                            </div>
-                            <div className="space-y-1">
-                               <h5 className="text-[11px] font-bold text-white leading-tight">{vid.title}</h5>
-                               <p className="text-[9px] text-gray-500">{vid.info}</p>
-                            </div>
-                         </div>
-                         <div className="flex flex-col items-end gap-1">
-                            <span className="text-[9px] font-bold text-gray-400">{vid.size}</span>
-                            <Download className="w-3.5 h-3.5 text-gray-600 group-hover:text-white transition-colors" />
-                         </div>
-                      </div>
-                    ))}
-                  </div>
+            {/* Right Column: Dynamic Sidebar Stats */}
+            <div className="lg:col-span-4 space-y-10">
+              <div className="p-10 rounded-[2.5rem] bg-bg-main border border-white/5 shadow-2xl relative overflow-hidden group">
+                {/* Decorative Pattern */}
+                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                  <Sparkles className="w-24 h-24 text-gold" />
                 </div>
+                
+                <h4 className="text-xl font-black uppercase tracking-tight mb-10">This Course Includes:</h4>
+                <div className="space-y-6">
+                  {[
+                    { icon: <Monitor className="w-5 h-5" />, text: '48 High-Definition Video Lessons' },
+                    { icon: <FileText className="w-5 h-5" />, text: '12 Downloadable Strategy Blueprints' },
+                    { icon: <Video className="w-5 h-5" />, text: 'Weekly Live Market Analysis Sessions' },
+                    { icon: <ShieldCheck className="w-5 h-5" />, text: 'Lifetime Access to All Future Updates' },
+                    { icon: <MessageSquare className="w-5 h-5" />, text: 'Direct Q&A Support with Mentors' },
+                    { icon: <Award className="w-5 h-5" />, text: 'Verified Institutional Certificate' },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-4 text-sm font-medium text-gray-400">
+                      <div className="text-gold">{item.icon}</div>
+                      <span>{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="mt-12 space-y-4">
+                  <Link to={`/enroll?course=${encodeURIComponent(course.title)}`}>
+                    <Button className="w-full bg-[#00FF85] hover:bg-[#00E075] text-black font-black h-16 rounded-2xl text-base shadow-[0_15px_35px_rgba(0,255,133,0.15)]">
+                      ENROLL IN BATCH <ChevronRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </Link>
+                  <p className="text-center text-[10px] text-gray-500 font-bold uppercase tracking-widest">30-Day Money Back Guarantee</p>
+                </div>
+              </div>
+
+              {/* Learning Progress Widget */}
+              <div className="p-8 rounded-[2rem] bg-white/3 border border-white/5 space-y-6">
+                <div className="flex justify-between items-end">
+                   <div>
+                      <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">Your Progress</p>
+                      <h5 className="text-2xl font-black text-white">35% COMPLETE</h5>
+                   </div>
+                   <TrendingUp className="w-8 h-8 text-emerald-500 opacity-30" />
+                </div>
+                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                   <motion.div 
+                     initial={{ width: 0 }}
+                     animate={{ width: '35%' }}
+                     transition={{ duration: 1.5, ease: "easeOut" }}
+                     className="h-full bg-linear-to-r from-[#00FF85] to-emerald-400 shadow-[0_0_15px_rgba(0,255,133,0.3)]" 
+                   />
+                </div>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                   Continue where you left off: <span className="text-white font-bold italic">"Module 2: Identifying Market Traps"</span>
+                </p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Recently Watched Lessons */}
-      <section className="px-6 py-20 border-t border-white/5">
-        <div className="max-w-[1400px] mx-auto">
-          <h3 className="text-xl font-black uppercase tracking-tight mb-10">Recently Watched Lessons</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {[
-              { id: 6, title: 'Candlestick Basics', time: '15:20', progress: 100 },
-              { id: 5, title: 'Support & Resistance Basics', time: '18:40', progress: 100 },
-              { id: 4, title: 'Chart Types Explained', time: '14:15', progress: 100 },
-              { id: 3, title: 'Timeframes in Trading', time: '10:20', progress: 100 },
-              { id: 2, title: 'Price, Volume & Market Data', time: '18:30', progress: 100 }
-            ].map((lesson, i) => (
-              <div key={i} className="group cursor-pointer space-y-4">
-                <div className="relative rounded-2xl overflow-hidden aspect-video border border-white/10 bg-black shadow-lg">
-                   <img src={course.img} alt="lesson" className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" />
-                   <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
-                        <Play className="w-4 h-4 fill-white text-white ml-0.5" />
-                      </div>
-                   </div>
-                   <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/80 rounded-md text-[9px] font-bold">
-                      {lesson.time}
-                   </div>
-                </div>
-                <div className="space-y-2">
-                   <h4 className="text-[12px] font-bold line-clamp-1 group-hover:text-gold transition-colors">{lesson.id}. {lesson.title}</h4>
-                   <div className="flex items-center justify-between">
-                      <div className="flex-1 h-1 bg-white/5 rounded-full overflow-hidden mr-4">
-                         <div className="h-full bg-[#00FF85] w-full" />
-                      </div>
-                      <span className="text-[10px] font-black text-[#00FF85]">100%</span>
-                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+        </section>
+      </div>
     </div>
   );
 }
-

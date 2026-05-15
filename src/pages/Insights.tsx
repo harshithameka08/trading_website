@@ -43,7 +43,7 @@ export default function Insights() {
                     <h3 className="text-xl font-bold font-display leading-tight group-hover:text-primary transition-colors">{art.title}</h3>
                     <div className="mt-4 flex items-center justify-between text-[10px] font-bold text-gray-500 tracking-widest uppercase border-t border-white/10 pt-4">
                        <div className="flex items-center gap-2"><Clock className="w-3 h-3" /> {art.date}</div>
-                       <button className="text-primary">READ DATA</button>
+                       <Button to="/login" variant="ghost" className="p-0 hover:bg-transparent text-primary">Read Data →</Button>
                     </div>
                  </div>
                </div>
@@ -70,7 +70,7 @@ export default function Insights() {
                      </div>
                    ))}
                 </div>
-                <Button variant="neon-border">Unlock Deep Insights</Button>
+                <Button to="/login" variant="neon-border">Unlock Deep Insights</Button>
              </div>
              
              <div className="relative">

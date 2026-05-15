@@ -4,7 +4,7 @@ import {
   Eye, Bookmark, TrendingUp, ArrowRight, Mail, 
   LayoutGrid, List, MessageSquare, Share2,
   ChevronLeft, ChevronRight, Download, Globe,
-  Shield, Brain, Target, Info, AppWindow
+  Shield, Brain, Target, Info, AppWindow, RotateCcw
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Button, Badge, Card } from '@/src/components/UI';
@@ -222,7 +222,7 @@ export default function Blog() {
     }
   ];
 
-  const pageSize = 5;
+  const pageSize = 6;
   const filteredArticles = articles.filter(art => {
     const matchesSearch = art.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                          art.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
@@ -240,59 +240,61 @@ export default function Blog() {
   const totalPages = Math.ceil(filteredArticles.length / pageSize);
 
   return (
-    <div className="min-h-screen bg-[#050816] text-white pt-24 pb-20">
+    <div className="min-h-screen bg-bg-main text-white pt-24 pb-20 overflow-visible">
       {/* Full-Width Hero Section */}
-      <section className="relative h-[420px] w-full overflow-hidden mb-12">
+      <section className="relative h-[420px] max-md:h-auto max-md:min-h-[380px] w-full overflow-hidden mb-12">
         <div className="absolute inset-0">
-           <img src={heroBg} className="w-full h-full object-cover" alt="Blog Hero" />
+           <img src={heroBg} className="w-full h-full object-cover max-md:object-center" alt="Blog Hero" />
+           {/* Mobile Readability Overlay */}
+           <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/40 to-black/80 md:hidden" />
            <div className="absolute inset-0 bg-linear-to-r from-black via-black/40 to-transparent" />
         </div>
-        <div className="container mx-auto px-6 md:px-10 max-w-[1500px] h-full relative z-10 flex flex-col justify-center space-y-7">
-           <p className="text-white/80 font-black text-sm uppercase tracking-[0.3em]">TEAMUS 369 BLOG</p>
-           <h1 className="text-7xl font-sans font-black tracking-tight leading-[1.1] text-white">
-              Insights. Strategies.<br />
-              <span className="text-[#00E5FF]">Success.</span>
+        <div className="container mx-auto px-6 md:px-10 max-w-[1400px] h-full relative z-10 flex flex-col justify-center space-y-7 pb-12 max-md:pt-32">
+
+           <h1 className="text-5xl md:text-6xl font-sans font-black tracking-tight leading-tight text-white">
+              Master the Markets<br />
+              Trade with <span className="text-[#F4C542]">Precision</span>
            </h1>
-           <p className="text-gray-400 text-lg font-medium leading-relaxed max-w-xl">
+           <p className="text-gray-400 text-base md:text-lg font-medium leading-relaxed max-w-xl">
               Expert insights, trading strategies, and market analysis to help you trade smarter and grow consistently.
            </p>
         </div>
       </section>
 
-      <div className="container mx-auto px-6 md:px-10 max-w-[1500px]">
+      <div className="container mx-auto px-6 md:px-10 max-w-[1200px] overflow-visible">
 
         {/* Discovery Bar */}
-        <div className="space-y-6 mb-12">
+        <div className="space-y-6 mb-12 overflow-visible">
           {/* Top Search Row */}
-          <div className="flex gap-4 items-stretch">
-             <div className="relative flex-1 flex">
+          <div className="flex gap-4 items-stretch justify-between">
+             <div className="relative w-full max-w-2xl flex">
                 <input 
                   type="text" 
                   placeholder="Search articles, topics or keywords..." 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 h-14 bg-[#0B1225]/80 rounded-l-xl border border-white/5 pl-6 pr-4 text-sm font-medium focus:outline-none focus:border-[#00E5FF]/20 transition-all placeholder:text-gray-600"
+                  className="flex-1 h-14 bg-bg-secondary/80 rounded-l-xl border border-white/5 pl-6 pr-4 text-sm font-medium focus:outline-none focus:border-[#00E5FF]/20 transition-all placeholder:text-gray-600"
                 />
                 <button className="w-14 h-14 bg-[#00E5FF] rounded-r-xl flex items-center justify-center text-black hover:bg-[#00E5FF]/90 transition-all shadow-lg shadow-[#00E5FF]/20">
                    <Search className="w-5 h-5" />
                 </button>
              </div>
-             <button className="h-14 px-8 bg-[#0B1225]/80 rounded-xl border border-white/10 hover:bg-white/5 flex items-center gap-3 transition-all">
+             <button className="h-14 px-8 bg-bg-secondary/80 rounded-xl border border-white/10 hover:bg-white/5 flex items-center gap-3 transition-all">
                 <Filter className="w-4 h-4 text-gray-400" /> 
                 <span className="text-[11px] font-black uppercase tracking-widest">Filters</span>
              </button>
           </div>
 
           {/* Filter Details Card */}
-          <div className="bg-[#0B1225]/40 border border-white/5 rounded-2xl p-6 relative">
-            <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-8">
+          <div className="bg-bg-secondary/40 border border-white/5 rounded-2xl p-6 overflow-visible">
+            <div className="flex flex-wrap items-end gap-x-8 gap-y-6">
                {[
                  { label: 'Categories', value: activeCategory, options: ['All Articles', ...categories.slice(1)], setter: setActiveCategory },
                  { label: 'Difficulty Level', value: activeDifficulty, options: ['All Levels', 'Beginner', 'Intermediate', 'Advanced'], setter: setActiveDifficulty },
                  { label: 'Article Type', value: activeType, options: ['All Types', 'Technical', 'Strategy', 'Educational'], setter: setActiveType },
                  { label: 'Sort By', value: activeSort, options: ['Latest', 'Popular'], setter: setActiveSort }
                ].map((f) => (
-                 <div key={f.label} className="space-y-3 relative">
+                 <div key={f.label} className="space-y-3 relative min-w-[200px]">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-500">{f.label}</label>
                     <div 
                       onClick={() => setOpenDropdown(openDropdown === f.label ? null : f.label)}
@@ -314,56 +316,56 @@ export default function Blog() {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
-                          className="absolute top-full left-0 right-0 mt-2 bg-[#0B1225] border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden"
+                          className="absolute top-full left-0 right-0 mt-2 bg-bg-secondary border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden"
                         >
                            {f.options.map((opt) => (
                              <button 
-                              key={opt}
-                              onClick={() => {
-                                f.setter(opt);
-                                setOpenDropdown(null);
-                              }}
-                              className={cn(
-                                "w-full px-4 py-3 text-left text-[11px] font-bold transition-colors",
-                                f.value === opt ? "bg-[#00E5FF] text-black" : "text-gray-400 hover:bg-white/5 hover:text-white"
-                              )}
-                             >
-                               {opt}
-                             </button>
+                               key={opt}
+                               onClick={() => {
+                                 f.setter(opt);
+                                 setOpenDropdown(null);
+                               }}
+                               className={cn(
+                                 "w-full px-4 py-3 text-left text-[11px] font-bold transition-colors",
+                                 f.value === opt ? "bg-[#00E5FF] text-black" : "text-gray-400 hover:bg-white/5 hover:text-white"
+                               )}
+                              >
+                                {opt}
+                              </button>
                            ))}
                         </motion.div>
                       )}
                     </AnimatePresence>
                  </div>
                ))}
-            </div>
-            
-            <div 
-              onClick={() => {
-                setActiveCategory('All Articles');
-                setActiveDifficulty('All Levels');
-                setActiveType('All Types');
-                setActiveSort('Latest');
-                setSearchQuery('');
-              }}
-              className="absolute bottom-6 right-6 flex items-center gap-3 cursor-pointer group"
-            >
-               <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-[#F4C542] transition-colors">Clear All</span>
-               <div className="w-5 h-5 rounded-full border border-white/10 flex items-center justify-center text-gray-500 group-hover:border-[#F4C542] group-hover:text-[#F4C542] transition-all">
-                  <TrendingUp className="w-3 h-3 rotate-180" />
-               </div>
+
+              <div 
+                onClick={() => {
+                  setActiveCategory('All Articles');
+                  setActiveDifficulty('All Levels');
+                  setActiveType('All Types');
+                  setActiveSort('Latest');
+                  setSearchQuery('');
+                }}
+                className="ml-auto mb-1 flex items-center gap-3 cursor-pointer group pb-1"
+              >
+                 <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-[#F4C542] transition-colors">Clear All</span>
+                 <div className="w-5 h-5 flex items-center justify-center text-gray-500 group-hover:text-[#F4C542] transition-all">
+                    <RotateCcw className="w-3.5 h-3.5" />
+                 </div>
+              </div>
             </div>
           </div>
 
           {/* Category Tags */}
-          <div className="flex flex-wrap gap-2 pt-2">
+          <div className="flex flex-wrap gap-3 pt-2">
              {categories.map((cat) => (
                <button 
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={cn(
                   "px-6 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all",
-                  activeCategory === cat ? "bg-[#00E5FF] text-black shadow-lg shadow-[#00E5FF]/20" : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5"
+                  activeCategory === cat ? "bg-[#00E5FF] text-black" : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5"
                 )}
                >
                  {cat}
@@ -372,61 +374,45 @@ export default function Blog() {
           </div>
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-3 gap-8 items-start">
+        {/* Main Content Grid - blog-container logic */}
+        <div className="grid grid-cols-1 gap-12 items-start overflow-visible">
           
-          {/* Left Column: Articles */}
-          <div className="lg:col-span-2 space-y-8">
+          {/* Left Column: Articles - articles-column logic */}
+          <div className="min-w-0 w-full space-y-8">
              <div className="flex justify-between items-center px-1">
                 <h2 className="text-xl font-black tracking-tight flex items-center gap-3">
-                   All Articles <span className="text-gray-500 font-bold text-sm">(250+)</span>
+                   {activeCategory === 'All Articles' ? 'All Articles' : activeCategory} <span className="text-gray-500 font-bold text-sm">({filteredArticles.length})</span>
                 </h2>
-                <div className="flex bg-white/5 p-1 rounded-lg border border-white/10">
-                   <button onClick={() => setViewMode('Grid')} className={cn("p-2 rounded-md transition-all", viewMode === 'Grid' ? "bg-white/10 text-white shadow-sm" : "text-gray-500 hover:text-gray-300")}>
-                      <LayoutGrid className="w-4 h-4" />
-                   </button>
-                   <button onClick={() => setViewMode('List')} className={cn("p-2 rounded-md transition-all", viewMode === 'List' ? "bg-white/10 text-white shadow-sm" : "text-gray-500 hover:text-gray-300")}>
-                      <List className="w-4 h-4" />
-                   </button>
-                </div>
+
              </div>
 
-             <div className="space-y-0 border-t border-white/5">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 border-t border-white/5 pt-8">
                 {paginatedArticles.length > 0 ? (
                   paginatedArticles.map((art) => (
-                    <div key={art.id} className="group py-8 border-b border-white/5 hover:bg-white/[0.01] transition-all px-2">
-                       <div className="flex flex-col md:flex-row gap-8">
-                          <div className="md:w-80 h-48 rounded-xl overflow-hidden shrink-0 border border-white/5 bg-[#0B1225]">
-                             <img src={art.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={art.title} />
+                    <div key={art.id} className="group flex flex-col bg-bg-secondary/40 rounded-2xl border border-white/5 overflow-hidden hover:border-[#00E5FF]/30 transition-all">
+                       <div className="h-48 overflow-hidden shrink-0 bg-bg-secondary">
+                          <img src={art.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={art.title} />
+                       </div>
+                       <div className="p-5 flex-1 flex flex-col justify-between">
+                          <div className="space-y-4">
+                             <span className="text-[9px] font-black tracking-[0.15em] text-[#00E5FF] uppercase block">{art.category}</span>
+                             <h3 className="text-xl font-black leading-tight text-white group-hover:text-[#00E5FF] transition-colors line-clamp-2">{art.title}</h3>
+                             <p className="text-gray-500 text-sm font-medium line-clamp-2 leading-relaxed">{art.excerpt}</p>
                           </div>
-                          <div className="flex-1 flex flex-col justify-between py-0.5">
-                             <div className="space-y-3">
-                                <span className="text-[9px] font-black tracking-[0.15em] text-[#00E5FF] uppercase block">{art.category}</span>
-                                <h3 className="text-2xl font-black leading-tight text-white group-hover:text-[#00E5FF] transition-colors line-clamp-2">{art.title}</h3>
-                                <p className="text-gray-500 text-sm font-medium line-clamp-2 leading-relaxed max-w-2xl">{art.excerpt}</p>
-                             </div>
-                             <div className="flex items-center justify-between pt-6 mt-auto">
-                                <div className="flex items-center gap-4">
-                                   <div className="flex items-center gap-2.5">
-                                      <div className="w-6 h-6 rounded-full border border-white/10 overflow-hidden">
-                                         <img src={avatarPlaceholder} alt={art.author} />
-                                      </div>
-                                      <span className="text-[11px] font-black text-white">{art.author}</span>
+                          <div className="flex items-center justify-between pt-6 mt-auto">
+                             <div className="flex flex-wrap items-center gap-4">
+                                <div className="flex items-center gap-2.5">
+                                   <div className="w-6 h-6 rounded-full border border-white/10 overflow-hidden">
+                                      <img src={avatarPlaceholder} alt={art.author} />
                                    </div>
+                                   <span className="text-[11px] font-black text-white">{art.author}</span>
+                                </div>
+                                <div className="flex items-center gap-3">
                                    <span className="text-[10px] text-gray-600 font-bold uppercase tracking-tight">{art.date}</span>
                                    <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-bold uppercase">
                                       <Clock className="w-3.5 h-3.5" />
                                       <span>{art.readTime}</span>
                                    </div>
-                                </div>
-                                <div className="flex items-center gap-6">
-                                   <div className="flex items-center gap-2 text-[11px] text-gray-500 font-black uppercase">
-                                      <Eye className="w-4 h-4" />
-                                      <span>{art.views}</span>
-                                   </div>
-                                   <button className="text-gray-500 hover:text-white transition-colors">
-                                      <Bookmark className="w-4.5 h-4.5" />
-                                   </button>
                                 </div>
                              </div>
                           </div>
@@ -459,181 +445,45 @@ export default function Blog() {
              </div>
 
              {/* Pagination */}
-             <div className="flex justify-center items-center gap-2 pt-8">
-                <button className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all"><ChevronLeft className="w-5 h-5" /></button>
-                {[1, 2, 3, 4, 5, '...', 21].map((p, i) => (
-                  <button key={i} className={cn(
-                    "w-10 h-10 rounded-xl border transition-all text-xs font-black",
-                    p === 1 ? "bg-[#00E5FF] border-[#00E5FF] text-black shadow-lg shadow-[#00E5FF]/20" : "bg-white/5 border-white/10 text-gray-500 hover:text-white hover:bg-white/10"
-                  )}>{p}</button>
-                ))}
-                <button className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all"><ChevronRight className="w-5 h-5" /></button>
-             </div>
+             {totalPages > 1 && (
+               <div className="flex justify-center items-center gap-2 pt-8">
+                  <button 
+                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                    disabled={currentPage === 1}
+                    className={cn(
+                      "w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center transition-all",
+                      currentPage === 1 ? "opacity-30 cursor-not-allowed" : "text-gray-400 hover:text-white"
+                    )}
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                    <button 
+                      key={p}
+                      onClick={() => setCurrentPage(p)}
+                      className={cn(
+                        "w-10 h-10 rounded-xl border transition-all text-xs font-black",
+                        p === currentPage ? "bg-[#00E5FF] border-[#00E5FF] text-black shadow-lg shadow-[#00E5FF]/20" : "bg-white/5 border-white/10 text-gray-500 hover:text-white hover:bg-white/10"
+                      )}
+                    >
+                      {p}
+                    </button>
+                  ))}
+
+                  <button 
+                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                    disabled={currentPage === totalPages}
+                    className={cn(
+                      "w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center transition-all",
+                      currentPage === totalPages ? "opacity-30 cursor-not-allowed" : "text-gray-400 hover:text-white"
+                    )}
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+               </div>
+             )}
           </div>
-
-          {/* Right Column: Sidebar */}
-          <aside className="space-y-8">
-             {/* Stay Updated */}
-             <Card className="bg-[#0B1225] border-white/5 p-6 rounded-2xl shadow-2xl relative overflow-hidden group">
-                <div className="absolute -top-12 -right-12 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl group-hover:bg-blue-500/10 transition-all duration-700" />
-                <div className="relative z-10 space-y-5">
-                   <div className="flex items-center gap-3">
-                      <div className="text-[#00E5FF]">
-                         <Mail className="w-8 h-8 fill-[#00E5FF]/20" />
-                      </div>
-                      <h4 className="text-lg font-black text-white leading-tight">Stay Updated</h4>
-                   </div>
-                   
-                   <p className="text-gray-400 text-xs font-medium leading-relaxed">
-                      Get the latest trading insights, strategies and market updates straight to your inbox.
-                   </p>
-
-                   <div className="space-y-3">
-                      <input 
-                        type="email" 
-                        placeholder="Enter your email" 
-                        className="w-full h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-xs font-medium text-white placeholder:text-gray-600 focus:outline-none focus:border-[#00E5FF]/30 transition-all" 
-                      />
-                      <Button className="w-full h-11 bg-[#0081FB] hover:bg-[#0070E0] text-white border-none font-black text-[11px] uppercase tracking-widest shadow-lg shadow-blue-500/20">
-                         Subscribe Now
-                      </Button>
-                   </div>
-                </div>
-             </Card>
-
-             {/* Popular Articles */}
-             <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                   <h5 className="text-[11px] font-black uppercase tracking-widest text-white">Popular Articles</h5>
-                   <button 
-                    onClick={() => setShowAllPopular(!showAllPopular)}
-                    className="text-[10px] font-black uppercase tracking-widest text-[#00E5FF] hover:underline flex items-center gap-1"
-                   >
-                      {showAllPopular ? 'Show Less' : 'View All'} <ChevronRight className="w-3 h-3" />
-                   </button>
-                </div>
-                <div className="space-y-5">
-                   {[
-                      { id: 1, title: 'Support and Resistance Trading Strategy That...', views: '2.4K', image: blogNifty },
-                      { id: 2, title: 'RSI Indicator: The Complete Guide', views: '2.1K', image: blogBrain },
-                      { id: 3, title: 'Volume Analysis: How Smart Money Trade', views: '1.9K', image: blogRisk },
-                      { id: 4, title: 'How to Build a Winning Trading Plan', views: '1.6K', image: blogNifty },
-                      { id: 5, title: 'Fibonacci Retracement: Best Trading Guide', views: '1.4K', image: blogRisk },
-                      { id: 6, title: 'Moving Averages Mastery', views: '1.2K', image: blogBrain },
-                      { id: 7, title: 'Option Greeks Explained', views: '1.1K', image: blogNifty }
-                   ].slice(0, showAllPopular ? 7 : 5).map((art, i) => (
-                      <div key={art.id} className="flex gap-4 group cursor-pointer">
-                         <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
-                            <span className="text-[11px] font-black text-gray-700 group-hover:text-[#00E5FF] transition-colors">{i + 1}</span>
-                         </div>
-                         <div className="w-16 h-12 rounded-lg overflow-hidden shrink-0 border border-white/5 bg-[#0B1225]">
-                            <img src={art.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt={art.title} />
-                         </div>
-                         <div className="space-y-1">
-                            <h6 className="text-[11px] font-black text-gray-300 group-hover:text-white transition-colors line-clamp-2 leading-tight">{art.title}</h6>
-                            <p className="text-[9px] text-gray-600 font-bold uppercase flex items-center gap-1.5">
-                               <Eye className="w-3 h-3" /> {art.views} views
-                            </p>
-                         </div>
-                      </div>
-                   ))}
-                </div>
-             </div>
-
-             {/* Browse by Topic */}
-             <div className="space-y-4">
-                <h4 className="text-[10px] font-black text-gray-500 uppercase tracking-widest px-1">Browse by Topic</h4>
-                <div className="space-y-1">
-                   {[
-                     { icon: <TrendingUp />, name: 'Market Analysis', count: 45 },
-                     { icon: <Target />, name: 'Trading Strategies', count: 68 },
-                     { icon: <LayoutGrid />, name: 'Technical Analysis', count: 52 },
-                     { icon: <Shield />, name: 'Risk Management', count: 32 },
-                     { icon: <Brain />, name: 'Trading Psychology', count: 28 },
-                     { icon: <Bookmark />, name: 'Beginner Guide', count: 15 },
-                     { icon: <Globe />, name: 'News & Updates', count: 10 }
-                   ].map((t, i) => (
-                     <div key={i} className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-all group cursor-pointer">
-                        <div className="flex items-center gap-3">
-                           <div className="text-gray-500 group-hover:text-[#F4C542] transition-colors">
-                              {React.cloneElement(t.icon as React.ReactElement, { className: 'w-4 h-4' })}
-                           </div>
-                           <span className="text-[11px] font-bold text-gray-400 group-hover:text-white transition-colors">{t.name}</span>
-                        </div>
-                        <span className="text-[10px] font-black text-gray-600 group-hover:text-[#F4C542]">{t.count}</span>
-                     </div>
-                   ))}
-                </div>
-             </div>
-
-             {/* Trending This Week */}
-             <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                   <h5 className="text-[11px] font-black uppercase tracking-widest text-white">Trending This Week</h5>
-                   <button 
-                    onClick={() => setShowAllTrending(!showAllTrending)}
-                    className="text-[10px] font-black uppercase tracking-widest text-[#00E5FF] hover:underline flex items-center gap-1"
-                   >
-                      {showAllTrending ? 'Show Less' : 'View All'} <ChevronRight className="w-3 h-3" />
-                   </button>
-                </div>
-                <div className="space-y-5">
-                   {[
-                      { id: 1, title: 'How to Use Trendlines Effectively in Trading', views: '1.8K views', image: blogNifty },
-                      { id: 2, title: 'Breakout Trading Strategy: Step-by-Step Guide', views: '1.5K views', image: blogBrain },
-                      { id: 3, title: 'Ichimoku Cloud: Complete Trading Guide', views: '1.2K views', image: blogRisk },
-                      { id: 4, title: 'Bollinger Bands Secrets', views: '1.1K views', image: blogNifty },
-                      { id: 5, title: 'Advanced Scalping Techniques', views: '900 views', image: blogBrain }
-                   ].slice(0, showAllTrending ? 5 : 3).map((art) => (
-                      <div key={art.id} className="flex gap-4 group cursor-pointer">
-                         <div className="w-16 h-12 rounded-lg overflow-hidden shrink-0 border border-white/5 bg-[#0B1225]">
-                            <img src={art.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt={art.title} />
-                         </div>
-                         <div className="space-y-1">
-                            <h6 className="text-[11px] font-black text-gray-300 group-hover:text-white transition-colors line-clamp-2 leading-tight">{art.title}</h6>
-                            <p className="text-[9px] text-gray-600 font-bold uppercase">{art.views}</p>
-                         </div>
-                      </div>
-                   ))}
-                </div>
-             </div>
-
-             {/* Live Strategy Sessions CTA */}
-             <Card className="bg-[#0B1020] border-white/5 p-0 rounded-2xl relative overflow-hidden group shadow-2xl h-[240px]">
-                {/* Background Chart Overlay */}
-                <div className="absolute inset-0 opacity-20">
-                   <TrendingUp className="absolute right-10 top-10 w-48 h-48 text-[#00E5FF] -rotate-12" />
-                </div>
-                
-                {/* Content Layer */}
-                <div className="relative z-10 h-full flex">
-                   {/* Left Content */}
-                   <div className="flex-1 p-7 flex flex-col justify-center space-y-6">
-                      <div className="space-y-3">
-                         <h4 className="text-xl font-black text-white leading-tight">Join Live Strategy Sessions</h4>
-                         <p className="text-gray-400 text-[11px] font-medium leading-relaxed max-w-[200px]">Learn directly from market experts in our live strategy sessions.</p>
-                      </div>
-                      <Button className="w-fit bg-[#F4C542] hover:bg-[#F4C542]/90 text-black border-none font-black text-[10px] px-5 py-3 rounded-xl flex items-center gap-2">
-                         View Live Classes <ArrowRight className="w-3.5 h-3.5" />
-                      </Button>
-                   </div>
-                   
-                   {/* Right Mentor Area */}
-                   <div className="w-[180px] relative">
-                      <div className="absolute top-4 right-4 z-20">
-                         <Badge className="bg-red-600 text-white border-none text-[8px] font-black px-2.5 py-1 flex items-center gap-1.5 rounded-full shadow-lg shadow-red-600/20">
-                            <div className="w-1 h-1 bg-white rounded-full animate-pulse" /> LIVE
-                         </Badge>
-                      </div>
-                      <img 
-                        src={instructorImg} 
-                        className="absolute bottom-0 right-0 h-[110%] w-auto object-contain object-bottom transition-all duration-700 group-hover:scale-105" 
-                        alt="Rahul Mehta" 
-                      />
-                   </div>
-                </div>
-             </Card>
-          </aside>
         </div>
 
         {/* Institutional Footer (Mini) */}
