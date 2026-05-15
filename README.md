@@ -19,3 +19,4 @@ View your app in AI Studio: https://ai.studio/apps/a61574ff-7e07-4ce0-8c1c-11478
 3. Run the app:
    `npm run dev`
 "# trading_website" 
+"# TEAMUS-369" 
